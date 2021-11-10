@@ -1,0 +1,4896 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="100">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="0">
+      <df name="src">
+        <df name="bench">
+          <in>addrman.cpp</in>
+          <in>base58.cpp</in>
+          <in>bech32.cpp</in>
+          <in>bench.cpp</in>
+          <in>bench_bitcoin.cpp</in>
+          <in>block_assemble.cpp</in>
+          <in>ccoins_caching.cpp</in>
+          <in>chacha20.cpp</in>
+          <in>chacha_poly_aead.cpp</in>
+          <in>checkblock.cpp</in>
+          <in>checkqueue.cpp</in>
+          <in>crypto_hash.cpp</in>
+          <in>data.cpp</in>
+          <in>duplicate_inputs.cpp</in>
+          <in>examples.cpp</in>
+          <in>gcs_filter.cpp</in>
+          <in>hashpadding.cpp</in>
+          <in>lockedpool.cpp</in>
+          <in>mempool_eviction.cpp</in>
+          <in>mempool_stress.cpp</in>
+          <in>merkle_root.cpp</in>
+          <in>nanobench.cpp</in>
+          <in>peer_eviction.cpp</in>
+          <in>poly1305.cpp</in>
+          <in>prevector.cpp</in>
+          <in>rollingbloom.cpp</in>
+          <in>rpc_blockchain.cpp</in>
+          <in>rpc_mempool.cpp</in>
+          <in>util_time.cpp</in>
+          <in>verify_script.cpp</in>
+        </df>
+        <df name="common">
+          <in>bloom.cpp</in>
+        </df>
+        <df name="compat">
+          <in>glibcxx_sanity.cpp</in>
+          <in>stdin.cpp</in>
+          <in>strnlen.cpp</in>
+        </df>
+        <df name="consensus">
+          <in>merkle.cpp</in>
+          <in>tx_check.cpp</in>
+          <in>tx_verify.cpp</in>
+        </df>
+        <df name="crc32c">
+          <df name="src">
+            <in>crc32c.cc</in>
+            <in>crc32c_portable.cc</in>
+            <in>crc32c_sse42.cc</in>
+          </df>
+        </df>
+        <df name="crypto">
+          <in>aes.cpp</in>
+          <in>chacha20.cpp</in>
+          <in>chacha_poly_aead.cpp</in>
+          <in>hkdf_sha256_32.cpp</in>
+          <in>hmac_sha256.cpp</in>
+          <in>hmac_sha512.cpp</in>
+          <in>muhash.cpp</in>
+          <in>poly1305.cpp</in>
+          <in>ripemd160.cpp</in>
+          <in>sha1.cpp</in>
+          <in>sha256.cpp</in>
+          <in>sha256_avx2.cpp</in>
+          <in>sha256_shani.cpp</in>
+          <in>sha256_sse4.cpp</in>
+          <in>sha256_sse41.cpp</in>
+          <in>sha3.cpp</in>
+          <in>sha512.cpp</in>
+          <in>siphash.cpp</in>
+        </df>
+        <df name="index">
+          <in>base.cpp</in>
+          <in>blockfilterindex.cpp</in>
+          <in>coinstatsindex.cpp</in>
+          <in>txindex.cpp</in>
+        </df>
+        <df name="init">
+          <in>bitcoin-qt.cpp</in>
+          <in>bitcoind.cpp</in>
+          <in>common.cpp</in>
+        </df>
+        <df name="interfaces">
+          <in>echo.cpp</in>
+          <in>handler.cpp</in>
+          <in>init.cpp</in>
+        </df>
+        <df name="leveldb">
+          <df name="db">
+            <in>builder.cc</in>
+            <in>c.cc</in>
+            <in>db_impl.cc</in>
+            <in>db_iter.cc</in>
+            <in>dbformat.cc</in>
+            <in>dumpfile.cc</in>
+            <in>filename.cc</in>
+            <in>log_reader.cc</in>
+            <in>log_writer.cc</in>
+            <in>memtable.cc</in>
+            <in>repair.cc</in>
+            <in>table_cache.cc</in>
+            <in>version_edit.cc</in>
+            <in>version_set.cc</in>
+            <in>write_batch.cc</in>
+          </df>
+          <df name="helpers">
+            <df name="memenv">
+              <in>memenv.cc</in>
+            </df>
+          </df>
+          <df name="table">
+            <in>block.cc</in>
+            <in>block_builder.cc</in>
+            <in>filter_block.cc</in>
+            <in>format.cc</in>
+            <in>iterator.cc</in>
+            <in>merger.cc</in>
+            <in>table.cc</in>
+            <in>table_builder.cc</in>
+            <in>two_level_iterator.cc</in>
+          </df>
+          <df name="util">
+            <in>arena.cc</in>
+            <in>bloom.cc</in>
+            <in>cache.cc</in>
+            <in>coding.cc</in>
+            <in>comparator.cc</in>
+            <in>crc32c.cc</in>
+            <in>env.cc</in>
+            <in>env_posix.cc</in>
+            <in>filter_policy.cc</in>
+            <in>hash.cc</in>
+            <in>histogram.cc</in>
+            <in>logging.cc</in>
+            <in>options.cc</in>
+            <in>status.cc</in>
+          </df>
+        </df>
+        <df name="node">
+          <in>blockstorage.cpp</in>
+          <in>coin.cpp</in>
+          <in>coinstats.cpp</in>
+          <in>context.cpp</in>
+          <in>interfaces.cpp</in>
+          <in>psbt.cpp</in>
+          <in>transaction.cpp</in>
+          <in>ui_interface.cpp</in>
+        </df>
+        <df name="policy">
+          <in>feerate.cpp</in>
+          <in>fees.cpp</in>
+          <in>packages.cpp</in>
+          <in>policy.cpp</in>
+          <in>rbf.cpp</in>
+          <in>settings.cpp</in>
+        </df>
+        <df name="primitives">
+          <in>block.cpp</in>
+          <in>transaction.cpp</in>
+        </df>
+        <df name="qt">
+          <df name="test">
+            <in>apptests.cpp</in>
+            <in>moc_apptests.cpp</in>
+            <in>moc_rpcnestedtests.cpp</in>
+            <in>moc_uritests.cpp</in>
+            <in>rpcnestedtests.cpp</in>
+            <in>test_main.cpp</in>
+            <in>uritests.cpp</in>
+            <in>util.cpp</in>
+          </df>
+          <in>bantablemodel.cpp</in>
+          <in>bitcoin.cpp</in>
+          <in>bitcoinaddressvalidator.cpp</in>
+          <in>bitcoinamountfield.cpp</in>
+          <in>bitcoingui.cpp</in>
+          <in>bitcoinunits.cpp</in>
+          <in>clientmodel.cpp</in>
+          <in>csvmodelwriter.cpp</in>
+          <in>guiutil.cpp</in>
+          <in>initexecutor.cpp</in>
+          <in>intro.cpp</in>
+          <in>main.cpp</in>
+          <in>moc_addressbookpage.cpp</in>
+          <in>moc_addresstablemodel.cpp</in>
+          <in>moc_askpassphrasedialog.cpp</in>
+          <in>moc_bantablemodel.cpp</in>
+          <in>moc_bitcoin.cpp</in>
+          <in>moc_bitcoinaddressvalidator.cpp</in>
+          <in>moc_bitcoinamountfield.cpp</in>
+          <in>moc_bitcoingui.cpp</in>
+          <in>moc_bitcoinunits.cpp</in>
+          <in>moc_clientmodel.cpp</in>
+          <in>moc_coincontroldialog.cpp</in>
+          <in>moc_coincontroltreewidget.cpp</in>
+          <in>moc_createwalletdialog.cpp</in>
+          <in>moc_csvmodelwriter.cpp</in>
+          <in>moc_editaddressdialog.cpp</in>
+          <in>moc_guiutil.cpp</in>
+          <in>moc_initexecutor.cpp</in>
+          <in>moc_intro.cpp</in>
+          <in>moc_macdockiconhandler.cpp</in>
+          <in>moc_macnotificationhandler.cpp</in>
+          <in>moc_modaloverlay.cpp</in>
+          <in>moc_notificator.cpp</in>
+          <in>moc_openuridialog.cpp</in>
+          <in>moc_optionsdialog.cpp</in>
+          <in>moc_optionsmodel.cpp</in>
+          <in>moc_overviewpage.cpp</in>
+          <in>moc_paymentserver.cpp</in>
+          <in>moc_peertablemodel.cpp</in>
+          <in>moc_peertablesortproxy.cpp</in>
+          <in>moc_psbtoperationsdialog.cpp</in>
+          <in>moc_qrimagewidget.cpp</in>
+          <in>moc_qvalidatedlineedit.cpp</in>
+          <in>moc_qvaluecombobox.cpp</in>
+          <in>moc_receivecoinsdialog.cpp</in>
+          <in>moc_receiverequestdialog.cpp</in>
+          <in>moc_recentrequeststablemodel.cpp</in>
+          <in>moc_rpcconsole.cpp</in>
+          <in>moc_sendcoinsdialog.cpp</in>
+          <in>moc_sendcoinsentry.cpp</in>
+          <in>moc_signverifymessagedialog.cpp</in>
+          <in>moc_splashscreen.cpp</in>
+          <in>moc_trafficgraphwidget.cpp</in>
+          <in>moc_transactiondesc.cpp</in>
+          <in>moc_transactiondescdialog.cpp</in>
+          <in>moc_transactionfilterproxy.cpp</in>
+          <in>moc_transactionoverviewwidget.cpp</in>
+          <in>moc_transactiontablemodel.cpp</in>
+          <in>moc_transactionview.cpp</in>
+          <in>moc_utilitydialog.cpp</in>
+          <in>moc_walletcontroller.cpp</in>
+          <in>moc_walletframe.cpp</in>
+          <in>moc_walletmodel.cpp</in>
+          <in>moc_walletview.cpp</in>
+          <in>modaloverlay.cpp</in>
+          <in>networkstyle.cpp</in>
+          <in>notificator.cpp</in>
+          <in>optionsdialog.cpp</in>
+          <in>optionsmodel.cpp</in>
+          <in>peertablemodel.cpp</in>
+          <in>peertablesortproxy.cpp</in>
+          <in>platformstyle.cpp</in>
+          <in>qrc_bitcoin.cpp</in>
+          <in>qrc_bitcoin_locale.cpp</in>
+          <in>qvalidatedlineedit.cpp</in>
+          <in>qvaluecombobox.cpp</in>
+          <in>rpcconsole.cpp</in>
+          <in>splashscreen.cpp</in>
+          <in>trafficgraphwidget.cpp</in>
+          <in>utilitydialog.cpp</in>
+        </df>
+        <df name="rpc">
+          <in>blockchain.cpp</in>
+          <in>client.cpp</in>
+          <in>external_signer.cpp</in>
+          <in>mining.cpp</in>
+          <in>misc.cpp</in>
+          <in>net.cpp</in>
+          <in>rawtransaction.cpp</in>
+          <in>rawtransaction_util.cpp</in>
+          <in>request.cpp</in>
+          <in>server.cpp</in>
+          <in>util.cpp</in>
+        </df>
+        <df name="script">
+          <in>bitcoinconsensus.cpp</in>
+          <in>descriptor.cpp</in>
+          <in>interpreter.cpp</in>
+          <in>script.cpp</in>
+          <in>script_error.cpp</in>
+          <in>sigcache.cpp</in>
+          <in>sign.cpp</in>
+          <in>signingprovider.cpp</in>
+          <in>standard.cpp</in>
+        </df>
+        <df name="secp256k1">
+          <df name="src">
+            <in>gen_context.c</in>
+            <in>secp256k1.c</in>
+          </df>
+        </df>
+        <df name="support">
+          <in>cleanse.cpp</in>
+          <in>lockedpool.cpp</in>
+        </df>
+        <df name="test">
+          <df name="fuzz">
+            <in>addition_overflow.cpp</in>
+            <in>addrman.cpp</in>
+            <in>asmap.cpp</in>
+            <in>asmap_direct.cpp</in>
+            <in>autofile.cpp</in>
+            <in>banman.cpp</in>
+            <in>base_encode_decode.cpp</in>
+            <in>bech32.cpp</in>
+            <in>block.cpp</in>
+            <in>block_header.cpp</in>
+            <in>blockfilter.cpp</in>
+            <in>bloom_filter.cpp</in>
+            <in>buffered_file.cpp</in>
+            <in>chain.cpp</in>
+            <in>checkqueue.cpp</in>
+            <in>coins_view.cpp</in>
+            <in>connman.cpp</in>
+            <in>crypto.cpp</in>
+            <in>crypto_aes256.cpp</in>
+            <in>crypto_aes256cbc.cpp</in>
+            <in>crypto_chacha20.cpp</in>
+            <in>crypto_chacha20_poly1305_aead.cpp</in>
+            <in>crypto_common.cpp</in>
+            <in>crypto_hkdf_hmac_sha256_l32.cpp</in>
+            <in>crypto_poly1305.cpp</in>
+            <in>cuckoocache.cpp</in>
+            <in>decode_tx.cpp</in>
+            <in>descriptor_parse.cpp</in>
+            <in>deserialize.cpp</in>
+            <in>eval_script.cpp</in>
+            <in>fee_rate.cpp</in>
+            <in>fees.cpp</in>
+            <in>flatfile.cpp</in>
+            <in>float.cpp</in>
+            <in>fuzz.cpp</in>
+            <in>golomb_rice.cpp</in>
+            <in>hex.cpp</in>
+            <in>http_request.cpp</in>
+            <in>i2p.cpp</in>
+            <in>integer.cpp</in>
+            <in>key.cpp</in>
+            <in>key_io.cpp</in>
+            <in>kitchen_sink.cpp</in>
+            <in>load_external_block_file.cpp</in>
+            <in>locale.cpp</in>
+            <in>merkleblock.cpp</in>
+            <in>message.cpp</in>
+            <in>muhash.cpp</in>
+            <in>multiplication_overflow.cpp</in>
+            <in>net.cpp</in>
+            <in>net_permissions.cpp</in>
+            <in>netaddress.cpp</in>
+            <in>netbase_dns_lookup.cpp</in>
+            <in>node_eviction.cpp</in>
+            <in>p2p_transport_serialization.cpp</in>
+            <in>parse_hd_keypath.cpp</in>
+            <in>parse_iso8601.cpp</in>
+            <in>parse_numbers.cpp</in>
+            <in>parse_script.cpp</in>
+            <in>parse_univalue.cpp</in>
+            <in>policy_estimator.cpp</in>
+            <in>policy_estimator_io.cpp</in>
+            <in>pow.cpp</in>
+            <in>prevector.cpp</in>
+            <in>primitives_transaction.cpp</in>
+            <in>process_message.cpp</in>
+            <in>process_messages.cpp</in>
+            <in>protocol.cpp</in>
+            <in>psbt.cpp</in>
+            <in>random.cpp</in>
+            <in>rbf.cpp</in>
+            <in>rolling_bloom_filter.cpp</in>
+            <in>rpc.cpp</in>
+            <in>script.cpp</in>
+            <in>script_assets_test_minimizer.cpp</in>
+            <in>script_bitcoin_consensus.cpp</in>
+            <in>script_descriptor_cache.cpp</in>
+            <in>script_flags.cpp</in>
+            <in>script_interpreter.cpp</in>
+            <in>script_ops.cpp</in>
+            <in>script_sigcache.cpp</in>
+            <in>script_sign.cpp</in>
+            <in>scriptnum_ops.cpp</in>
+            <in>secp256k1_ec_seckey_import_export_der.cpp</in>
+            <in>secp256k1_ecdsa_signature_parse_der_lax.cpp</in>
+            <in>signature_checker.cpp</in>
+            <in>signet.cpp</in>
+            <in>socks5.cpp</in>
+            <in>span.cpp</in>
+            <in>spanparsing.cpp</in>
+            <in>string.cpp</in>
+            <in>strprintf.cpp</in>
+            <in>system.cpp</in>
+            <in>timedata.cpp</in>
+            <in>torcontrol.cpp</in>
+            <in>transaction.cpp</in>
+            <in>tx_in.cpp</in>
+            <in>tx_out.cpp</in>
+            <in>tx_pool.cpp</in>
+            <in>txrequest.cpp</in>
+            <in>util.cpp</in>
+            <in>utxo_snapshot.cpp</in>
+            <in>validation_load_mempool.cpp</in>
+            <in>versionbits.cpp</in>
+          </df>
+          <df name="util">
+            <in>blockfilter.cpp</in>
+            <in>logging.cpp</in>
+            <in>mining.cpp</in>
+            <in>net.cpp</in>
+            <in>script.cpp</in>
+            <in>setup_common.cpp</in>
+            <in>str.cpp</in>
+            <in>transaction_utils.cpp</in>
+            <in>validation.cpp</in>
+            <in>wallet.cpp</in>
+          </df>
+          <in>addrman_tests.cpp</in>
+          <in>allocator_tests.cpp</in>
+          <in>amount_tests.cpp</in>
+          <in>arith_uint256_tests.cpp</in>
+          <in>base32_tests.cpp</in>
+          <in>base58_tests.cpp</in>
+          <in>base64_tests.cpp</in>
+          <in>bech32_tests.cpp</in>
+          <in>bip32_tests.cpp</in>
+          <in>blockchain_tests.cpp</in>
+          <in>blockencodings_tests.cpp</in>
+          <in>blockfilter_index_tests.cpp</in>
+          <in>blockfilter_tests.cpp</in>
+          <in>bloom_tests.cpp</in>
+          <in>bswap_tests.cpp</in>
+          <in>checkqueue_tests.cpp</in>
+          <in>coins_tests.cpp</in>
+          <in>coinstatsindex_tests.cpp</in>
+          <in>compilerbug_tests.cpp</in>
+          <in>compress_tests.cpp</in>
+          <in>crypto_tests.cpp</in>
+          <in>cuckoocache_tests.cpp</in>
+          <in>dbwrapper_tests.cpp</in>
+          <in>denialofservice_tests.cpp</in>
+          <in>descriptor_tests.cpp</in>
+          <in>flatfile_tests.cpp</in>
+          <in>fs_tests.cpp</in>
+          <in>getarg_tests.cpp</in>
+          <in>hash_tests.cpp</in>
+          <in>i2p_tests.cpp</in>
+          <in>interfaces_tests.cpp</in>
+          <in>key_io_tests.cpp</in>
+          <in>key_tests.cpp</in>
+          <in>logging_tests.cpp</in>
+          <in>main.cpp</in>
+          <in>mempool_tests.cpp</in>
+          <in>merkle_tests.cpp</in>
+          <in>merkleblock_tests.cpp</in>
+          <in>miner_tests.cpp</in>
+          <in>multisig_tests.cpp</in>
+          <in>net_peer_eviction_tests.cpp</in>
+          <in>net_tests.cpp</in>
+          <in>netbase_tests.cpp</in>
+          <in>pmt_tests.cpp</in>
+          <in>policy_fee_tests.cpp</in>
+          <in>policyestimator_tests.cpp</in>
+          <in>pow_tests.cpp</in>
+          <in>prevector_tests.cpp</in>
+          <in>raii_event_tests.cpp</in>
+          <in>random_tests.cpp</in>
+          <in>reverselock_tests.cpp</in>
+          <in>rpc_tests.cpp</in>
+          <in>sanity_tests.cpp</in>
+          <in>scheduler_tests.cpp</in>
+          <in>script_p2sh_tests.cpp</in>
+          <in>script_parse_tests.cpp</in>
+          <in>script_standard_tests.cpp</in>
+          <in>script_tests.cpp</in>
+          <in>scriptnum_tests.cpp</in>
+          <in>serfloat_tests.cpp</in>
+          <in>serialize_tests.cpp</in>
+          <in>settings_tests.cpp</in>
+          <in>sighash_tests.cpp</in>
+          <in>sigopcount_tests.cpp</in>
+          <in>skiplist_tests.cpp</in>
+          <in>sock_tests.cpp</in>
+          <in>streams_tests.cpp</in>
+          <in>sync_tests.cpp</in>
+          <in>system_tests.cpp</in>
+          <in>timedata_tests.cpp</in>
+          <in>torcontrol_tests.cpp</in>
+          <in>transaction_tests.cpp</in>
+          <in>txindex_tests.cpp</in>
+          <in>txpackage_tests.cpp</in>
+          <in>txrequest_tests.cpp</in>
+          <in>txvalidation_tests.cpp</in>
+          <in>txvalidationcache_tests.cpp</in>
+          <in>uint256_tests.cpp</in>
+          <in>util_tests.cpp</in>
+          <in>util_threadnames_tests.cpp</in>
+          <in>validation_block_tests.cpp</in>
+          <in>validation_chainstate_tests.cpp</in>
+          <in>validation_chainstatemanager_tests.cpp</in>
+          <in>validation_flush_tests.cpp</in>
+          <in>validation_tests.cpp</in>
+          <in>validationinterface_tests.cpp</in>
+          <in>versionbits_tests.cpp</in>
+        </df>
+        <df name="univalue">
+          <df name="lib">
+            <in>univalue.cpp</in>
+            <in>univalue_get.cpp</in>
+            <in>univalue_read.cpp</in>
+            <in>univalue_write.cpp</in>
+          </df>
+          <df name="test">
+            <in>no_nul.cpp</in>
+            <in>object.cpp</in>
+            <in>unitester.cpp</in>
+          </df>
+        </df>
+        <df name="util">
+          <in>asmap.cpp</in>
+          <in>bip32.cpp</in>
+          <in>bytevectorhash.cpp</in>
+          <in>error.cpp</in>
+          <in>fees.cpp</in>
+          <in>getuniquepath.cpp</in>
+          <in>hasher.cpp</in>
+          <in>message.cpp</in>
+          <in>moneystr.cpp</in>
+          <in>rbf.cpp</in>
+          <in>readwritefile.cpp</in>
+          <in>serfloat.cpp</in>
+          <in>settings.cpp</in>
+          <in>sock.cpp</in>
+          <in>spanparsing.cpp</in>
+          <in>strencodings.cpp</in>
+          <in>string.cpp</in>
+          <in>syscall_sandbox.cpp</in>
+          <in>system.cpp</in>
+          <in>thread.cpp</in>
+          <in>threadnames.cpp</in>
+          <in>time.cpp</in>
+          <in>tokenpipe.cpp</in>
+          <in>url.cpp</in>
+        </df>
+        <in>addrdb.cpp</in>
+        <in>addrman.cpp</in>
+        <in>arith_uint256.cpp</in>
+        <in>banman.cpp</in>
+        <in>base58.cpp</in>
+        <in>bech32.cpp</in>
+        <in>bitcoin-cli.cpp</in>
+        <in>bitcoin-tx.cpp</in>
+        <in>bitcoin-util.cpp</in>
+        <in>bitcoind.cpp</in>
+        <in>blockencodings.cpp</in>
+        <in>blockfilter.cpp</in>
+        <in>chain.cpp</in>
+        <in>chainparams.cpp</in>
+        <in>chainparamsbase.cpp</in>
+        <in>clientversion.cpp</in>
+        <in>coins.cpp</in>
+        <in>compressor.cpp</in>
+        <in>core_read.cpp</in>
+        <in>core_write.cpp</in>
+        <in>dbwrapper.cpp</in>
+        <in>deploymentinfo.cpp</in>
+        <in>deploymentstatus.cpp</in>
+        <in>dummywallet.cpp</in>
+        <in>external_signer.cpp</in>
+        <in>flatfile.cpp</in>
+        <in>fs.cpp</in>
+        <in>hash.cpp</in>
+        <in>httprpc.cpp</in>
+        <in>httpserver.cpp</in>
+        <in>i2p.cpp</in>
+        <in>init.cpp</in>
+        <in>key.cpp</in>
+        <in>key_io.cpp</in>
+        <in>logging.cpp</in>
+        <in>mapport.cpp</in>
+        <in>merkleblock.cpp</in>
+        <in>miner.cpp</in>
+        <in>net.cpp</in>
+        <in>net_permissions.cpp</in>
+        <in>net_processing.cpp</in>
+        <in>net_types.cpp</in>
+        <in>netaddress.cpp</in>
+        <in>netbase.cpp</in>
+        <in>noui.cpp</in>
+        <in>outputtype.cpp</in>
+        <in>pow.cpp</in>
+        <in>protocol.cpp</in>
+        <in>psbt.cpp</in>
+        <in>pubkey.cpp</in>
+        <in>random.cpp</in>
+        <in>randomenv.cpp</in>
+        <in>rest.cpp</in>
+        <in>scheduler.cpp</in>
+        <in>shutdown.cpp</in>
+        <in>signet.cpp</in>
+        <in>sync.cpp</in>
+        <in>threadinterrupt.cpp</in>
+        <in>timedata.cpp</in>
+        <in>torcontrol.cpp</in>
+        <in>txdb.cpp</in>
+        <in>txmempool.cpp</in>
+        <in>txorphanage.cpp</in>
+        <in>txrequest.cpp</in>
+        <in>uint256.cpp</in>
+        <in>validation.cpp</in>
+        <in>validationinterface.cpp</in>
+        <in>versionbits.cpp</in>
+        <in>warnings.cpp</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>Makefile</itemPath>
+      <itemPath>configure</itemPath>
+      <itemPath>nbproject/private/launcher.properties</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <flagsDictionary>
+        <element flagsID="0" commonFlags="-O2 -std=c89"/>
+        <element flagsID="1" commonFlags="-O2 -std=c89 -fPIC"/>
+        <element flagsID="2" commonFlags="-std=c++17 -fstack-protector-all"/>
+        <element flagsID="3" commonFlags="-std=c++17 -fstack-protector-all -fPIC"/>
+        <element flagsID="4" commonFlags="-std=c++17 -fstack-protector-all -fPIE"/>
+        <element flagsID="5"
+                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -mavx -mavx2"/>
+        <element flagsID="6"
+                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4 -msha"/>
+        <element flagsID="7"
+                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4.1"/>
+        <element flagsID="8"
+                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4.2"/>
+      </flagsDictionary>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>src/secp256k1</pElem>
+              <pElem>src/secp256k1/src</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>HAVE_CONFIG_H</Elem>
+            </preprocessorList>
+          </cTool>
+          <ccTool>
+            <incDir>
+              <pElem>src</pElem>
+              <pElem>src/config</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>HAVE_BUILD_INFO</Elem>
+              <Elem>HAVE_CONFIG_H</Elem>
+              <Elem>PROVIDE_FUZZ_MAIN_FUNCTION</Elem>
+              <Elem>__STDC_FORMAT_MACROS</Elem>
+            </preprocessorList>
+          </ccTool>
+        </makeTool>
+        <preBuild>
+          <preBuildCommandWorkingDir>.</preBuildCommandWorkingDir>
+          <preBuildCommand>./configure CC=${IDE_CC} CXX=${IDE_CXX} CFLAGS="-g3 -gdwarf-2" CXXFLAGS="-g3 -gdwarf-2"</preBuildCommand>
+        </preBuild>
+      </makefileType>
+      <folder path="0/src/bench">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+            <pElem>src/bench</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/common">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/compat">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/consensus">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/crc32c">
+        <ccTool>
+          <incDir>
+            <pElem>src/crc32c/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BYTE_ORDER_BIG_ENDIAN=0</Elem>
+            <Elem>CRC32C_TESTS_BUILT_WITH_GLOG=0</Elem>
+            <Elem>HAVE_ARM64_CRC32C=0</Elem>
+            <Elem>HAVE_BUILTIN_PREFETCH=1</Elem>
+            <Elem>HAVE_MM_PREFETCH=1</Elem>
+            <Elem>HAVE_SSE42=1</Elem>
+            <Elem>HAVE_STRONG_GETAUXVAL=1</Elem>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/crypto">
+        <ccTool>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/index">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/init">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/interfaces">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/leveldb">
+        <ccTool>
+          <incDir>
+            <pElem>src/leveldb</pElem>
+            <pElem>src/crc32c/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>FALLTHROUGH_INTENDED=[[fallthrough]]</Elem>
+            <Elem>HAVE_CRC32C=1</Elem>
+            <Elem>HAVE_FDATASYNC=1</Elem>
+            <Elem>HAVE_FULLFSYNC=0</Elem>
+            <Elem>HAVE_O_CLOEXEC=1</Elem>
+            <Elem>HAVE_SNAPPY=0</Elem>
+            <Elem>LEVELDB_IS_BIG_ENDIAN=0</Elem>
+            <Elem>LEVELDB_PLATFORM_POSIX</Elem>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+            <Elem>__STDC_LIMIT_MACROS</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/node">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/policy">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/primitives">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/qt">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtNetwork</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NETWORK_LIB</Elem>
+            <Elem>QT_NO_KEYWORDS</Elem>
+            <Elem>QT_USE_QSTRINGBUILDER</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/qt/test">
+        <ccTool>
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtTest</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_TESTLIB_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/rpc">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/script">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/support">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/test">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/univalue">
+        <ccTool>
+          <incDir>
+            <pElem>src/univalue/include</pElem>
+          </incDir>
+        </ccTool>
+      </folder>
+      <folder path="0/src/univalue/lib">
+        <ccTool>
+          <preprocessorList>
+            <Elem>PIC</Elem>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <folder path="0/src/util">
+        <ccTool>
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
+      <item path="src/addrdb.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/addrman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/arith_uint256.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/banman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/base58.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/bech32.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/bench/addrman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/base58.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/bech32.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/bench.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/bench_bitcoin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/block_assemble.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/ccoins_caching.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/chacha20.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/chacha_poly_aead.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/checkblock.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/checkqueue.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/crypto_hash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/data.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/duplicate_inputs.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/examples.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/gcs_filter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/hashpadding.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/lockedpool.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/mempool_eviction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/mempool_stress.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/merkle_root.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/nanobench.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/peer_eviction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/poly1305.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/prevector.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/rollingbloom.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/rpc_blockchain.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/rpc_mempool.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/util_time.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bench/verify_script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/bitcoin-cli.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/bitcoin-tx.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/bitcoin-util.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/bitcoind.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/blockencodings.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/blockfilter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/chain.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/chainparams.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/chainparamsbase.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/clientversion.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/coins.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/common/bloom.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/compat/glibcxx_sanity.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/compat/stdin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/compat/strnlen.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/compressor.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/consensus/merkle.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/consensus/tx_check.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/consensus/tx_verify.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/core_read.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/core_write.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crc32c/src/crc32c.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/crc32c/src/crc32c_portable.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/crc32c/src/crc32c_sse42.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="8">
+        </ccTool>
+      </item>
+      <item path="src/crypto/aes.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/chacha20.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/chacha_poly_aead.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/hkdf_sha256_32.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/hmac_sha256.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/hmac_sha512.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/muhash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/poly1305.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/ripemd160.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha1.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha256.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha256_avx2.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+          <preprocessorList>
+            <Elem>ENABLE_AVX2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha256_shani.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="6">
+          <preprocessorList>
+            <Elem>ENABLE_SHANI</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha256_sse4.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha256_sse41.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="7">
+          <preprocessorList>
+            <Elem>ENABLE_SSE41</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha3.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/sha512.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/crypto/siphash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/dbwrapper.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/deploymentinfo.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/deploymentstatus.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/dummywallet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/external_signer.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/flatfile.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/fs.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/hash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/httprpc.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/httpserver.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/i2p.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/index/base.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/index/blockfilterindex.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/index/coinstatsindex.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/index/txindex.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/init.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/init/bitcoin-qt.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtNetwork</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtCore</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtWidgets</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtGui</pElem>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtTest</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_CORE_LIB</Elem>
+            <Elem>QT_GUI_LIB</Elem>
+            <Elem>QT_NETWORK_LIB</Elem>
+            <Elem>QT_NO_KEYWORDS</Elem>
+            <Elem>QT_TESTLIB_LIB</Elem>
+            <Elem>QT_USE_QSTRINGBUILDER</Elem>
+            <Elem>QT_WIDGETS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/init/bitcoind.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/init/common.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/interfaces/echo.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/interfaces/handler.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/interfaces/init.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/key.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/key_io.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/builder.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/c.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/db_impl.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/db_iter.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/dbformat.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/dumpfile.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/filename.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/log_reader.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/log_writer.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/memtable.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/repair.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/table_cache.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/version_edit.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/version_set.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/db/write_batch.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/helpers/memenv/memenv.cc"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/block.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/block_builder.cc"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/filter_block.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/format.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/iterator.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/merger.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/table.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/table_builder.cc"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/table/two_level_iterator.cc"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/arena.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/bloom.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/cache.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/coding.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/comparator.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/crc32c.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/env.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/env_posix.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/filter_policy.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/hash.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/histogram.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/logging.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/options.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/leveldb/util/status.cc" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/logging.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/mapport.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/merkleblock.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/miner.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/net.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/net_permissions.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/net_processing.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/net_types.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/netaddress.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/netbase.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/node/blockstorage.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/coin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/coinstats.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/context.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/interfaces.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/psbt.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/transaction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/node/ui_interface.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/noui.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/outputtype.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/policy/feerate.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/policy/fees.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/policy/packages.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/policy/policy.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/policy/rbf.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/policy/settings.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/pow.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/primitives/block.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/primitives/transaction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/protocol.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/psbt.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/pubkey.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bantablemodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bitcoin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bitcoinaddressvalidator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bitcoinamountfield.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bitcoingui.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/bitcoinunits.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/clientmodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/csvmodelwriter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/guiutil.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/initexecutor.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/intro.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/main.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_addressbookpage.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_addresstablemodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_askpassphrasedialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bantablemodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bitcoin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bitcoinaddressvalidator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bitcoinamountfield.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bitcoingui.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_bitcoinunits.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_clientmodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_coincontroldialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_coincontroltreewidget.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_createwalletdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_csvmodelwriter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_editaddressdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_guiutil.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_initexecutor.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_intro.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_macdockiconhandler.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_macnotificationhandler.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_modaloverlay.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_notificator.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_openuridialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_optionsdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_optionsmodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_overviewpage.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_paymentserver.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_peertablemodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_peertablesortproxy.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_psbtoperationsdialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_qrimagewidget.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_qvalidatedlineedit.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_qvaluecombobox.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_receivecoinsdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_receiverequestdialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_recentrequeststablemodel.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_rpcconsole.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_sendcoinsdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_sendcoinsentry.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_signverifymessagedialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_splashscreen.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_trafficgraphwidget.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactiondesc.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactiondescdialog.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactionfilterproxy.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactionoverviewwidget.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactiontablemodel.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_transactionview.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_utilitydialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_walletcontroller.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_walletframe.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_walletmodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/moc_walletview.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/modaloverlay.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/networkstyle.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/notificator.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/optionsdialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/optionsmodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/peertablemodel.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/peertablesortproxy.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/platformstyle.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/qrc_bitcoin.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/qrc_bitcoin_locale.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/qvalidatedlineedit.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/qvaluecombobox.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/rpcconsole.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/splashscreen.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/test/apptests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/moc_apptests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/moc_rpcnestedtests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/moc_uritests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/rpcnestedtests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/test_main.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/uritests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/test/util.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/qt/trafficgraphwidget.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/qt/utilitydialog.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>QT_DBUS_LIB</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/random.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/randomenv.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/rest.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/rpc/blockchain.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/client.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/external_signer.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/mining.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/misc.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/net.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/rawtransaction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/rawtransaction_util.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/request.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/server.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/rpc/util.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/scheduler.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/script/bitcoinconsensus.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/descriptor.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/interpreter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/script_error.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/sigcache.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/sign.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/signingprovider.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/script/standard.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/secp256k1/src/gen_context.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="0">
+        </cTool>
+      </item>
+      <item path="src/secp256k1/src/secp256k1.c" ex="false" tool="0" flavor2="2">
+        <cTool flags="1">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>PIC</Elem>
+          </preprocessorList>
+        </cTool>
+      </item>
+      <item path="src/shutdown.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/signet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/support/cleanse.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/support/lockedpool.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/sync.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/addrman_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/allocator_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/amount_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/arith_uint256_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/base32_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/base58_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/base64_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/bech32_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/bip32_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/blockchain_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/blockencodings_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/blockfilter_index_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/blockfilter_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/bloom_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/bswap_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/checkqueue_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/coins_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/coinstatsindex_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/compilerbug_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/compress_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/crypto_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/cuckoocache_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/dbwrapper_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/denialofservice_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/descriptor_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/flatfile_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/fs_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/addition_overflow.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/addrman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/asmap.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/asmap_direct.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/autofile.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/banman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/base_encode_decode.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/bech32.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/block.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/block_header.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/blockfilter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/bloom_filter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/buffered_file.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/chain.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/checkqueue.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/coins_view.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/connman.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_aes256.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_aes256cbc.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_chacha20.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_chacha20_poly1305_aead.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_common.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_hkdf_hmac_sha256_l32.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/crypto_poly1305.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/cuckoocache.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/decode_tx.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/descriptor_parse.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/deserialize.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/eval_script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/fee_rate.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/fees.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/flatfile.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/float.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/fuzz.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/golomb_rice.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/hex.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/http_request.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/i2p.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/integer.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/key.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/key_io.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/kitchen_sink.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/load_external_block_file.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/locale.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/merkleblock.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/message.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/muhash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/multiplication_overflow.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/net.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/net_permissions.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/netaddress.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/netbase_dns_lookup.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/node_eviction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/p2p_transport_serialization.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/parse_hd_keypath.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/parse_iso8601.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/parse_numbers.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/parse_script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/parse_univalue.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/policy_estimator.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/policy_estimator_io.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/pow.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/prevector.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/primitives_transaction.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/process_message.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/process_messages.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/protocol.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/psbt.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/random.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/rbf.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/rolling_bloom_filter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/rpc.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_assets_test_minimizer.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_bitcoin_consensus.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_descriptor_cache.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_flags.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_interpreter.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_ops.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_sigcache.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/script_sign.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/scriptnum_ops.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/secp256k1_ec_seckey_import_export_der.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/secp256k1_ecdsa_signature_parse_der_lax.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/signature_checker.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/signet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/socks5.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/span.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/spanparsing.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/string.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/strprintf.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/system.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/timedata.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/torcontrol.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/transaction.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/tx_in.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/tx_out.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/tx_pool.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/txrequest.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/util.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/utxo_snapshot.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/validation_load_mempool.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/fuzz/versionbits.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/getarg_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/hash_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/i2p_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/interfaces_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/key_io_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/key_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/logging_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/main.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/mempool_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/merkle_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/merkleblock_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/miner_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/multisig_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/net_peer_eviction_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/net_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/netbase_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/pmt_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/policy_fee_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/policyestimator_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/pow_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/prevector_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/raii_event_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/random_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/reverselock_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/rpc_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/sanity_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/scheduler_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/script_p2sh_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/script_parse_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/script_standard_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/script_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/scriptnum_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/serfloat_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/serialize_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/settings_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/sighash_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/sigopcount_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/skiplist_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/sock_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/streams_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/sync_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/system_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/timedata_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/torcontrol_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/transaction_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/txindex_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/txpackage_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/txrequest_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/txvalidation_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/txvalidationcache_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/uint256_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/util/blockfilter.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/logging.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/mining.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/net.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/script.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/setup_common.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/str.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/transaction_utils.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/validation.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util/wallet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/test/util_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/util_threadnames_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validation_block_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validation_chainstate_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validation_chainstatemanager_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validation_flush_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validation_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/validationinterface_tests.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/versionbits_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/threadinterrupt.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/timedata.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/torcontrol.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/txdb.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/txmempool.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/txorphanage.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/txrequest.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/uint256.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/univalue/lib/univalue.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/univalue/lib/univalue_get.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/univalue/lib/univalue_read.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/univalue/lib/univalue_write.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="3">
+        </ccTool>
+      </item>
+      <item path="src/univalue/test/no_nul.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="src/univalue/test/object.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+        </ccTool>
+      </item>
+      <item path="src/univalue/test/unitester.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="2">
+          <preprocessorList>
+            <Elem>JSON_TEST_SRC="./univalue/test"</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/util/asmap.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/bip32.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/bytevectorhash.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/error.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/fees.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/getuniquepath.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/hasher.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/message.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/moneystr.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/rbf.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/readwritefile.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/serfloat.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/settings.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/sock.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/spanparsing.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/strencodings.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/string.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/syscall_sandbox.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/system.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/thread.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/threadnames.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/time.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/tokenpipe.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/util/url.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+        </ccTool>
+      </item>
+      <item path="src/validation.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/validationinterface.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/versionbits.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/warnings.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="4">
+          <incDir>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>
