@@ -601,8 +601,6 @@
         <df name="qt">
           <df name=".deps">
           </df>
-          <df name=".libs">
-          </df>
           <df name="android">
             <df name="res">
               <df name="drawable-hdpi">
@@ -662,8 +660,6 @@
           </df>
           <df name="test">
             <df name=".deps">
-            </df>
-            <df name=".libs">
             </df>
             <in>addressbooktests.cpp</in>
             <in>addressbooktests.h</in>
@@ -1046,8 +1042,6 @@
         <df name="test">
           <df name=".deps">
           </df>
-          <df name=".libs">
-          </df>
           <df name="data">
             <in>asmap.raw.h</in>
             <in>base58_encode_decode.json.h</in>
@@ -1386,6 +1380,8 @@
           <in>url.h</in>
           <in>vector.h</in>
         </df>
+        <df name="validator">
+        </df>
         <df name="wallet">
           <df name=".deps">
           </df>
@@ -1623,6 +1619,13 @@
         <in>validation.h</in>
         <in>validationinterface.cpp</in>
         <in>validationinterface.h</in>
+        <in>validator-params.cpp</in>
+        <in>validator-params.h</in>
+        <in>validator-pool.cpp</in>
+        <in>validator-pool.h</in>
+        <in>validator-tests.cpp</in>
+        <in>validator.cpp</in>
+        <in>validator.h</in>
         <in>version.h</in>
         <in>versionbits.cpp</in>
         <in>versionbits.h</in>

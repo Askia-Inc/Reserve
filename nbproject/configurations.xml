@@ -604,6 +604,10 @@
         <in>uint256.cpp</in>
         <in>validation.cpp</in>
         <in>validationinterface.cpp</in>
+        <in>validator-params.cpp</in>
+        <in>validator-pool.cpp</in>
+        <in>validator-tests.cpp</in>
+        <in>validator.cpp</in>
         <in>versionbits.cpp</in>
         <in>warnings.cpp</in>
       </df>
@@ -649,7 +653,7 @@
       <makefileType>
         <makeTool>
           <buildCommandWorkingDir>.</buildCommandWorkingDir>
-          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <buildCommand>${MAKE} -f Makefile -j 12</buildCommand>
           <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
           <executablePath></executablePath>
           <cTool>
