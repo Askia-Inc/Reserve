@@ -17,6 +17,10 @@
 #include <string>
 #include <vector>
 
+const static std::string EXCHANGE_PUB_KEY = "HDOSL";
+const static std::string VALIDATOR_POOL_PUB_KEY = "HDKSD";
+const static std::string VALIDATOR_POOL_PRV_KEY = "KSLKDF";
+
 typedef std::map<int, uint256> MapCheckpoints;
 
 struct CCheckpointData {
@@ -91,6 +95,10 @@ public:
         CNetAddr a;
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
+    
+    unit256 GetExchangePubKey() const { return EXCHANGE_PUB_KEY; }
+    uint256 GetStakePoolPubKey() const { return VALIDATOR_POOL_PUB_KEY; }
+    uint256 GetStakePoolPrvKey() const { return VALIDATOR_POOL_PRV_KEY; }
 
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */

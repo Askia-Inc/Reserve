@@ -11,7 +11,6 @@
 Validator::Validator() {
     originalStake = 0;
     adjustedStake = 0;
-    scriptPubKey = nullptr;
     lastBlockHeight = -1;
     probability = 0.0;
     suspended = false;

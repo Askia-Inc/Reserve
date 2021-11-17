@@ -7,6 +7,7 @@
 #define BITCOIN_PRIMITIVES_TRANSACTION_H
 
 #include <stdint.h>
+#include <chainparams.h>
 #include <consensus/amount.h>
 #include <script/script.h>
 #include <serialize.h>
@@ -315,6 +316,16 @@ public:
     bool IsCoinBase() const
     {
         return (vin.size() == 1 && vin[0].prevout.IsNull());
+    }
+    
+    // Checks if the first OutPoint is to the Exchange
+    bool ToExchange(CChainParams& params) {
+        return vout[0].scriptPubKey == params.GetConsensus().exchangeOutputScript;
+    }
+    
+    // Checks if the first OutPoint is to the Stake Pool
+    bool ToStakePool(CChainParams& params) {
+        return vout[0].scriptPubKey == params.GetConsensus().validatorPoolOutputScript;
     }
 
     friend bool operator==(const CTransaction& a, const CTransaction& b)

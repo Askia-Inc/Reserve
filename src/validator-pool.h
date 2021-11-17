@@ -27,13 +27,13 @@ private:
 public:
     ValidatorPool() delete;
     ValidatorPool(ValidatorParams* vp);
-    bool addValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
-    bool removeValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
-    bool recalculateProbabilities(int nHeight, std::vector<std::string> rterror);
-    Validator* retrieveNextValidator(std::vector<std::string> rterror);
+    bool addValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
+    bool removeValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
+    bool recalculateProbabilities(int nHeight, std::vector<std::string>* rterror);
+    Validator* retrieveNextValidator(std::vector<std::string>* rterror);
     void serialize();
     bool validatorExists(Validator* v);
-    bool suspendValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
-    bool unsuspendValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
+    bool suspendValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
+    bool unsuspendValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
 };
 #endif //RESERVE_POOL_H

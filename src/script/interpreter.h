@@ -10,6 +10,7 @@
 #include <script/script_error.h>
 #include <span.h>
 #include <primitives/transaction.h>
+#include <primitives/block.h>
 
 #include <vector>
 #include <stdint.h>
@@ -326,6 +327,26 @@ public:
         return m_checker.CheckSequence(nSequence);
     }
 };
+
+template<typename B>
+bool SignatureHashSchnorr(uint256& hash_out, const ScriptExecutionData& execdata, const B& block_to, uint8_t hash_type, SigVersion sigversion, MissingDataBehavior mdb);
+
+template <class B>
+class GenericBlockHeaderSignatureChecker : public BaseSignatureChecker
+{
+private:
+    const B* block;
+    const MissingDataBehavior m_mdb;
+
+protected:
+    virtual bool VerifySchnorrSignature(Span<const unsigned char> sig, const XOnlyPubKey& pubkey, const uint256& sighash) const;
+
+public:
+    GenericBlockSignatureChecker(const B* blockIn, MissingDataBehavior mdb) : block(blockIn), m_mdb(mdb) {}
+    bool CheckSchnorrSignature(Span<const unsigned char> sig, Span<const unsigned char> pubkey, SigVersion sigversion, const ScriptExecutionData& execdata, ScriptError* serror = nullptr) const override;
+};
+
+using BlockHeaderSignatureChecker = GenericBlockHeaderSignatureChecker<CBlockHeader>;
 
 /** Compute the BIP341 tapleaf hash from leaf version & script. */
 uint256 ComputeTapleafHash(uint8_t leaf_version, const CScript& script);

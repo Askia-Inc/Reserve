@@ -589,6 +589,7 @@ void HTTPRequest::WriteReply(int nStatus, const std::string& strReply)
     req = nullptr; // transferred back to main thread
 }
 
+// Important method to get the peer who sent the JSONRPCRequest
 CService HTTPRequest::GetPeer() const
 {
     evhttp_connection* con = evhttp_request_get_connection(req);

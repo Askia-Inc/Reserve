@@ -4,6 +4,11 @@
 
 #ifndef RESERVE_VALIDATOR_H
 #define RESERVE_VALIDATOR_H
+
+#include <vector>
+
+using namespace std;
+
 class Validator
 {
 public:
@@ -13,7 +18,7 @@ public:
     Validator();
 
 public:
-    CScript scriptPubKey;
+    std::vector<unsigned char> valtype pubkey;
     CAmount originalStake;
     CAmount adjustedStake;
     CService address;
@@ -34,7 +39,7 @@ public:
 
     bool operator == (const Validator& val) const
     {
-        return (scriptPubKey==val.scriptPubKey);
+        return (pubkey==val.pubkey);
     }
 
 };

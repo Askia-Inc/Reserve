@@ -21,7 +21,7 @@ ValidatorPool::ValidatorPool(ValidatorParams* vp) {
     totalStake = 0;
 }
 
-bool ValidatorPool::addValidator(Validator* validator, int nHeight, std::vector<std::string> rterror) {
+bool ValidatorPool::addValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
     if (validatorExists(validator)) {
         rterror.push_back("Validator exists");
         return false;
@@ -32,7 +32,7 @@ bool ValidatorPool::addValidator(Validator* validator, int nHeight, std::vector<
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::removeValidator(Validator* validator, int nHeight, std::vector<std::string> rterror) {
+bool ValidatorPool::removeValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
     if (validator->suspended) {
         rterror.push_back("Validator suspended");
         return false;
@@ -54,7 +54,7 @@ bool ValidatorPool::removeValidator(Validator* validator, int nHeight, std::vect
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::recalculateProbabilities(int nHeight, std::vector<std::string> rterror) {
+bool ValidatorPool::recalculateProbabilities(int nHeight, std::vector<std::string>* rterror) {
     totalStake = 0;
     for (Validator& v : validatorPool) {
         if (v.suspended) {
@@ -78,7 +78,7 @@ bool ValidatorPool::recalculateProbabilities(int nHeight, std::vector<std::strin
     return true;
 }
 
-Validator* ValidatorPool::retrieveNextValidator(std::vector<std::string> rterror) {
+Validator* ValidatorPool::retrieveNextValidator(std::vector<std::string>* rterror) {
     vData.empty();
     serialize();
 
@@ -119,7 +119,7 @@ bool ValidatorPool::validatorExists(Validator* v) {
     return validatorPoolScript.count(v->scriptPubKey.ToString()) == 1;
 }
 
-bool ValidatorPool::suspendValidator(Validator *v, int nHeight, std::vector <std::string> rterror) {
+bool ValidatorPool::suspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
     if(!validatorExists(v)) {
         rterror.push_back("Validator does not exist");
         return false;
@@ -131,7 +131,7 @@ bool ValidatorPool::suspendValidator(Validator *v, int nHeight, std::vector <std
     recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string> rterror) {
+bool ValidatorPool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
     v->suspended = false;
     v->suspendedBlock = 0;
     v->lastBlockHeight = nHeight;

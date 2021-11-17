@@ -24,10 +24,13 @@
 #include <rpc/server.h>
 #include <rpc/util.h>
 #include <script/descriptor.h>
+#include <script/interpreter.h>
 #include <script/script.h>
+#include <script/script_error.h>
 #include <script/signingprovider.h>
 #include <shutdown.h>
 #include <txmempool.h>
+#include <uint256.h>
 #include <univalue.h>
 #include <util/fees.h>
 #include <util/strencodings.h>
@@ -36,10 +39,14 @@
 #include <util/translation.h>
 #include <validation.h>
 #include <validationinterface.h>
+#include <validator.h>
 #include <warnings.h>
 
 #include <memory>
 #include <stdint.h>
+#include <vector>
+
+typedef std::vector<unsigned char> valtype;
 
 /**
  * Return average network hashes per second based on the last 'lookup' blocks,
@@ -628,6 +635,9 @@ static RPCHelpMan getblocktemplate()
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
         lpval = find_value(oparam, "longpollid");
 
+        // Submitting a mined block!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // Code to submit new block with potentially invalid POW
+        // Context-dependent, may be suitable for Validator check
         if (strMode == "proposal")
         {
             const UniValue& dataval = find_value(oparam, "data");
@@ -954,6 +964,9 @@ protected:
     }
 };
 
+// Likely add Validator check here
+// Method to submit potentially new block
+// Context-dependent, may be suitable for Validator check
 static RPCHelpMan submitblock()
 {
     // We allow 2 arguments for compliance with BIP22. Argument 2 is ignored.
@@ -979,12 +992,29 @@ static RPCHelpMan submitblock()
     if (!DecodeHexBlk(block, request.params[0].get_str())) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block decode failed");
     }
-
+    
+    ChainstateManager& chainman = EnsureAnyChainman(request.context);
+    // Compare block Schnoor signature with the public key we have for the expected Validator
+    Validator* expectedVal = chainman.m_validatorman.GetExpectedValidator();
+    std::vector<unsigned char> pubkey = expectedVal.pubkey;
+    
+    // Get the Signature from the second request parameter
+    std::string* str = request.params[1].get_str();
+    std::vector<unsigned char> sig(s.begin(), s.end());
+    
+    ScriptError* serror;
+    ScriptExecutionData execdata;
+    unsigned int flags = 0;
+    bool success;
+    
+    if (!EvalChecksigTapscript(sig, pubkey, *execdata, flags, BlockHeaderSignatureChecker(block.GetBlockHeader(), MissingDataBehavior::ASSERT_FAIL), SigVersion::BASE, serror, success) && !success) {
+        return "unexpected-validator";
+    }
+    
     if (block.vtx.empty() || !block.vtx[0]->IsCoinBase()) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block does not start with a coinbase");
     }
 
-    ChainstateManager& chainman = EnsureAnyChainman(request.context);
     uint256 hash = block.GetHash();
     {
         LOCK(cs_main);
@@ -1018,6 +1048,17 @@ static RPCHelpMan submitblock()
     if (!sc->found) {
         return "inconclusive";
     }
+    
+    // Suspend the Validator if the block is not accepted
+    if (!accepted) {
+        std::vector<std::string>* rterror;
+        chainman.m_validatorman.m_vpool.suspendValidator(expectedValidator, chainman.ActiveHeight(), rterror);
+        if (rterror.size() > 0) {
+            return rterror.at(0);
+        }
+        return "unaccepted-block"
+    }
+    
     return BIP22ValidationResult(sc->state);
 },
     };

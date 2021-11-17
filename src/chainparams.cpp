@@ -10,8 +10,11 @@
 #include <deploymentinfo.h>
 #include <hash.h> // for signet block challenge hash
 #include <util/system.h>
+#include <crypto/sha256.h>
+#include <uint256.h>
 
 #include <assert.h>
+#include <string>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -171,6 +174,19 @@ public:
             /* nTxCount */ 656509474,
             /* dTxRate  */ 2.424920418708139,
         };
+        
+        // Computer double SHA 256 hash of exchange public key
+        uint256 result();
+        CSHA256 hasher();
+        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        
+        // Computer double SHA 256 hash of validator pool public key
+        hasher = CSHA256();
+        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
     }
 };
 
