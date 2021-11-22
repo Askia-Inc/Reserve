@@ -143,6 +143,7 @@ private:
 
     // Chain context for the block
     int nHeight;
+    uint32_t nTime;
     int64_t nLockTimeCutoff;
     const CChainParams& chainparams;
     const CTxMemPool& m_mempool;

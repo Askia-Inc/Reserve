@@ -56,6 +56,8 @@
 #include <validator.h>
 #include <warnings.h>
 
+#include <ctime>
+#include <math.h>
 #include <numeric>
 #include <optional>
 #include <string>
@@ -1143,12 +1145,44 @@ PackageMempoolAcceptResult ProcessNewPackage(CChainState& active_chainstate, CTx
     return result;
 }
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams)
+CAmount GetBlockSubsidy(int nHeight, uint32_t nTime, CChainParams& params)
 {
-    int halvings = nHeight / consensusParams.nSubsidyHalvingInterval;
-    // Force block reward to zero when right shift is undefined.
-    if (halvings >= 64)
-        return 0;
+    uint32_t elapsedTime = nTime = params.GenesisBlock().nTime;
+    
+    // Determine if it's a leap year
+    std::time_t t = std::time(nullptr);
+    std::tm *const pTInfo = std::localtime(&t);    
+    int blockYear = pTInfo->tm_year;
+    
+    uint32_t genesisTime = params.GenesisBlock().nTime;
+    int genesisYear = 1900;
+    while (genesisTime > 0) {
+        if (gensisYear % 4 == 0) {
+            if (genesisYear % 100 == 0) {
+                if (genesisYear % 400 == 0) {
+                    gensisTime -= params.GetConsensus().nSecondsInLeapYear;
+                } else {
+                    gensisTime -= params.GetConsensus().nSecondsInNonLeapYear;
+                }
+            } else {
+                genesisTime -= params.GetConsensus().nSecondsInLeapYear;
+            }
+        } else {
+            gensisTime -= params.GetConsensus().nSecondsInNonLeapYear;
+        }
+        genesisYear++;
+    }
+    
+    int elapsedYears = genesisYear - blockYear;
+    double averageBlockTime = elapsedTime / nHeight;
+    double blocksPerSecond = averageBlocktime / 60;
+    double blocksPerYear = averageBlockTime * params.GetConsensus().nSecondsInNonLeapYear;
+    CAmout initialAfroSupply = params.GenesisBlock().vtx[0].vout[0].nValue;
+    CAmount afroSupplyWithInflation = initialAfroSupply * pow((1 + 0.02), elapsedYears);
+    CAmount inflationInterest = afroSupplyWithInflation - initialAfroSupply;
+    CAmount inflationInterestPerYear = inflationInterest / elapsedYears;
+    CAmount nSubsidy = inflationInterestPerYear / blocksPerYear;
+    
 
     CAmount nSubsidy = 50 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
@@ -1420,6 +1454,7 @@ bool CheckInputScripts(const CTransaction& tx, TxValidationState& state,
     }
     assert(txdata.m_spent_outputs.size() == tx.vin.size());
     
+    // Source/destination address checks
     // Check the first input for either the Exchange pubkey or Stake Pool Pub key
     // If neither is true, check if to the exchange or to the stakepool
     CScriptCheck firstcheck(txdata.m_spent_outputs[0], tx, 0, flags, chaceSigStore, &txdata);
@@ -1942,7 +1977,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
 
-    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, m_params.GetConsensus());
+    CAmount blockReward = nFees + GetBlockSubsidy(pindex->nHeight, pindex->nTime, m_params);
     if (block.vtx[0]->GetValueOut() > blockReward) {
         LogPrintf("ERROR: ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)\n", block.vtx[0]->GetValueOut(), blockReward);
         return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cb-amount");

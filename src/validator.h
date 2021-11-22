@@ -7,8 +7,6 @@
 
 #include <vector>
 
-using namespace std;
-
 class Validator
 {
 public:

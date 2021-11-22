@@ -97,6 +97,8 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000001fa4663bbbe19f82de910280");
         consensus.defaultAssumeValid = uint256S("0x00000000000000000008a89e854d57e5667df88f1cdef6fde2fbca1de5b639ad"); // 691719
 
+        consensus.nSecondsInLeapYear = 60 * 60 * 24 * 366;
+        consensus.nSecondsInNonLeapYear = 60 * 60 * 24 * 365;
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -111,7 +113,20 @@ public:
         m_assumed_blockchain_size = 420;
         m_assumed_chain_state_size = 6;
 
-        genesis = CreateGenesisBlock(1231006505, 2083236893, 0x1d00ffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        // Computer double SHA 256 hash of exchange public key
+        uint256 result();
+        CSHA256 hasher();
+        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        
+        // Computer double SHA 256 hash of validator pool public key
+        hasher = CSHA256();
+        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.exchangeOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
@@ -174,19 +189,6 @@ public:
             /* nTxCount */ 656509474,
             /* dTxRate  */ 2.424920418708139,
         };
-        
-        // Computer double SHA 256 hash of exchange public key
-        uint256 result();
-        CSHA256 hasher();
-        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
-        
-        // Computer double SHA 256 hash of validator pool public key
-        hasher = CSHA256();
-        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
     }
 };
 
@@ -238,7 +240,20 @@ public:
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
 
-        genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        // Computer double SHA 256 hash of exchange public key
+        uint256 result();
+        CSHA256 hasher();
+        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        
+        // Computer double SHA 256 hash of validator pool public key
+        hasher = CSHA256();
+        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.exchangeOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
@@ -374,7 +389,20 @@ public:
         nDefaultPort = 38333;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1598918400, 52613770, 0x1e0377ae, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        // Computer double SHA 256 hash of exchange public key
+        uint256 result();
+        CSHA256 hasher();
+        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        
+        // Computer double SHA 256 hash of validator pool public key
+        hasher = CSHA256();
+        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.exchangeOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
@@ -447,7 +475,20 @@ public:
 
         UpdateActivationParametersFromArgs(args);
 
-        genesis = CreateGenesisBlock(1296688602, 2, 0x207fffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        // Computer double SHA 256 hash of exchange public key
+        uint256 result();
+        CSHA256 hasher();
+        hasher.Write(EXCHANGE_PUB_KEY.front(), EXCHANGE_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.exchangeOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        
+        // Computer double SHA 256 hash of validator pool public key
+        hasher = CSHA256();
+        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
+        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
+        consensus.validatorPoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.exchangeOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
         assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));

@@ -996,6 +996,8 @@ static RPCHelpMan submitblock()
     ChainstateManager& chainman = EnsureAnyChainman(request.context);
     // Compare block Schnoor signature with the public key we have for the expected Validator
     Validator* expectedVal = chainman.m_validatorman.GetExpectedValidator();
+    assert(expectedVal != nullptr)
+            
     std::vector<unsigned char> pubkey = expectedVal.pubkey;
     
     // Get the Signature from the second request parameter
