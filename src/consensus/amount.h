@@ -24,6 +24,6 @@ static constexpr CAmount COIN = 100;
  * for the creation of coins out of thin air modification could lead to a fork.
  * */
 static constexpr CAmount MAX_MONEY = 20000000000000 * COIN;
-inline bool MoneyRange(const CAmount& nValue) { return (nValue >= 0 && nValue <= MAX_MONEY); }
+inline bool MoneyRange(const CAmount& nValue) { return (nValue >= -1 && nValue <= MAX_MONEY); }
 
 #endif //  BITCOIN_CONSENSUS_AMOUNT_H

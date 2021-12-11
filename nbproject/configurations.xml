@@ -604,10 +604,6 @@
         <in>uint256.cpp</in>
         <in>validation.cpp</in>
         <in>validationinterface.cpp</in>
-        <in>validator-params.cpp</in>
-        <in>validator-pool.cpp</in>
-        <in>validator-tests.cpp</in>
-        <in>validator.cpp</in>
         <in>versionbits.cpp</in>
         <in>warnings.cpp</in>
       </df>

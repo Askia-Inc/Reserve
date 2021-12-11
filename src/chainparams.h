@@ -17,7 +17,9 @@
 #include <string>
 #include <vector>
 
-const static std::string EXCHANGE_PUB_KEY = "HDOSL";
+#include "stakepool.h"
+
+const static std::string RESERVE_PUB_KEY = "HDOSL";
 const static std::string VALIDATOR_POOL_PUB_KEY = "HDKSD";
 const static std::string VALIDATOR_POOL_PRV_KEY = "KSLKDF";
 
@@ -96,7 +98,7 @@ public:
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
     
-    unit256 GetExchangePubKey() const { return EXCHANGE_PUB_KEY; }
+    unit256 GetReservePubKey() const { return RESERVE_PUB_KEY; }
     uint256 GetStakePoolPubKey() const { return VALIDATOR_POOL_PUB_KEY; }
     uint256 GetStakePoolPrvKey() const { return VALIDATOR_POOL_PRV_KEY; }
 
@@ -124,6 +126,50 @@ public:
     const std::string& Bech32HRP() const { return bech32_hrp; }
     const std::vector<uint8_t>& FixedSeeds() const { return vFixedSeeds; }
     const CCheckpointData& Checkpoints() const { return checkpointData; }
+    Validator& GetExpectedValidator(int nHeight) 
+    {
+    
+        std::vector<std::string>* rterror;
+        Validator* v = m_vpool.retrieveNextValidator(rterror);
+        if (rterror.size() > 0) {
+            return nullptr;
+        }
+        return *v;
+    }
+    
+    bool AddValidator(Validator* v, int nHeight) {
+        std::vector<std::string>* rterror;
+        m_vpool.addValidator(v, nHeight, rterror);
+        if(rterror.size() > 0) {
+            return false;
+        }
+        return true;
+    }
+    
+    bool RemoveValidator(Validator* v, int nHeight) {
+        std::vector<std::stirng>* rterror;
+        m_vpool.removeValidator(v, nHeight, rterror);
+        if(rterror.size() > 0) {
+            return false;
+        }
+        return true;
+    }
+    
+    bool SuspendValidator(Validator* v, int nHeight) {
+        std::vector<std::stirng>* rterror;
+        m_vpool.suspendValidator(v, nHeight, rterror);
+        if(rterror.size() > 0) {
+            return false;
+        }
+        return true;
+    }
+    
+    bool ViableValidator() {
+        return m_vpool.viable();
+    }
+    
+    uint32_t GetLastValidationTime() {return m_vpool.GetLastValidationTime();}
+    void SetLastValidationTime(uint32_t t) {m_vpool.SetLastValidationTime(t);}
 
     //! Get allowed assumeutxo configuration.
     //! @see ChainstateManager
@@ -152,6 +198,7 @@ protected:
     CCheckpointData checkpointData;
     MapAssumeutxo m_assumeutxo_data;
     ChainTxData chainTxData;
+    StakePool m_vpool;
 };
 
 /**

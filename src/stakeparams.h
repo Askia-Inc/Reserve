@@ -4,7 +4,13 @@
 
 #ifndef RESERVE_VALIDATOR_PARAMS_H
 #define RESERVE_VALIDATOR_PARAMS_H
-class ValidatorParams
+
+static const double STAKE_INTEREST_RATE = 0.02;
+static const int VALIDATOR_TIMEOUT = 10;
+static const int VALIDATOR_SUSPENSION_DURATION = 50;
+static const int VALIDATOR_WITHDRAWAL_WAITING_PERIOD = 20;
+
+class StakeParams
 {
 public:
     double stakeInterestRate; // Interest rate for adjusting a validator's stake
@@ -13,7 +19,7 @@ public:
     int validatorWithdrawalWaitingPeriod; // Number of blocks a validator must wait before redeeming a withdrawn stake
 
 public:
-    ValidatorParams();
+    StakeParams();
 };
 
 #endif //RESERVE_VALIDATOR_PARAMS_H

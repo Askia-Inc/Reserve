@@ -318,14 +318,14 @@ public:
         return (vin.size() == 1 && vin[0].prevout.IsNull());
     }
     
-    // Checks if the first OutPoint is to the Exchange
-    bool ToExchange(CChainParams& params) {
-        return vout[0].scriptPubKey == params.GetConsensus().exchangeOutputScript;
+    // Checks if the first OutPoint is to the Reserve
+    bool ToReserve(CChainParams& params) {
+        return vout[0].scriptPubKey == params.GetConsensus().reserveOutputScript;
     }
     
     // Checks if the first OutPoint is to the Stake Pool
     bool ToStakePool(CChainParams& params) {
-        return vout[0].scriptPubKey == params.GetConsensus().validatorPoolOutputScript;
+        return vout[0].scriptPubKey == params.GetConsensus().stakePoolOutputScript;
     }
 
     friend bool operator==(const CTransaction& a, const CTransaction& b)

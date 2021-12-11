@@ -176,17 +176,7 @@ CBlockIndex* BlockManager::FindForkInGlobalIndex(const CChain& chain, const CBlo
     return chain.Genesis();
 }
 
-Validator* ValidatorManager::GetExpectedValidator()
-{
-    AssertLockHeld(cs_main);
-    
-    std::vector<std::string>* rterror;
-    Validator* v = m_vpool.retrieveNextValidator(rterror);
-    if (rterror.size() > 0) {
-        return nullptr;
-    }
-    return v;
-}
+
 
 bool CheckInputScripts(const CTransaction& tx, TxValidationState& state,
                        const CCoinsViewCache& inputs, unsigned int flags, bool cacheSigStore,
@@ -1182,11 +1172,8 @@ CAmount GetBlockSubsidy(int nHeight, uint32_t nTime, CChainParams& params)
     CAmount inflationInterest = afroSupplyWithInflation - initialAfroSupply;
     CAmount inflationInterestPerYear = inflationInterest / elapsedYears;
     CAmount nSubsidy = inflationInterestPerYear / blocksPerYear;
-    
 
-    CAmount nSubsidy = 50 * COIN;
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
-    nSubsidy >>= halvings;
     return nSubsidy;
 }
 
@@ -1354,10 +1341,14 @@ bool CScriptCheck::operator()() {
     return VerifyScript(scriptSig, m_tx_out.scriptPubKey, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
-bool CScriptCheck::CheckFromExchange() {
+bool CScriptCheck::CheckValidatorSig(CScript& scriptSig, CScript& scriptPubKey, Block& block) {
+    return VerifyScript(scriptSig, scriptPubKey, nullptr, nFlags, BlockHeaderSignatureChecker(block.GetBlockHeader(), MissingDataBehavior::ASSERT_FAIL), &error);
+}
+
+bool CScriptCheck::CheckFromReserve() {
     const CScript &scriptSig = ptxTo->vin[nIn].scriptSig;
     const CScriptWitness *witness = &ptxTo->vin[nIn].scriptWitness;
-    return VerifyScript(scriptSig, Param().GetConsensus().GetExchangePubKey(), witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
+    return VerifyScript(scriptSig, Param().GetConsensus().GetReservePubKey(), witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
 bool CScript::CheckFromStakePool() {
@@ -1453,16 +1444,6 @@ bool CheckInputScripts(const CTransaction& tx, TxValidationState& state,
         txdata.Init(tx, std::move(spent_outputs));
     }
     assert(txdata.m_spent_outputs.size() == tx.vin.size());
-    
-    // Source/destination address checks
-    // Check the first input for either the Exchange pubkey or Stake Pool Pub key
-    // If neither is true, check if to the exchange or to the stakepool
-    CScriptCheck firstcheck(txdata.m_spent_outputs[0], tx, 0, flags, chaceSigStore, &txdata);
-    if (!tx.ToExchange(Params().GetConsensus()) || !tx.ToStakePool(Params().GetConsensus())) {
-        if(!firstcheck.CheckFromExchange() || !firstcheck.CheckFromStakePool()) {
-            return state.Invalid(TxValidationResult::TX_NOT_STANDARD, strprintf("invalid-addresses", ScriptErrorString(check.GetScriptError()))); 
-        }
-    }
 
     for (unsigned int i = 1; i < tx.vin.size(); i++) {
 
@@ -1866,20 +1847,6 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     //Only continue to enforce if we're below BIP34 activation height or the block hash at that height doesn't correspond.
     fEnforceBIP30 = fEnforceBIP30 && (!pindexBIP34height || !(pindexBIP34height->GetBlockHash() == m_params.GetConsensus().BIP34Hash));
 
-    // TODO: Remove BIP30 checking from block height 1,983,702 on, once we have a
-    // consensus change that ensures coinbases at those heights can not
-    // duplicate earlier coinbases.
-    if (fEnforceBIP30 || pindex->nHeight >= BIP34_IMPLIES_BIP30_LIMIT) {
-        for (const auto& tx : block.vtx) {
-            for (size_t o = 0; o < tx->vout.size(); o++) {
-                if (view.HaveCoin(COutPoint(tx->GetHash(), o))) {
-                    LogPrintf("ERROR: ConnectBlock(): tried to overwrite transaction\n");
-                    return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-txns-BIP30");
-                }
-            }
-        }
-    }
-
     // Enforce BIP68 (sequence locks)
     int nLockTimeFlags = 0;
     if (DeploymentActiveAt(*pindex, m_params.GetConsensus(), Consensus::DEPLOYMENT_CSV)) {
@@ -1966,6 +1933,44 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
                     tx.GetHash().ToString(), state.ToString());
             }
             control.Add(vChecks);
+            
+            // Source/destination address checks
+            // Check the first input for either the Reserve pubkey or Stake Pool Pub key
+            // If neither is true, check if to the Reserve or to the stakepool
+
+            int nHeight = pindex->nHeight + 1;
+            bool toStakePool = tx.ToStakePool(Params().GetConsensus());
+            bool toReserve = tx.ToReserve(Params().GetConsensus());
+            bool fromStakePool = false;
+            bool fromReserve = false;
+            if (!toStakePool || !toReserve) {
+                CScriptCheck firstcheck(txsdata[i].m_spent_outputs[0], tx, 0, flags, cacheSigStore, txsdata[i]);
+                fromStakePool = firstcheck.CheckFromStakePool();
+                fromReserve = firstcheck.CheckFromReserve()
+                if(!fromStakePool || !fromReserve) {
+                    return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, strprintf("invalid-addresses", ScriptErrorString(check.GetScriptError()))); 
+                }
+            } else if (toStakePool) {
+                std::vector<std::string> rterror;
+                Validator v();
+                v.originalStake = tx.vout[0].nAmount;
+                v.scriptPubKey = txsdata[i].m_spent_outputs[1].scriptPubKey;
+                v.lastBlockHeight = nHeight;
+                v.lastBlockTime = block.nTime;
+                if(!Params().AddValidator(v, nHeight,rterror)) {
+                    return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, strprintf(rterror[0]))); 
+                }
+            } else if (fromStakePool) {
+                // Verify Validator initiated removal process with previous transaction
+                if (txdata[i].m_spent_outputs[0].nValue != -1) {
+                    state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "invalid-output-for-validator-removal");
+                }
+                Validator v();
+                v.pubkey = tx.vout[0].scriptPubKey;
+                if (!Params().RemoveValidator(v, nHeight, rterror)) {
+                    return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, strprintf(rterror[0])))); 
+                }
+            }
         }
 
         CTxUndo undoDummy;
@@ -4813,7 +4818,7 @@ CChainState& ChainstateManager::InitializeChainstate(
     if (to_modify) {
         throw std::logic_error("should not be overwriting a chainstate");
     }
-    to_modify.reset(new CChainState(mempool, m_blockman, m_validatorman, *this, snapshot_blockhash));
+    to_modify.reset(new CChainState(mempool, m_blockman, *this, snapshot_blockhash));
 
     // Snapshot chainstates and initial IBD chaintates always become active.
     if (is_snapshot || (!is_snapshot && !m_active_chainstate)) {

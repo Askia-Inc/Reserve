@@ -2,10 +2,10 @@
 // Created by James on 11/1/2021.
 //
 
-#include <validator-params.h>
+#include <stakeparams.h>
 #include <stdint.h>
 
-ValidatorParams::ValidatorParams() {
+StakeParams::StakeParams() {
     stakeInterestRate = 0.02;
 
     int len = sizeof(maxInt)/sizeof(maxInt[0]);

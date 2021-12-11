@@ -2,9 +2,9 @@
 // Created by James on 10/31/2021.
 //
 
-#include <validator-pool.h>
+#include <stakepool.h>
 #include <validator.h>
-#include <validator-params.h>
+#include <stakeparams.h>
 #include <consensus/amount.h>
 #include <chain.h>
 #include <cmath>
@@ -16,12 +16,12 @@
 #include <unordered_map>
 #include <script/script.h>
 
-ValidatorPool::ValidatorPool(ValidatorParams* vp) {
-    this->validatorParams = vp;
+StakePool::StakePool() {
     totalStake = 0;
+    lastValidationTime = 0;
 }
 
-bool ValidatorPool::addValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
+bool StakePool::addValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
     if (validatorExists(validator)) {
         rterror.push_back("Validator exists");
         return false;
@@ -32,7 +32,7 @@ bool ValidatorPool::addValidator(Validator* validator, int nHeight, std::vector<
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::removeValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
+bool StakePool::removeValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
     if (validator->suspended) {
         rterror.push_back("Validator suspended");
         return false;
@@ -54,19 +54,19 @@ bool ValidatorPool::removeValidator(Validator* validator, int nHeight, std::vect
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::recalculateProbabilities(int nHeight, std::vector<std::string>* rterror) {
+bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string>* rterror) {
     totalStake = 0;
     for (Validator& v : validatorPool) {
         if (v.suspended) {
             int elapsedTime = nHeight - v.suspendedBlock;
-            if (elapsedTime >= validatorParams->validatorSuspensionDuration) {
+            if (elapsedTime >= VALIDATOR_SUSPENSION_DURATION) {
                 unsuspendValidator(v, nHeight, rterror);
 
             }
         }
 
         if (!v.suspended){
-            v.adjustedStake(nHeight, validatorParams);
+            v.adjustedStake(nHeight);
             totalStake += v.adjustedStake;
         }
     }
@@ -78,7 +78,9 @@ bool ValidatorPool::recalculateProbabilities(int nHeight, std::vector<std::strin
     return true;
 }
 
-Validator* ValidatorPool::retrieveNextValidator(std::vector<std::string>* rterror) {
+Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string>* rterror) {
+    recalculateProbabilities(nHeight, rterror);
+    
     vData.empty();
     serialize();
 
@@ -89,8 +91,10 @@ Validator* ValidatorPool::retrieveNextValidator(std::vector<std::string>* rterro
     double selection = result / DBL_MAX;
     Validator* selectedValidator = nullptr;
 
+    double probabilitiesSummed = 0.0;
     for (Validator& v : ValidatorPool) {
-        if (selection >= v.probability) {
+        probabilitiesSummed += v.probability
+        if (selection <= probabilitiesSummed) {
             selectedValidator = &v;
             break;
         }
@@ -104,22 +108,22 @@ Validator* ValidatorPool::retrieveNextValidator(std::vector<std::string>* rterro
     return v;
 }
 
-void ValidatorPool::serialize() {
+void StakePool::serialize() {
     for (Validator& v : ValidatorPool) {
         std::vector<unsigned char> s = ToByteVector(v->scriptPubKey);
         vData.insert(vData.back(), s.front(), s.back());
     }
 }
 
-void ValidatorPool::sort(int nHeight) {
+void StakePool::sort(int nHeight) {
     std::sort(validatorPool.begin(), validatorPool.end(), std::reverse());
 }
 
-bool ValidatorPool::validatorExists(Validator* v) {
+bool StakePool::validatorExists(Validator* v) {
     return validatorPoolScript.count(v->scriptPubKey.ToString()) == 1;
 }
 
-bool ValidatorPool::suspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
+bool StakePool::suspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
     if(!validatorExists(v)) {
         rterror.push_back("Validator does not exist");
         return false;
@@ -131,9 +135,21 @@ bool ValidatorPool::suspendValidator(Validator *v, int nHeight, std::vector <std
     recalculateProbabilities(nHeight, rterror);
 }
 
-bool ValidatorPool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
+bool StakePool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
     v->suspended = false;
     v->suspendedBlock = 0;
     v->lastBlockHeight = nHeight;
     return true;
+}
+
+bool StakePool::viable() {
+    bool viable = false;
+    
+    for (Validator& v : ValidatorPool) {
+        if (!v.suspended) {
+            viable = true;
+        }
+    }
+    
+    return viable;
 }

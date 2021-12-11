@@ -12,15 +12,15 @@ class Validator
 public:
     void addStake(CAmount add);
     void calculateProbability(CAmount totalStake);
-    void adjustStake(int nHeight, ValidatorParams* validatorParams);
+    void adjustStake(int nHeight);
     Validator();
 
 public:
-    std::vector<unsigned char> valtype pubkey;
+    CScript scriptPubKey;
     CAmount originalStake;
     CAmount adjustedStake;
-    CService address;
     int lastBlockHeight;
+    uint32_t lastBlockTime;
     double probability;
     bool suspended;
     int suspendedBlock;
@@ -37,7 +37,7 @@ public:
 
     bool operator == (const Validator& val) const
     {
-        return (pubkey==val.pubkey);
+        return (scriptPubKey==val.scriptPubKey);
     }
 
 };

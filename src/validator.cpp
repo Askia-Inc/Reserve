@@ -6,12 +6,13 @@
 #include <consensus/amount.h>
 #include <uint256.h>
 #include <script/script.h>
-#include <validator-params.h>
+#include <stakeparams.h>
 
 Validator::Validator() {
     originalStake = 0;
     adjustedStake = 0;
     lastBlockHeight = -1;
+    lastBlockTime = -1;
     probability = 0.0;
     suspended = false;
     suspendedBlock = 0;
@@ -25,9 +26,9 @@ void Validator::calculateProbability(int totalStake) {
     probability = (adjustedStake * 1.0) / totalStake;
 }
 
-void Validator::adjustStake(int nHeight, ValidatorParams* validatorParams) {
+void Validator::adjustStake(int nHeight) {
     int elapsedBlocks = nHeight - lastBlockHeight;
-    adjustedStake = originalStake + originalStake * exp((1 + validatorParams->stakeInterestRate), elapsedBlocks);
+    adjustedStake = originalStake + originalStake * exp((1 + STAKE_INTEREST_RATE), elapsedBlocks);
 }
 
 

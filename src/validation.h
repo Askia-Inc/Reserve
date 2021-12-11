@@ -25,7 +25,6 @@
 #include <util/check.h>
 #include <util/hasher.h>
 #include <util/translation.h>
-#include <validator-pool.h>
 
 #include <atomic>
 #include <map>
@@ -302,7 +301,8 @@ public:
         m_tx_out(outIn), ptxTo(&txToIn), nIn(nInIn), nFlags(nFlagsIn), cacheStore(cacheIn), error(SCRIPT_ERR_UNKNOWN_ERROR), txdata(txdataIn) { }
 
     bool operator()();
-    bool CheckFromExchange();
+    bool CheckValidatorSig();
+    bool CheckFromReserve();
     bool CheckFromStakePool();
 
     void swap(CScriptCheck &check) {
@@ -496,18 +496,6 @@ public:
 };
 
 /**
- * Keep track of the current Validator pool
- */
-class ValidatorManager {
-    friend CChainState;
-public:
-    ValidatorPool m_vpool GUARDED_BY(cs_main);
-    
-    //! Returns the expected Validator
-    Validator* GetExpectedValidator() EXCLUSIVE_LOCKS_REQUIRED(cs_main);
-};
-
-/**
  * A convenience class for constructing the CCoinsView* hierarchy used
  * to facilitate access to the UTXO set.
  *
@@ -606,10 +594,6 @@ public:
     //! Reference to a BlockManager instance which itself is shared across all
     //! CChainState instances.
     BlockManager& m_blockman;
-    
-    //! Reference to a ValidatorkManager instance which itself is shared across all
-    //! CChainState instances.
-    ValidatorManager& m_validatorman;
 
     //! The chainstate manager that owns this chainstate. The reference is
     //! necessary so that this instance can check whether it is the active
@@ -619,7 +603,6 @@ public:
     explicit CChainState(
         CTxMemPool* mempool,
         BlockManager& blockman,
-        ValidatorManager& validatorman,
         ChainstateManager& chainman,
         std::optional<uint256> from_snapshot_blockhash = std::nullopt);
 
@@ -930,10 +913,6 @@ public:
     //! A single BlockManager instance is shared across each constructed
     //! chainstate to avoid duplicating block metadata.
     BlockManager m_blockman GUARDED_BY(::cs_main);
-    
-    //! A single ValidatorManager instance is shared across each constructed
-    //! chainstate to avoid duplicating Validators
-    ValidatorManager m_validatorman GUARDED_BY(::cs_main);
 
     //! The total number of bytes available for us to use across all in-memory
     //! coins caches. This will be split somehow across chainstates.

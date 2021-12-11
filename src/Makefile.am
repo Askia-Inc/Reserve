@@ -267,8 +267,8 @@ BITCOIN_CORE_H = \
   util/vector.h \
   validation.h \
   validationinterface.h \
-  validator-params.h \
-  validator-pool.h \
+  stakeparams.h \
+  stakepool.h \
   validator.h \
   versionbits.h \
   wallet/bdb.h \
@@ -373,8 +373,8 @@ libbitcoin_server_a_SOURCES = \
   txrequest.cpp \
   validation.cpp \
   validationinterface.cpp \
-  validator-params.h \
-  validator-pool.h \
+  stakeparams.h \
+  stakepool.h \
   validator.h \
   versionbits.cpp \
   $(BITCOIN_CORE_H)

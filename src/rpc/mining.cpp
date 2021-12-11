@@ -29,6 +29,7 @@
 #include <script/script_error.h>
 #include <script/signingprovider.h>
 #include <shutdown.h>
+#include <stakeparams.h>
 #include <txmempool.h>
 #include <uint256.h>
 #include <univalue.h>
@@ -45,6 +46,7 @@
 #include <memory>
 #include <stdint.h>
 #include <vector>
+#include <time.h>
 
 typedef std::vector<unsigned char> valtype;
 
@@ -995,21 +997,29 @@ static RPCHelpMan submitblock()
     
     ChainstateManager& chainman = EnsureAnyChainman(request.context);
     // Compare block Schnoor signature with the public key we have for the expected Validator
-    Validator* expectedVal = chainman.m_validatorman.GetExpectedValidator();
-    assert(expectedVal != nullptr)
+    Validator* expectedVal = Params().GetExpectedValidator();
+    // assert(expectedVal != nullptr);
+   
+    // Suspend original Validator if block received outside window
+    // Select the Validator that should be expected now
+    time_t current = time (0);
+    unit32_t cumulativeTimout = VALIDATOR_TIMEOUT;
+    if (expectedVal->lastBlockTime > 0) {
+        while (block.nTime - chainman.ActiveTip()->nTime > cumulativeTimeout) {
+            Params().SuspendValidator(expectedVal, chainman.ActiveHeight());
             
-    std::vector<unsigned char> pubkey = expectedVal.pubkey;
-    
-    // Get the Signature from the second request parameter
-    std::string* str = request.params[1].get_str();
-    std::vector<unsigned char> sig(s.begin(), s.end());
-    
-    ScriptError* serror;
-    ScriptExecutionData execdata;
-    unsigned int flags = 0;
-    bool success;
-    
-    if (!EvalChecksigTapscript(sig, pubkey, *execdata, flags, BlockHeaderSignatureChecker(block.GetBlockHeader(), MissingDataBehavior::ASSERT_FAIL), SigVersion::BASE, serror, success) && !success) {
+            if (!Params().ViableValidator()) {
+                return "validators-not-viable";
+            }
+            
+            expectedVal = Params().GetExpectedValidator(chainman.ActiveHeight());
+            cumulativeTimeout += VALIDATOR_TIMEOUT
+        }
+    }
+    CScriptCheck check();
+    // Get the ScriptSig from the second request parameter
+    CScript scriptSig = ParseScript(request.params[1].get_str());
+    if (!check.CheckValidatorSig(scriptSig, expectedVal->scriptPubKey, block)) {
         return "unexpected-validator";
     }
     
@@ -1054,12 +1064,15 @@ static RPCHelpMan submitblock()
     // Suspend the Validator if the block is not accepted
     if (!accepted) {
         std::vector<std::string>* rterror;
-        chainman.m_validatorman.m_vpool.suspendValidator(expectedValidator, chainman.ActiveHeight(), rterror);
+        chainman.m_validatorman.m_vpool.suspendValidator(expectedVal, chainman.ActiveHeight(), rterror);
         if (rterror.size() > 0) {
             return rterror.at(0);
         }
         return "unaccepted-block"
     }
+    
+    expectedVal->lastBlockHeight = chainman.ActiveHeight();
+    expectedVal->lastBlockTime = block.nTime;
     
     return BIP22ValidationResult(sc->state);
 },

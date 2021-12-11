@@ -112,8 +112,8 @@ struct Params {
     /** The number seconds in a leap year */
     uint32_t nSecondsInLeapYear;
     
-    CScript exchangeOutputScript;
-    CScript validatorPoolOutputScript;
+    CScript reserveOutputScript;
+    CScript stakePoolOutputScript;
 
     /**
      * If true, witness commitments contain a payload equal to a Bitcoin Script solution
