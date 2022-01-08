@@ -3,6 +3,7 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <consensus/tx_verify.h>
+#include <chainparams.h>
 #include <key.h>
 #include <policy/policy.h>
 #include <policy/settings.h>

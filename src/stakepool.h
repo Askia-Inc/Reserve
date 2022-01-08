@@ -25,7 +25,6 @@ private:
     void sort(int nHeight);
 
 public:
-    StakePool() delete;
     StakePool();
     bool addValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
     bool removeValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);

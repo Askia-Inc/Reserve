@@ -8,7 +8,7 @@
 static const double STAKE_INTEREST_RATE = 0.02;
 static const int VALIDATOR_TIMEOUT = 10;
 static const int VALIDATOR_SUSPENSION_DURATION = 50;
-static const int VALIDATOR_WITHDRAWAL_WAITING_PERIOD = 20;
+static const int VALIDATOR_MATURITY = 20;
 
 class StakeParams
 {

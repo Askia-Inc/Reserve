@@ -436,7 +436,7 @@ static bool EvalChecksig(const valtype& sig, const valtype& pubkey, CScript::con
 // Called from EvalScript in interpreter.cpp, line 1268
 bool EvalScript(std::vector<std::vector<unsigned char> >& stack, const CScript& script, unsigned int flags, const BaseSignatureChecker& checker, SigVersion sigversion, ScriptExecutionData& execdata, ScriptError* serror)
 {
-    if (script == nullptr) return true;
+    if (script.empty()) return true;
     
     static const CScriptNum bnZero(0);
     static const CScriptNum bnOne(1);
@@ -1487,6 +1487,10 @@ template <class T>
 PrecomputedTransactionData::PrecomputedTransactionData(const T& txTo)
 {
     Init(txTo, {});
+    toStakePool = false;
+    toReserve = false;
+    fromStakePool = false;
+    fromReserve = false;
 }
 
 // explicit instantiation

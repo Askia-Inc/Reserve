@@ -9,8 +9,9 @@
 #include <consensus/merkle.h>
 #include <deploymentinfo.h>
 #include <hash.h> // for signet block challenge hash
+#include <key.h>
+#include <key_io.h>
 #include <util/system.h>
-#include <crypto/sha256.h>
 #include <uint256.h>
 
 #include <assert.h>
@@ -115,36 +116,30 @@ public:
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         // Computer double SHA 256 hash of Reserve public key
-        uint256 result();
-        CSHA256 hasher();
-        hasher.Write(RESERVE_PUB_KEY.front(), RESERVE_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.reserveOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
         
-        // Computer double SHA 256 hash of validator pool public key
-        hasher = CSHA256();
-        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.stakePoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        // assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
+        // assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("seed.bitcoin.sipa.be."); // Pieter Wuille, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("dnsseed.bluematt.me."); // Matt Corallo, only supports x9
-        vSeeds.emplace_back("dnsseed.bitcoin.dashjr.org."); // Luke Dashjr
-        vSeeds.emplace_back("seed.bitcoinstats.com."); // Christian Decker, supports x1 - xf
-        vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // Jonas Schnelli, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("seed.btc.petertodd.org."); // Peter Todd, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // Sjors Provoost
-        vSeeds.emplace_back("dnsseed.emzy.de."); // Stephan Oeste
-        vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // Jason Maurice
+        vSeeds.emplace_back("seed.pub.as");
+//        vSeeds.emplace_back("seed.bitcoin.sipa.be."); // Pieter Wuille, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("dnsseed.bluematt.me."); // Matt Corallo, only supports x9
+//        vSeeds.emplace_back("dnsseed.bitcoin.dashjr.org."); // Luke Dashjr
+//        vSeeds.emplace_back("seed.bitcoinstats.com."); // Christian Decker, supports x1 - xf
+//        vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // Jonas Schnelli, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("seed.btc.petertodd.org."); // Peter Todd, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // Sjors Provoost
+//        vSeeds.emplace_back("dnsseed.emzy.de."); // Stephan Oeste
+//        vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // Jason Maurice
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -241,18 +236,12 @@ public:
         m_assumed_chain_state_size = 2;
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-        // Computer double SHA 256 hash of Reserve public key
-        uint256 result();
-        CSHA256 hasher();
-        hasher.Write(RESERVE_PUB_KEY.front(), RESERVE_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.reserveOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
         
-        // Computer double SHA 256 hash of validator pool public key
-        hasher = CSHA256();
-        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.stakePoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
@@ -390,18 +379,12 @@ public:
         nPruneAfterHeight = 1000;
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-        // Computer double SHA 256 hash of Reserve public key
-        uint256 result();
-        CSHA256 hasher();
-        hasher.Write(RESERVE_PUB_KEY.front(), RESERVE_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.reserveOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
         
-        // Computer double SHA 256 hash of validator pool public key
-        hasher = CSHA256();
-        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.stakePoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
@@ -476,18 +459,12 @@ public:
         UpdateActivationParametersFromArgs(args);
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-        // Computer double SHA 256 hash of Reserve public key
-        uint256 result();
-        CSHA256 hasher();
-        hasher.Write(RESERVE_PUB_KEY.front(), RESERVE_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.reserveOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
         
-        // Computer double SHA 256 hash of validator pool public key
-        hasher = CSHA256();
-        hasher.Write(VALIDATOR_PUB_KEY.front(), VALIDATOR_PUB_KEY.size()).Finalize(result.begin());
-        hasher.Reset().Write(result.begin(), CSHA256::OUTPUT_SIZE).Finalize(result.begin());
-        consensus.stakePoolOutputScript = CScript << OP_DUP << OP_HASH256 << ParseHex(result.GetHex()) << OP_EQUALVERIFY << OP_CHECKSIG;
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));

@@ -3,6 +3,7 @@
 //
 
 #include <validator.h>
+
 #include <consensus/amount.h>
 #include <uint256.h>
 #include <script/script.h>

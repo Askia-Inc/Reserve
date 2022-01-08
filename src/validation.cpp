@@ -38,6 +38,7 @@
 #include <script/sigcache.h>
 #include <shutdown.h>
 #include <signet.h>
+#include <stakepool.h>
 #include <timedata.h>
 #include <tinyformat.h>
 #include <txdb.h>
@@ -89,6 +90,16 @@ const std::vector<std::string> CHECKLEVEL_DOC {
     "level 4 tries to reconnect the blocks",
     "each level includes the checks of the previous levels",
 };
+
+// Checks if the first OutPoint is to the Reserve
+bool ToReserve(const CTxOut& out, const CChainParams& params) {
+    return out.scriptPubKey == params.GetConsensus().reserveOutputScript;
+}
+    
+// Checks if the first OutPoint is to the Stake Pool
+bool ToStakePool(const CTxOut& out, const CChainParams& params) {
+    return out.scriptPubKey == params.GetConsensus().stakePoolOutputScript;
+}
 
 bool CBlockIndexWorkComparator::operator()(const CBlockIndex *pa, const CBlockIndex *pb) const {
     // First sort by most total work, ...
@@ -1138,41 +1149,41 @@ PackageMempoolAcceptResult ProcessNewPackage(CChainState& active_chainstate, CTx
 
 CAmount GetBlockSubsidy(int nHeight, uint32_t nTime, CChainParams& params)
 {
-    uint32_t elapsedTime = nTime = params.GenesisBlock().nTime;
-    
-    // Determine if it's a leap year
-    std::time_t t = std::time(nullptr);
-    std::tm *const pTInfo = std::localtime(&t);    
-    int blockYear = pTInfo->tm_year;
-    
-    uint32_t genesisTime = params.GenesisBlock().nTime;
-    int genesisYear = 1900;
-    while (genesisTime > 0) {
-        if (gensisYear % 4 == 0) {
-            if (genesisYear % 100 == 0) {
-                if (genesisYear % 400 == 0) {
-                    gensisTime -= params.GetConsensus().nSecondsInLeapYear;
-                } else {
-                    gensisTime -= params.GetConsensus().nSecondsInNonLeapYear;
-                }
-            } else {
-                genesisTime -= params.GetConsensus().nSecondsInLeapYear;
-            }
-        } else {
-            gensisTime -= params.GetConsensus().nSecondsInNonLeapYear;
-        }
-        genesisYear++;
-    }
-    
-    int elapsedYears = genesisYear - blockYear;
-    double averageBlockTime = elapsedTime / nHeight;
-    double blocksPerSecond = averageBlocktime / 60;
-    double blocksPerYear = averageBlockTime * params.GetConsensus().nSecondsInNonLeapYear;
-    CAmout initialAfroSupply = params.GenesisBlock().vtx[0].vout[0].nValue;
-    CAmount afroSupplyWithInflation = initialAfroSupply * pow((1 + 0.02), elapsedYears);
-    CAmount inflationInterest = afroSupplyWithInflation - initialAfroSupply;
-    CAmount inflationInterestPerYear = inflationInterest / elapsedYears;
-    CAmount nSubsidy = inflationInterestPerYear / blocksPerYear;
+//    uint32_t elapsedTime = nTime = params.GenesisBlock().nTime;
+//    
+//    // Determine if it's a leap year
+//    std::time_t t = std::time(nullptr);
+//    std::tm *const pTInfo = std::localtime(&t);    
+//    int blockYear = pTInfo->tm_year;
+//    
+//    uint32_t genesisTime = params.GenesisBlock().nTime;
+//    int genesisYear = 1900;
+//    while (genesisTime > 0) {
+//        if (genesisYear % 4 == 0) {
+//            if (genesisYear % 100 == 0) {
+//                if (genesisYear % 400 == 0) {
+//                    genesisTime -= params.GetConsensus().nSecondsInLeapYear;
+//                } else {
+//                    genesisTime -= params.GetConsensus().nSecondsInNonLeapYear;
+//                }
+//            } else {
+//                genesisTime -= params.GetConsensus().nSecondsInLeapYear;
+//            }
+//        } else {
+//            genesisTime -= params.GetConsensus().nSecondsInNonLeapYear;
+//        }
+//        genesisYear++;
+//    }
+//    
+//    int elapsedYears = genesisYear - blockYear;
+//    double averageBlockTime = elapsedTime / nHeight;
+//    double blocksPerSecond = averageBlockTime / 60;
+//    double blocksPerYear = averageBlockTime * params.GetConsensus().nSecondsInNonLeapYear;
+//    CAmount initialAfroSupply = params.GenesisBlock().vtx[0].vout[0].nValue;
+//    CAmount afroSupplyWithInflation = initialAfroSupply * pow((1 + 0.02), elapsedYears);
+//    CAmount inflationInterest = afroSupplyWithInflation - initialAfroSupply;
+//    CAmount inflationInterestPerYear = inflationInterest / elapsedYears;
+    CAmount nSubsidy = 0; // inflationInterestPerYear / blocksPerYear;
 
     // Subsidy is cut in half every 210,000 blocks which will occur approximately every 4 years.
     return nSubsidy;
@@ -1200,7 +1211,8 @@ CChainState::CChainState(
       m_params(::Params()),
       m_blockman(blockman),
       m_chainman(chainman),
-      m_from_snapshot_blockhash(from_snapshot_blockhash) {}
+      m_from_snapshot_blockhash(from_snapshot_blockhash),
+      m_stakepool(StakePool()){}
 
 void CChainState::InitCoinsDB(
     size_t cache_size_bytes,
@@ -1337,31 +1349,23 @@ void UpdateCoins(const CTransaction& tx, CCoinsViewCache& inputs, CTxUndo &txund
 }
 
 bool CScriptCheck::operator()() {
-    CScript scriptSig();
     const CScriptWitness *witness = &ptxTo->vin[nIn].scriptWitness;
-    return VerifyScript(*scriptSig, m_tx_out.scriptPubKey, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
+    return VerifyScript(CScript(), m_tx_out.scriptPubKey, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
-bool CScriptCheck::CheckValidatorSig(CScript& scriptPubKey) {
-    CScript scriptSig();
+bool CScriptCheck::CheckValidatorSig(const CScript scriptPubKey) {
     const CScriptWitness *witness = &ptxTo->vin[nIn].scriptWitness;
-    return VerifyScript(*scriptSig, scriptPubKey, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
+    return VerifyScript(CScript(), scriptPubKey, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
 bool CScriptCheck::CheckFromReserve(const CChainParams& m_params) {
-    CScript scriptSig();
     const CScriptWitness *witness = &ptxTo->vin[nIn].scriptWitness;
-    return VerifyScript(*scriptSig, m_params.GetConsensus().GetReservePubKey(), witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
-}
-
-bool CScriptCheck::CheckFromReserveCoinbase() {
-    CScript scriptSig
+    return VerifyScript(CScript(), m_params.GetConsensus().reserveOutputScript, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
 bool CScriptCheck::CheckFromStakePool(const CChainParams& m_params) {
-    CScript scriptSig();
     const CScriptWitness *witness = &ptxTo->vin[nIn].scriptWitness;
-    return VerifyScript(*scriptSig, m_params.GetConsensus().GetStakePoolPubKey(), witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
+    return VerifyScript(CScript(), m_params.GetConsensus().stakePoolOutputScript, witness, nFlags, CachingTransactionSignatureChecker(ptxTo, nIn, m_tx_out.nValue, cacheStore, *txdata), &error);
 }
 
 int BlockManager::GetSpendHeight(const CCoinsViewCache& inputs)
@@ -1448,43 +1452,49 @@ bool CheckInputScripts(const CTransaction& tx, TxValidationState& state,
     }
     assert(txdata.m_spent_outputs.size() == tx.vin.size());
     
-    bool toStakePool = tx.ToStakePool(Params().GetConsensus());
-    bool toReserve = tx.ToReserve(Params().GetConsensus());
+    bool toStakePool = ToStakePool(tx.vout[0], Params());
+    bool toReserve = ToReserve(tx.vout[0], Params());
     bool fromStakePool = false;
     bool fromReserve = false;
     if (!toStakePool && !toReserve) {
-        CScriptCheck firstcheck(txdata.m_spent_outputs[0], tx, 0, flags, cacheSigStore, &txdata;
-        fromReserve = firstcheck.CheckFromReserve(m_params);
+        CScriptCheck firstcheck(txdata.m_spent_outputs[0], tx, 0, flags, cacheSigStore, &txdata);
+        fromReserve = firstcheck.CheckFromReserve(Params());
         // Since transactions from the Reserve are most common, check for this first
-        if (!romReserve) {
+        if (!fromReserve) {
 
             // If the transaction doesn't come from the Reserve
             // Check if the transaction comes from the Stake Pool
             // Any transaction that fails these checks should be discarded
-            fromStakePool = firstcheck.CheckFromStakePool(m_params);
+            fromStakePool = firstcheck.CheckFromStakePool(Params());
             if (!fromStakePool) {
-                return state.Invalid((TxValidationResult::TX_CONSENSUS, strprintf("invalid-addresses", ScriptErrorString(firstcheck.GetScriptError()))); 
+                return state.Invalid(TxValidationResult::TX_CONSENSUS, strprintf("invalid-addresses", ScriptErrorString(firstcheck.GetScriptError()))); 
             }
             // Verify transaction was authorized based on previous transaction
             // Previous transaction must be toStakePool
             if (txdata.m_spent_outputs[0].scriptPubKey != Params().GetConsensus().stakePoolOutputScript) {
-                return state.Invalid((TxValidationResult::TX_CONSENSUS, "invalid-transaction-for-validator-removal");
+                return state.Invalid(TxValidationResult::TX_CONSENSUS, "invalid-transaction-for-validator-removal");
             }
 
             // Verify Validator initiated removal process with previous transaction
             if (txdata.m_spent_outputs[0].nValue != -1) {
-                return state.Invalid((TxValidationResult::TX_CONSENSUS, "invalid-output-for-validator-removal");
+                return state.Invalid(TxValidationResult::TX_CONSENSUS, "invalid-output-for-validator-removal");
             }
         } else {
             // Verify transaction was authorized based on previous transaction
             // Previous transaction must be toReserve
-            if (txdata.m_spent_outputs[0].scriptPubKey != Params().GetConsensus().reserveOutputScript) {
-                return state.Invalid((TxValidationResult::TX_CONSENSUS, "invalid-transaction-for-validator-removal");
+            
+            if (!ToReserve(txdata.m_spent_outputs[0], Params())) {
+                return state.Invalid(TxValidationResult::TX_CONSENSUS, "invalid-transaction-for-validator-removal");
             }
         }
     } else if (toStakePool && toReserve) {
-        state.Invalid((TxValidationResult::TX_CONSENSUS, "invalid-tx");
+        state.Invalid(TxValidationResult::TX_CONSENSUS, "invalid-tx");
     }
+    
+    txdata.toStakePool = toStakePool;
+    txdata.toReserve = toReserve;
+    txdata.fromStakePool = fromStakePool;
+    txdata.fromReserve = fromReserve;
 
     for (unsigned int i = 0; i < tx.vin.size(); i++) {
 
@@ -1893,39 +1903,63 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     int nInputs = 0;
     int64_t nSigOpsCost = 0;
     blockundo.vtxundo.reserve(block.vtx.size() - 1);
+    Validator* expectedVal;
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
         const CTransaction &tx = *(block.vtx[i]);
 
         nInputs += tx.vin.size();
         
+        std::vector<std::string>* rterror;
         if (tx.IsCoinBase()) {
-            Validator* expectedVal = m_params.GetExpectedValidator();
+            expectedVal = m_stakepool.retrieveNextValidator(pindex->nHeight, rterror);
             // Determine if the expected validator submitted the block
+            
+            if (rterror->size() > 0) {
+                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+            }
             
             // Suspend original Validator if block received outside window
             // Select the Validator that should be expected now
             time_t current = time (0);
-            unit32_t cumulativeTimout = VALIDATOR_TIMEOUT;
+            uint32_t cumulativeTimeout = VALIDATOR_TIMEOUT;
             if (expectedVal->lastBlockTime > 0) {
-                while (block.nTime - chainman.ActiveTip()->nTime > cumulativeTimeout) {
-                    Params().SuspendValidator(expectedVal, chainman.ActiveHeight());
-
-                    if (!Params().ViableValidator()) {
-                        return "validators-not-viable";
+                while (block.nTime - pindex->nTime > cumulativeTimeout) {
+                    m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
+                    
+                    if (rterror->size() > 0) {
+                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
                     }
 
-                    expectedVal = Params().GetExpectedValidator(chainman.ActiveHeight());
-                    cumulativeTimeout += VALIDATOR_TIMEOUT
+                    if (!m_stakepool.viable()) {
+                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "validators-not-viable");
+                    }
+
+                    expectedVal = m_stakepool.retrieveNextValidator(pindex->nHeight, rterror);
+                    
+                    if (rterror->size() > 0) {
+                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+                    }
+                    
+                    cumulativeTimeout += VALIDATOR_TIMEOUT;
                 }
             }
             
-            CScriptCheck check(txsdata[i].m_spent_outputs[0], tx, 0, flags, cacheSigStore, txsdata[i]);
-            if (!check.CheckValidatorSig(expectedVal->scriptPubKeyk)) {
+            bool fCacheResults = fJustCheck;
+            CScriptCheck check(txsdata[i].m_spent_outputs[0], tx, 0, flags, fCacheResults, &txsdata[i]);
+            if (!check.CheckValidatorSig(expectedVal->scriptPubKey)) {
                 // If the expected validator did not submit this block
                 // Any block submitted by the Reserve is accepted
 
-                if (!check.CheckFromReserve(m_params))) {
+                if (!check.CheckFromReserve(m_params)) {
+                    // Suspend the Validator if the block is not accepted
+                    
+                    m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
+                    
+                    if (rterror->size() > 0) {
+                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+                    }
+                    
                     return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "unexpected-validator");
                 }
             }
@@ -1989,6 +2023,12 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
             blockundo.vtxundo.push_back(CTxUndo());
         }
         UpdateCoins(tx, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
+        
+        bool toStakePool = ToStakePool(tx.vout[0], Params());
+        
+        if (toStakePool) {
+            
+        }
     }
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
@@ -2034,6 +2074,25 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
         nSigOpsCost,
         GetTimeMicros() - nTimeStart // in microseconds (µs)
     );
+    
+    // If block connection is successful
+    // Iterate through transactions and modify validator pool based on transactions
+    for (unsigned int i = 0; i < block.vtx.size(); i++)
+    {      
+        if (txsdata[i].toStakePool) {
+            Validator* v;
+            v->scriptPubKey = txsdata[i].m_spent_outputs[0].scriptPubKey;
+            
+            std::vector<std::string>* rterror;
+            m_stakepool.addValidator(v, pindex->nHeight, rterror);
+        }
+    }
+    
+    // Only credit a validator with successful validation if block connected
+    if (!expectedVal->IsNew() && !fJustCheck) {
+        expectedVal->lastBlockHeight = pindex->nHeight + 1;
+        expectedVal->lastBlockTime = block.nTime;
+    }
 
     return true;
 }
@@ -4465,7 +4524,7 @@ void CChainState::CheckBlockIndex()
         assert((pindexFirstNeverProcessed == nullptr) == pindex->HaveTxsDownloaded());
         assert((pindexFirstNotTransactionsValid == nullptr) == pindex->HaveTxsDownloaded());
         assert(pindex->nHeight == nHeight); // nHeight must be consistent.
-        assert(pindex->pprev == nullptr)// || pindex->nChainWork >= pindex->pprev->nChainWork); // For every block except the genesis block, the chainwork must be larger than the parent's.
+        assert(pindex->pprev == nullptr); // || pindex->nChainWork >= pindex->pprev->nChainWork); // For every block except the genesis block, the chainwork must be larger than the parent's.
         assert(nHeight < 2 || (pindex->pskip && (pindex->pskip->nHeight < nHeight))); // The pskip pointer must point back for all but the first 2 blocks.
         assert(pindexFirstNotTreeValid == nullptr); // All m_blockman.m_block_index entries must at least be TREE valid
         if ((pindex->nStatus & BLOCK_VALID_MASK) >= BLOCK_VALID_TREE) assert(pindexFirstNotTreeValid == nullptr); // TREE valid implies all parents are TREE valid

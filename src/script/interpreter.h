@@ -165,6 +165,11 @@ struct PrecomputedTransactionData
     std::vector<CTxOut> m_spent_outputs;
     //! Whether m_spent_outputs is initialized.
     bool m_spent_outputs_ready = false;
+    
+    bool toStakePool;
+    bool toReserve;
+    bool fromStakePool;
+    bool fromReserve;
 
     PrecomputedTransactionData() = default;
 
@@ -339,7 +344,6 @@ protected:
     virtual bool VerifySchnorrSignature(Span<const unsigned char> sig, const XOnlyPubKey& pubkey, const uint256& sighash) const;
 
 public:
-    GenericBlockSignatureChecker(const B* blockIn, MissingDataBehavior mdb) : block(blockIn), m_mdb(mdb) {}
     bool CheckSchnorrSignature(Span<const unsigned char> sig, Span<const unsigned char> pubkey, SigVersion sigversion, const ScriptExecutionData& execdata, ScriptError* serror = nullptr) const override;
 };
 

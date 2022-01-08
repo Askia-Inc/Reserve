@@ -105,7 +105,7 @@ Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string
         return nullptr;
     }
 
-    return v;
+    return *v;
 }
 
 void StakePool::serialize() {

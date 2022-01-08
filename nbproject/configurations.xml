@@ -142,6 +142,30 @@
             <in>status.cc</in>
           </df>
         </df>
+        <df name="minisketch">
+          <df name="src">
+            <df name="fields">
+              <in>clmul_1byte.cpp</in>
+              <in>clmul_2bytes.cpp</in>
+              <in>clmul_3bytes.cpp</in>
+              <in>clmul_4bytes.cpp</in>
+              <in>clmul_5bytes.cpp</in>
+              <in>clmul_6bytes.cpp</in>
+              <in>clmul_7bytes.cpp</in>
+              <in>clmul_8bytes.cpp</in>
+              <in>generic_1byte.cpp</in>
+              <in>generic_2bytes.cpp</in>
+              <in>generic_3bytes.cpp</in>
+              <in>generic_4bytes.cpp</in>
+              <in>generic_5bytes.cpp</in>
+              <in>generic_6bytes.cpp</in>
+              <in>generic_7bytes.cpp</in>
+              <in>generic_8bytes.cpp</in>
+            </df>
+            <in>minisketch.cpp</in>
+            <in>test.cpp</in>
+          </df>
+        </df>
         <df name="node">
           <in>blockstorage.cpp</in>
           <in>coin.cpp</in>
@@ -449,6 +473,7 @@
           <in>merkle_tests.cpp</in>
           <in>merkleblock_tests.cpp</in>
           <in>miner_tests.cpp</in>
+          <in>minisketch_tests.cpp</in>
           <in>multisig_tests.cpp</in>
           <in>net_peer_eviction_tests.cpp</in>
           <in>net_tests.cpp</in>
@@ -575,6 +600,7 @@
         <in>mapport.cpp</in>
         <in>merkleblock.cpp</in>
         <in>miner.cpp</in>
+        <in>minisketchwrapper.cpp</in>
         <in>net.cpp</in>
         <in>net_permissions.cpp</in>
         <in>net_processing.cpp</in>
@@ -630,19 +656,25 @@
         <rebuildPropChanged>false</rebuildPropChanged>
       </toolsSet>
       <flagsDictionary>
-        <element flagsID="0" commonFlags="-O2 -std=c89"/>
-        <element flagsID="1" commonFlags="-O2 -std=c89 -fPIC"/>
-        <element flagsID="2" commonFlags="-std=c++17 -fstack-protector-all"/>
-        <element flagsID="3" commonFlags="-std=c++17 -fstack-protector-all -fPIC"/>
-        <element flagsID="4" commonFlags="-std=c++17 -fstack-protector-all -fPIE"/>
+        <element flagsID="0" commonFlags="-O2 -std=c89 -g -O2"/>
+        <element flagsID="1" commonFlags="-O2 -std=c89 -g -O2 -fPIC"/>
+        <element flagsID="2" commonFlags="-std=c++17 -fstack-protector-all -Wvla -O2"/>
+        <element flagsID="3"
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -O2 -fPIC"/>
+        <element flagsID="4"
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIC -O2"/>
         <element flagsID="5"
-                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -mavx -mavx2"/>
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -O2"/>
         <element flagsID="6"
-                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4 -msha"/>
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -mavx -mavx2 -O2"/>
         <element flagsID="7"
-                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4.1"/>
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -mpclmul -O2"/>
         <element flagsID="8"
-                 commonFlags="-std=c++17 -fstack-protector-all -fPIE -msse4.2"/>
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -msse4 -msha -O2"/>
+        <element flagsID="9"
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -msse4.1 -O2"/>
+        <element flagsID="10"
+                 commonFlags="-std=c++17 -fstack-protector-all -Wvla -fPIE -msse4.2 -O2"/>
       </flagsDictionary>
       <codeAssistance>
       </codeAssistance>
@@ -682,6 +714,7 @@
       <folder path="0/src/bench">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -697,6 +730,7 @@
       <folder path="0/src/common">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -711,6 +745,7 @@
       <folder path="0/src/compat">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -724,13 +759,6 @@
       </folder>
       <folder path="0/src/consensus">
         <ccTool>
-          <incDir>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -763,6 +791,7 @@
       <folder path="0/src/index">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -777,6 +806,7 @@
       <folder path="0/src/init">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -791,6 +821,7 @@
       <folder path="0/src/interfaces">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -824,9 +855,21 @@
           </preprocessorList>
         </ccTool>
       </folder>
+      <folder path="0/src/minisketch">
+        <ccTool>
+          <preprocessorList>
+            <Elem>DISABLE_DEFAULT_FIELDS</Elem>
+            <Elem>ENABLE_FIELD_32</Elem>
+            <Elem>HAVE_CLMUL</Elem>
+            <Elem>HAVE_CLZ</Elem>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </folder>
       <folder path="0/src/node">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -841,6 +884,7 @@
       <folder path="0/src/policy">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -854,13 +898,6 @@
       </folder>
       <folder path="0/src/primitives">
         <ccTool>
-          <incDir>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -869,6 +906,7 @@
       <folder path="0/src/qt">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -904,6 +942,7 @@
       <folder path="0/src/rpc">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -917,13 +956,6 @@
       </folder>
       <folder path="0/src/script">
         <ccTool>
-          <incDir>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -931,13 +963,6 @@
       </folder>
       <folder path="0/src/support">
         <ccTool>
-          <incDir>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -946,6 +971,7 @@
       <folder path="0/src/test">
         <ccTool>
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -974,21 +1000,15 @@
       </folder>
       <folder path="0/src/util">
         <ccTool>
-          <incDir>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
       </folder>
       <item path="src/addrdb.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1001,8 +1021,9 @@
         </ccTool>
       </item>
       <item path="src/addrman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1015,22 +1036,22 @@
         </ccTool>
       </item>
       <item path="src/arith_uint256.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
           <incDir>
+            <pElem>src/obj</pElem>
             <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/banman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1043,8 +1064,9 @@
         </ccTool>
       </item>
       <item path="src/base58.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1057,8 +1079,9 @@
         </ccTool>
       </item>
       <item path="src/bech32.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1071,128 +1094,129 @@
         </ccTool>
       </item>
       <item path="src/bench/addrman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/base58.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/bech32.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/bench.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/bench_bitcoin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/block_assemble.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/ccoins_caching.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/chacha20.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/chacha_poly_aead.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/checkblock.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/checkqueue.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/crypto_hash.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/data.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/duplicate_inputs.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/examples.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/gcs_filter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/hashpadding.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/lockedpool.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/mempool_eviction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/mempool_stress.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/merkle_root.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/nanobench.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/peer_eviction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/poly1305.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/prevector.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/rollingbloom.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/rpc_blockchain.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/rpc_mempool.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/util_time.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bench/verify_script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/bitcoin-cli.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1205,8 +1229,9 @@
         </ccTool>
       </item>
       <item path="src/bitcoin-tx.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1219,8 +1244,9 @@
         </ccTool>
       </item>
       <item path="src/bitcoin-util.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1233,8 +1259,9 @@
         </ccTool>
       </item>
       <item path="src/bitcoind.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1247,8 +1274,9 @@
         </ccTool>
       </item>
       <item path="src/blockencodings.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1261,8 +1289,9 @@
         </ccTool>
       </item>
       <item path="src/blockfilter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1275,8 +1304,9 @@
         </ccTool>
       </item>
       <item path="src/chain.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1289,8 +1319,9 @@
         </ccTool>
       </item>
       <item path="src/chainparams.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1303,8 +1334,9 @@
         </ccTool>
       </item>
       <item path="src/chainparamsbase.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1317,8 +1349,9 @@
         </ccTool>
       </item>
       <item path="src/clientversion.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1331,8 +1364,9 @@
         </ccTool>
       </item>
       <item path="src/coins.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1345,24 +1379,25 @@
         </ccTool>
       </item>
       <item path="src/common/bloom.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/compat/glibcxx_sanity.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/compat/stdin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/compat/strnlen.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/compressor.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1375,20 +1410,45 @@
         </ccTool>
       </item>
       <item path="src/consensus/merkle.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/consensus/tx_check.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/consensus/tx_verify.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/core_read.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1401,8 +1461,9 @@
         </ccTool>
       </item>
       <item path="src/core_write.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1415,15 +1476,15 @@
         </ccTool>
       </item>
       <item path="src/crc32c/src/crc32c.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/crc32c/src/crc32c_portable.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/crc32c/src/crc32c_sse42.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="8">
+        <ccTool flags="10">
         </ccTool>
       </item>
       <item path="src/crypto/aes.cpp" ex="false" tool="1" flavor2="11">
@@ -1559,14 +1620,14 @@
         </ccTool>
       </item>
       <item path="src/crypto/sha256_avx2.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="5">
+        <ccTool flags="6">
           <preprocessorList>
             <Elem>ENABLE_AVX2</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/crypto/sha256_shani.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="6">
+        <ccTool flags="8">
           <preprocessorList>
             <Elem>ENABLE_SHANI</Elem>
           </preprocessorList>
@@ -1585,7 +1646,7 @@
         </ccTool>
       </item>
       <item path="src/crypto/sha256_sse41.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="7">
+        <ccTool flags="9">
           <preprocessorList>
             <Elem>ENABLE_SSE41</Elem>
           </preprocessorList>
@@ -1628,8 +1689,9 @@
         </ccTool>
       </item>
       <item path="src/dbwrapper.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1642,8 +1704,9 @@
         </ccTool>
       </item>
       <item path="src/deploymentinfo.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1656,8 +1719,9 @@
         </ccTool>
       </item>
       <item path="src/deploymentstatus.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1670,8 +1734,9 @@
         </ccTool>
       </item>
       <item path="src/dummywallet.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1684,8 +1749,9 @@
         </ccTool>
       </item>
       <item path="src/external_signer.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1698,8 +1764,9 @@
         </ccTool>
       </item>
       <item path="src/flatfile.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1712,8 +1779,9 @@
         </ccTool>
       </item>
       <item path="src/fs.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1726,22 +1794,22 @@
         </ccTool>
       </item>
       <item path="src/hash.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
           <incDir>
+            <pElem>src/obj</pElem>
             <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/httprpc.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1754,8 +1822,9 @@
         </ccTool>
       </item>
       <item path="src/httpserver.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1768,8 +1837,9 @@
         </ccTool>
       </item>
       <item path="src/i2p.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1782,24 +1852,25 @@
         </ccTool>
       </item>
       <item path="src/index/base.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/index/blockfilterindex.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/index/coinstatsindex.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/index/txindex.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/init.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1812,7 +1883,7 @@
         </ccTool>
       </item>
       <item path="src/init/bitcoin-qt.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtNetwork</pElem>
             <pElem>/usr/include/x86_64-linux-gnu/qt5</pElem>
@@ -1833,28 +1904,29 @@
         </ccTool>
       </item>
       <item path="src/init/bitcoind.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/init/common.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/interfaces/echo.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/interfaces/handler.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/interfaces/init.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/key.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1867,8 +1939,9 @@
         </ccTool>
       </item>
       <item path="src/key_io.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -1881,176 +1954,177 @@
         </ccTool>
       </item>
       <item path="src/leveldb/db/builder.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/c.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/db_impl.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/db_iter.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/dbformat.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/dumpfile.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/filename.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/log_reader.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/log_writer.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/memtable.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/repair.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/table_cache.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/version_edit.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/version_set.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/db/write_batch.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/helpers/memenv/memenv.cc"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/block.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/block_builder.cc"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/filter_block.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/format.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/iterator.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/merger.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/table.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/table_builder.cc"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/table/two_level_iterator.cc"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/arena.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/bloom.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/cache.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/coding.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/comparator.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/crc32c.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/env.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/env_posix.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/filter_policy.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/hash.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/histogram.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/logging.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/options.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/leveldb/util/status.cc" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/logging.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2063,8 +2137,9 @@
         </ccTool>
       </item>
       <item path="src/mapport.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2077,8 +2152,9 @@
         </ccTool>
       </item>
       <item path="src/merkleblock.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2091,8 +2167,144 @@
         </ccTool>
       </item>
       <item path="src/miner.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_1byte.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_2bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_3bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_4bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_5bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_6bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_7bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/clmul_8bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="7">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_1byte.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_2bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_3bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_4bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_5bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_6bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_7bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/fields/generic_8bytes.cpp"
+            ex="false"
+            tool="1"
+            flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/minisketch.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketch/src/test.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+        </ccTool>
+      </item>
+      <item path="src/minisketchwrapper.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2105,8 +2317,9 @@
         </ccTool>
       </item>
       <item path="src/net.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2119,8 +2332,9 @@
         </ccTool>
       </item>
       <item path="src/net_permissions.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2133,8 +2347,9 @@
         </ccTool>
       </item>
       <item path="src/net_processing.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2147,8 +2362,9 @@
         </ccTool>
       </item>
       <item path="src/net_types.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2161,8 +2377,9 @@
         </ccTool>
       </item>
       <item path="src/netaddress.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2175,8 +2392,9 @@
         </ccTool>
       </item>
       <item path="src/netbase.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2189,40 +2407,41 @@
         </ccTool>
       </item>
       <item path="src/node/blockstorage.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/coin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/coinstats.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/context.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/interfaces.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/psbt.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/transaction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/node/ui_interface.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/noui.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2235,8 +2454,9 @@
         </ccTool>
       </item>
       <item path="src/outputtype.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2249,32 +2469,33 @@
         </ccTool>
       </item>
       <item path="src/policy/feerate.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/policy/fees.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/policy/packages.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/policy/policy.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/policy/rbf.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/policy/settings.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/pow.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2287,16 +2508,33 @@
         </ccTool>
       </item>
       <item path="src/primitives/block.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/primitives/transaction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2309,8 +2547,9 @@
         </ccTool>
       </item>
       <item path="src/psbt.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -2323,21 +2562,20 @@
         </ccTool>
       </item>
       <item path="src/pubkey.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
           <incDir>
+            <pElem>src/obj</pElem>
             <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/qt/bantablemodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2347,7 +2585,7 @@
         </ccTool>
       </item>
       <item path="src/qt/bitcoin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2360,7 +2598,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2370,7 +2608,7 @@
         </ccTool>
       </item>
       <item path="src/qt/bitcoinamountfield.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2380,7 +2618,7 @@
         </ccTool>
       </item>
       <item path="src/qt/bitcoingui.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2390,7 +2628,7 @@
         </ccTool>
       </item>
       <item path="src/qt/bitcoinunits.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2400,7 +2638,7 @@
         </ccTool>
       </item>
       <item path="src/qt/clientmodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2410,7 +2648,7 @@
         </ccTool>
       </item>
       <item path="src/qt/csvmodelwriter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2420,7 +2658,7 @@
         </ccTool>
       </item>
       <item path="src/qt/guiutil.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2430,7 +2668,7 @@
         </ccTool>
       </item>
       <item path="src/qt/initexecutor.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2440,7 +2678,7 @@
         </ccTool>
       </item>
       <item path="src/qt/intro.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2450,11 +2688,11 @@
         </ccTool>
       </item>
       <item path="src/qt/main.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/moc_addressbookpage.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2464,7 +2702,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_addresstablemodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2477,7 +2715,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2487,7 +2725,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_bantablemodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2497,7 +2735,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_bitcoin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2510,7 +2748,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2520,7 +2758,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_bitcoinamountfield.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2530,7 +2768,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_bitcoingui.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2540,7 +2778,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_bitcoinunits.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2550,7 +2788,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_clientmodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2560,7 +2798,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_coincontroldialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2573,7 +2811,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2583,7 +2821,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_createwalletdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2593,7 +2831,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_csvmodelwriter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2603,7 +2841,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_editaddressdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2613,7 +2851,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_guiutil.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2623,7 +2861,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_initexecutor.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2633,7 +2871,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_intro.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2643,7 +2881,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_macdockiconhandler.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2656,7 +2894,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2666,7 +2904,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_modaloverlay.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2676,7 +2914,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_notificator.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2686,7 +2924,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_openuridialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2696,7 +2934,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_optionsdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2706,7 +2944,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_optionsmodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2716,7 +2954,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_overviewpage.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2726,7 +2964,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_paymentserver.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2736,7 +2974,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_peertablemodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2746,7 +2984,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_peertablesortproxy.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2759,7 +2997,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2769,7 +3007,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_qrimagewidget.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2779,7 +3017,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_qvalidatedlineedit.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2789,7 +3027,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_qvaluecombobox.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2799,7 +3037,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_receivecoinsdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2812,7 +3050,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2825,7 +3063,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2835,7 +3073,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_rpcconsole.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2845,7 +3083,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_sendcoinsdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2855,7 +3093,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_sendcoinsentry.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2868,7 +3106,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2878,7 +3116,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_splashscreen.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2888,7 +3126,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_trafficgraphwidget.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2898,7 +3136,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_transactiondesc.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2911,7 +3149,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2924,7 +3162,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2937,7 +3175,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2950,7 +3188,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2960,7 +3198,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_transactionview.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2970,7 +3208,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_utilitydialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2980,7 +3218,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_walletcontroller.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -2990,7 +3228,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_walletframe.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3000,7 +3238,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_walletmodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3010,7 +3248,7 @@
         </ccTool>
       </item>
       <item path="src/qt/moc_walletview.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3020,7 +3258,7 @@
         </ccTool>
       </item>
       <item path="src/qt/modaloverlay.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3030,7 +3268,7 @@
         </ccTool>
       </item>
       <item path="src/qt/networkstyle.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3040,7 +3278,7 @@
         </ccTool>
       </item>
       <item path="src/qt/notificator.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3050,7 +3288,7 @@
         </ccTool>
       </item>
       <item path="src/qt/optionsdialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3060,7 +3298,7 @@
         </ccTool>
       </item>
       <item path="src/qt/optionsmodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3070,7 +3308,7 @@
         </ccTool>
       </item>
       <item path="src/qt/peertablemodel.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3080,7 +3318,7 @@
         </ccTool>
       </item>
       <item path="src/qt/peertablesortproxy.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3090,7 +3328,7 @@
         </ccTool>
       </item>
       <item path="src/qt/platformstyle.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3100,7 +3338,7 @@
         </ccTool>
       </item>
       <item path="src/qt/qrc_bitcoin.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3110,7 +3348,7 @@
         </ccTool>
       </item>
       <item path="src/qt/qrc_bitcoin_locale.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3120,7 +3358,7 @@
         </ccTool>
       </item>
       <item path="src/qt/qvalidatedlineedit.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3130,7 +3368,7 @@
         </ccTool>
       </item>
       <item path="src/qt/qvaluecombobox.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3140,7 +3378,7 @@
         </ccTool>
       </item>
       <item path="src/qt/rpcconsole.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3150,7 +3388,7 @@
         </ccTool>
       </item>
       <item path="src/qt/splashscreen.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3160,42 +3398,42 @@
         </ccTool>
       </item>
       <item path="src/qt/test/apptests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/moc_apptests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/moc_rpcnestedtests.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/moc_uritests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/rpcnestedtests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/test_main.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/uritests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/test/util.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
         </ccTool>
       </item>
       <item path="src/qt/trafficgraphwidget.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3205,7 +3443,7 @@
         </ccTool>
       </item>
       <item path="src/qt/utilitydialog.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="4">
           <incDir>
             <pElem>/usr/include/x86_64-linux-gnu/qt5/QtDBus</pElem>
           </incDir>
@@ -3215,8 +3453,9 @@
         </ccTool>
       </item>
       <item path="src/random.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3229,8 +3468,9 @@
         </ccTool>
       </item>
       <item path="src/randomenv.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3243,8 +3483,9 @@
         </ccTool>
       </item>
       <item path="src/rest.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3257,52 +3498,53 @@
         </ccTool>
       </item>
       <item path="src/rpc/blockchain.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/client.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/external_signer.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/mining.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/misc.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/net.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/rawtransaction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/rawtransaction_util.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/request.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/server.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/rpc/util.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/scheduler.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3315,39 +3557,111 @@
         </ccTool>
       </item>
       <item path="src/script/bitcoinconsensus.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/script/descriptor.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/script/interpreter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/script/script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/script/script_error.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/script/sigcache.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/script/sign.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/script/signingprovider.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/script/standard.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/secp256k1/src/gen_context.c" ex="false" tool="0" flavor2="2">
@@ -3365,8 +3679,9 @@
         </cTool>
       </item>
       <item path="src/shutdown.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3379,8 +3694,9 @@
         </ccTool>
       </item>
       <item path="src/signet.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3393,16 +3709,33 @@
         </ccTool>
       </item>
       <item path="src/support/cleanse.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/support/lockedpool.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/sync.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -3415,77 +3748,77 @@
         </ccTool>
       </item>
       <item path="src/test/addrman_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/allocator_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/amount_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/arith_uint256_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/base32_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/base58_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/base64_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/bech32_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/bip32_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/blockchain_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/blockencodings_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -3495,84 +3828,84 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/blockfilter_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/bloom_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/bswap_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/checkqueue_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/coins_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/coinstatsindex_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/compilerbug_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/compress_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/crypto_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/cuckoocache_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/dbwrapper_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -3582,28 +3915,28 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/descriptor_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/flatfile_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/fs_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -3613,576 +3946,583 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/addrman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/asmap.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/asmap_direct.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/autofile.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/banman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/base_encode_decode.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/bech32.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/block.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/block_header.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/blockfilter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/bloom_filter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/buffered_file.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/chain.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/checkqueue.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/coins_view.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/connman.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_aes256.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_aes256cbc.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_chacha20.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_chacha20_poly1305_aead.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_common.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_hkdf_hmac_sha256_l32.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/crypto_poly1305.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/cuckoocache.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/decode_tx.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/descriptor_parse.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/deserialize.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/eval_script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/fee_rate.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/fees.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/flatfile.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/float.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/fuzz.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/golomb_rice.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/hex.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/http_request.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/i2p.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/integer.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/key.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/key_io.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/kitchen_sink.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/load_external_block_file.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/locale.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/merkleblock.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/message.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/muhash.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/multiplication_overflow.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/net.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/net_permissions.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/netaddress.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/netbase_dns_lookup.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/node_eviction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/p2p_transport_serialization.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/parse_hd_keypath.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/parse_iso8601.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/parse_numbers.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/parse_script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/parse_univalue.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/policy_estimator.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/policy_estimator_io.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/pow.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/prevector.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/primitives_transaction.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/process_message.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/process_messages.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/protocol.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/psbt.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/random.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/rbf.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/rolling_bloom_filter.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/rpc.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_assets_test_minimizer.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_bitcoin_consensus.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_descriptor_cache.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_flags.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_interpreter.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_ops.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_sigcache.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/script_sign.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/scriptnum_ops.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/secp256k1_ec_seckey_import_export_der.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/secp256k1_ecdsa_signature_parse_der_lax.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/signature_checker.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/signet.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/socks5.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/span.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/spanparsing.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/string.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/strprintf.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/system.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/timedata.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/torcontrol.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/transaction.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/tx_in.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/tx_out.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/tx_pool.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/txrequest.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/util.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/utxo_snapshot.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/validation_load_mempool.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/fuzz/versionbits.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/getarg_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/hash_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/i2p_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/interfaces_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/key_io_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/key_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/logging_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/main.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/mempool_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/merkle_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/merkleblock_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/miner_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <preprocessorList>
+            <Elem>BOOST_TEST_DYN_LINK</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/test/minisketch_tests.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/multisig_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4192,35 +4532,35 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/net_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/netbase_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/pmt_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/policy_fee_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4230,77 +4570,77 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/pow_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/prevector_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/raii_event_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/random_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/reverselock_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/rpc_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/sanity_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/scheduler_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/script_p2sh_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/script_parse_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4310,140 +4650,140 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/script_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/scriptnum_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/serfloat_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/serialize_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/settings_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/sighash_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/sigopcount_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/skiplist_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/sock_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/streams_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/sync_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/system_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/timedata_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/torcontrol_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/transaction_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/txindex_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/txpackage_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/txrequest_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/txvalidation_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4453,64 +4793,64 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/uint256_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/util/blockfilter.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/logging.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/mining.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/net.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/setup_common.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/str.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/transaction_utils.cpp"
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/validation.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util/wallet.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/test/util_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4520,7 +4860,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4530,7 +4870,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4540,7 +4880,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4550,7 +4890,7 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4560,14 +4900,14 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/validation_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
@@ -4577,22 +4917,23 @@
             ex="false"
             tool="1"
             flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/test/versionbits_tests.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <preprocessorList>
             <Elem>BOOST_TEST_DYN_LINK</Elem>
           </preprocessorList>
         </ccTool>
       </item>
       <item path="src/threadinterrupt.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4605,8 +4946,9 @@
         </ccTool>
       </item>
       <item path="src/timedata.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4619,8 +4961,9 @@
         </ccTool>
       </item>
       <item path="src/torcontrol.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4633,8 +4976,9 @@
         </ccTool>
       </item>
       <item path="src/txdb.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4647,8 +4991,9 @@
         </ccTool>
       </item>
       <item path="src/txmempool.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4661,8 +5006,9 @@
         </ccTool>
       </item>
       <item path="src/txorphanage.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4675,8 +5021,9 @@
         </ccTool>
       </item>
       <item path="src/txrequest.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4689,15 +5036,14 @@
         </ccTool>
       </item>
       <item path="src/uint256.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
           <incDir>
+            <pElem>src/obj</pElem>
             <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
@@ -4740,104 +5086,297 @@
         </ccTool>
       </item>
       <item path="src/util/asmap.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/bip32.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/bytevectorhash.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/error.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/fees.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/getuniquepath.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/hasher.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/message.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/moneystr.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/rbf.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/readwritefile.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/serfloat.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/settings.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/sock.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/spanparsing.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/strencodings.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="3">
+          <incDir>
+            <pElem>src/obj</pElem>
+            <pElem>src/secp256k1/include</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
+            <Elem>PIC</Elem>
+          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/util/string.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/syscall_sandbox.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/system.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/thread.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/threadnames.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/time.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/tokenpipe.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/util/url.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
         </ccTool>
       </item>
       <item path="src/validation.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4850,8 +5389,9 @@
         </ccTool>
       </item>
       <item path="src/validationinterface.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4864,8 +5404,9 @@
         </ccTool>
       </item>
       <item path="src/versionbits.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>
@@ -4878,8 +5419,9 @@
         </ccTool>
       </item>
       <item path="src/warnings.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="4">
+        <ccTool flags="5">
           <incDir>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
             <pElem>src/univalue/include</pElem>
             <pElem>/usr/include</pElem>

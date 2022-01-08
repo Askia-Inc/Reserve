@@ -6,6 +6,9 @@
 #ifndef BITCOIN_CONSENSUS_PARAMS_H
 #define BITCOIN_CONSENSUS_PARAMS_H
 
+#include <key.h>
+#include <script/script.h>
+
 #include <uint256.h>
 #include <limits>
 
@@ -114,6 +117,7 @@ struct Params {
     
     CScript reserveOutputScript;
     CScript stakePoolOutputScript;
+    CKey stakePoolKey;
 
     /**
      * If true, witness commitments contain a payload equal to a Bitcoin Script solution

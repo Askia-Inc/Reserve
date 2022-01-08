@@ -6,6 +6,7 @@
 #include <test/data/tx_valid.json.h>
 #include <test/util/setup_common.h>
 
+#include <chainparams.h>
 #include <checkqueue.h>
 #include <clientversion.h>
 #include <consensus/amount.h>

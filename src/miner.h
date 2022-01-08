@@ -6,6 +6,7 @@
 #ifndef BITCOIN_MINER_H
 #define BITCOIN_MINER_H
 
+#include <chainparams.h>
 #include <primitives/block.h>
 #include <txmempool.h>
 #include <validation.h>

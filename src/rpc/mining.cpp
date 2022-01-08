@@ -1035,19 +1035,6 @@ static RPCHelpMan submitblock()
         return "inconclusive";
     }
     
-    // Suspend the Validator if the block is not accepted
-    if (!accepted) {
-        std::vector<std::string>* rterror;
-        chainman.m_validatorman.m_vpool.suspendValidator(expectedVal, chainman.ActiveHeight(), rterror);
-        if (rterror.size() > 0) {
-            return rterror.at(0);
-        }
-        return "unaccepted-block"
-    }
-    
-    expectedVal->lastBlockHeight = chainman.ActiveHeight();
-    expectedVal->lastBlockTime = block.nTime;
-    
     return BIP22ValidationResult(sc->state);
 },
     };

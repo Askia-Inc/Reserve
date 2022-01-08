@@ -8,6 +8,8 @@
       </df>
       <df name=".tx">
       </df>
+      <df name="autom4te.cache">
+      </df>
       <df name="build-aux">
         <df name="m4">
         </df>
@@ -157,7 +159,15 @@
         </df>
       </df>
       <df name="src">
+        <df name=".deps">
+        </df>
+        <df name=".libs">
+        </df>
         <df name="bench">
+          <df name=".deps">
+          </df>
+          <df name=".libs">
+          </df>
           <df name="data">
           </df>
           <in>addrman.cpp</in>
@@ -197,10 +207,14 @@
           <in>wallet_balance.cpp</in>
         </df>
         <df name="common">
+          <df name=".deps">
+          </df>
           <in>bloom.cpp</in>
           <in>bloom.h</in>
         </df>
         <df name="compat">
+          <df name=".deps">
+          </df>
           <in>assumptions.h</in>
           <in>byteswap.h</in>
           <in>cpuid.h</in>
@@ -212,8 +226,11 @@
           <in>strnlen.cpp</in>
         </df>
         <df name="config">
+          <in>bitcoin-config.h</in>
         </df>
         <df name="consensus">
+          <df name=".deps">
+          </df>
           <in>amount.h</in>
           <in>consensus.h</in>
           <in>merkle.cpp</in>
@@ -232,6 +249,8 @@
             </df>
           </df>
           <df name="src">
+            <df name=".deps">
+            </df>
             <in>crc32c.cc</in>
             <in>crc32c_arm64.cc</in>
             <in>crc32c_arm64.h</in>
@@ -258,6 +277,8 @@
           </df>
         </df>
         <df name="crypto">
+          <df name=".deps">
+          </df>
           <df name="ctaes">
             <in>bench.c</in>
             <in>ctaes.c</in>
@@ -299,6 +320,8 @@
           <in>siphash.h</in>
         </df>
         <df name="index">
+          <df name=".deps">
+          </df>
           <in>base.cpp</in>
           <in>base.h</in>
           <in>blockfilterindex.cpp</in>
@@ -310,6 +333,8 @@
           <in>txindex.h</in>
         </df>
         <df name="init">
+          <df name=".deps">
+          </df>
           <in>bitcoin-gui.cpp</in>
           <in>bitcoin-node.cpp</in>
           <in>bitcoin-qt.cpp</in>
@@ -319,6 +344,8 @@
           <in>common.h</in>
         </df>
         <df name="interfaces">
+          <df name=".deps">
+          </df>
           <in>chain.h</in>
           <in>echo.cpp</in>
           <in>echo.h</in>
@@ -331,7 +358,11 @@
           <in>wallet.h</in>
         </df>
         <df name="ipc">
+          <df name=".deps">
+          </df>
           <df name="capnp">
+            <df name=".deps">
+            </df>
             <in>context.h</in>
             <in>init-types.h</in>
             <in>protocol.cpp</in>
@@ -353,6 +384,8 @@
           <df name="cmake">
           </df>
           <df name="db">
+            <df name=".deps">
+            </df>
             <in>autocompact_test.cc</in>
             <in>builder.cc</in>
             <in>builder.h</in>
@@ -402,6 +435,8 @@
           </df>
           <df name="helpers">
             <df name="memenv">
+              <df name=".deps">
+              </df>
               <in>memenv.cc</in>
               <in>memenv.h</in>
               <in>memenv_test.cc</in>
@@ -438,6 +473,8 @@
             <in>thread_annotations.h</in>
           </df>
           <df name="table">
+            <df name=".deps">
+            </df>
             <in>block.cc</in>
             <in>block.h</in>
             <in>block_builder.cc</in>
@@ -458,6 +495,8 @@
             <in>two_level_iterator.h</in>
           </df>
           <df name="util">
+            <df name=".deps">
+            </df>
             <in>arena.cc</in>
             <in>arena.h</in>
             <in>arena_test.cc</in>
@@ -508,6 +547,8 @@
           <in>timer.h</in>
         </df>
         <df name="minisketch">
+          <df name=".libs">
+          </df>
           <df name="build-aux">
             <df name="m4">
             </df>
@@ -521,7 +562,11 @@
             <in>minisketch.h</in>
           </df>
           <df name="src">
+            <df name=".deps">
+            </df>
             <df name="fields">
+              <df name=".deps">
+              </df>
               <in>clmul_1byte.cpp</in>
               <in>clmul_2bytes.cpp</in>
               <in>clmul_3bytes.cpp</in>
@@ -556,6 +601,8 @@
           </df>
         </df>
         <df name="node">
+          <df name=".deps">
+          </df>
           <in>blockstorage.cpp</in>
           <in>blockstorage.h</in>
           <in>coin.cpp</in>
@@ -573,7 +620,11 @@
           <in>ui_interface.h</in>
           <in>utxo_snapshot.h</in>
         </df>
+        <df name="obj">
+        </df>
         <df name="policy">
+          <df name=".deps">
+          </df>
           <in>feerate.cpp</in>
           <in>feerate.h</in>
           <in>fees.cpp</in>
@@ -588,12 +639,18 @@
           <in>settings.h</in>
         </df>
         <df name="primitives">
+          <df name=".deps">
+          </df>
           <in>block.cpp</in>
           <in>block.h</in>
           <in>transaction.cpp</in>
           <in>transaction.h</in>
         </df>
         <df name="qt">
+          <df name=".deps">
+          </df>
+          <df name=".libs">
+          </df>
           <df name="android">
             <df name="res">
               <df name="drawable-hdpi">
@@ -633,6 +690,10 @@
             </df>
           </df>
           <df name="test">
+            <df name=".deps">
+            </df>
+            <df name=".libs">
+            </df>
             <in>addressbooktests.cpp</in>
             <in>addressbooktests.h</in>
             <in>apptests.cpp</in>
@@ -828,6 +889,8 @@
           <in>winshutdownmonitor.h</in>
         </df>
         <df name="rpc">
+          <df name=".deps">
+          </df>
           <in>blockchain.cpp</in>
           <in>blockchain.h</in>
           <in>client.cpp</in>
@@ -851,6 +914,8 @@
           <in>util.h</in>
         </df>
         <df name="script">
+          <df name=".deps">
+          </df>
           <in>bitcoinconsensus.cpp</in>
           <in>bitcoinconsensus.h</in>
           <in>descriptor.cpp</in>
@@ -872,6 +937,10 @@
           <in>standard.h</in>
         </df>
         <df name="secp256k1">
+          <df name=".libs">
+          </df>
+          <df name="autom4te.cache">
+          </df>
           <df name="build-aux">
             <df name="m4">
             </df>
@@ -897,6 +966,8 @@
           <df name="sage">
           </df>
           <df name="src">
+            <df name=".deps">
+            </df>
             <df name="asm">
               <in>field_10x26_arm.s</in>
             </df>
@@ -954,6 +1025,7 @@
             <in>group_impl.h</in>
             <in>hash.h</in>
             <in>hash_impl.h</in>
+            <in>libsecp256k1-config.h</in>
             <in>modinv32.h</in>
             <in>modinv32_impl.h</in>
             <in>modinv64.h</in>
@@ -979,6 +1051,8 @@
           </df>
         </df>
         <df name="support">
+          <df name=".deps">
+          </df>
           <df name="allocators">
             <in>secure.h</in>
             <in>zeroafterfree.h</in>
@@ -990,9 +1064,17 @@
           <in>lockedpool.h</in>
         </df>
         <df name="test">
+          <df name=".deps">
+          </df>
+          <df name=".libs">
+          </df>
           <df name="data">
           </df>
           <df name="fuzz">
+            <df name=".deps">
+            </df>
+            <df name=".libs">
+            </df>
             <in>FuzzedDataProvider.h</in>
             <in>addition_overflow.cpp</in>
             <in>addrman.cpp</in>
@@ -1102,6 +1184,8 @@
             <in>versionbits.cpp</in>
           </df>
           <df name="util">
+            <df name=".deps">
+            </df>
             <in>blockfilter.cpp</in>
             <in>blockfilter.h</in>
             <in>chainstate.h</in>
@@ -1226,6 +1310,8 @@
             <in>univalue.h</in>
           </df>
           <df name="lib">
+            <df name=".deps">
+            </df>
             <in>univalue.cpp</in>
             <in>univalue_escapes.h</in>
             <in>univalue_get.cpp</in>
@@ -1236,6 +1322,10 @@
           <df name="pc">
           </df>
           <df name="test">
+            <df name=".deps">
+            </df>
+            <df name=".libs">
+            </df>
             <in>no_nul.cpp</in>
             <in>object.cpp</in>
             <in>test_json.cpp</in>
@@ -1243,6 +1333,8 @@
           </df>
         </df>
         <df name="util">
+          <df name=".deps">
+          </df>
           <in>asmap.cpp</in>
           <in>asmap.h</in>
           <in>bip32.cpp</in>
@@ -1302,9 +1394,17 @@
           <in>url.h</in>
           <in>vector.h</in>
         </df>
+        <df name="validator">
+        </df>
         <df name="wallet">
+          <df name=".deps">
+          </df>
           <df name="test">
+            <df name=".deps">
+            </df>
             <df name="fuzz">
+              <df name=".deps">
+              </df>
               <in>notifications.cpp</in>
             </df>
             <in>coinselector_tests.cpp</in>
@@ -1374,6 +1474,8 @@
           <in>walletutil.h</in>
         </df>
         <df name="zmq">
+          <df name=".deps">
+          </df>
           <in>zmqabstractnotifier.cpp</in>
           <in>zmqabstractnotifier.h</in>
           <in>zmqnotificationinterface.cpp</in>
@@ -1508,6 +1610,7 @@
         <in>signet.h</in>
         <in>span.h</in>
         <in>stakeparams.cpp</in>
+        <in>stakeparams.h</in>
         <in>stakepool.cpp</in>
         <in>stakepool.h</in>
         <in>streams.h</in>
@@ -1536,8 +1639,6 @@
         <in>validation.h</in>
         <in>validationinterface.cpp</in>
         <in>validationinterface.h</in>
-        <in>stakeparams.h</in>
-        <in>validator-tests.cpp</in>
         <in>validator.cpp</in>
         <in>validator.h</in>
         <in>version.h</in>

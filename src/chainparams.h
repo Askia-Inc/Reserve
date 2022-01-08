@@ -8,6 +8,7 @@
 
 #include <chainparamsbase.h>
 #include <consensus/params.h>
+#include <key.h>
 #include <netaddress.h>
 #include <primitives/block.h>
 #include <protocol.h>
@@ -17,11 +18,9 @@
 #include <string>
 #include <vector>
 
-#include "stakepool.h"
-
 const static std::string RESERVE_PUB_KEY = "HDOSL";
-const static std::string VALIDATOR_POOL_PUB_KEY = "HDKSD";
-const static std::string VALIDATOR_POOL_PRV_KEY = "KSLKDF";
+const static std::string STAKE_POOL_PUB_KEY = "HDKSD";
+const static std::string STAKE_POOL_PRV_KEY = "KSLKDF";
 
 typedef std::map<int, uint256> MapCheckpoints;
 
@@ -98,9 +97,7 @@ public:
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
     
-    unit256 GetReservePubKey() const { return RESERVE_PUB_KEY; }
-    uint256 GetStakePoolPubKey() const { return VALIDATOR_POOL_PUB_KEY; }
-    uint256 GetStakePoolPrvKey() const { return VALIDATOR_POOL_PRV_KEY; }
+    const CKey GetStakePoolKey() const { return GetConsensus().stakePoolKey; }
 
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */
@@ -126,50 +123,6 @@ public:
     const std::string& Bech32HRP() const { return bech32_hrp; }
     const std::vector<uint8_t>& FixedSeeds() const { return vFixedSeeds; }
     const CCheckpointData& Checkpoints() const { return checkpointData; }
-    Validator& GetExpectedValidator(int nHeight) 
-    {
-    
-        std::vector<std::string>* rterror;
-        Validator* v = m_vpool.retrieveNextValidator(rterror);
-        if (rterror.size() > 0) {
-            return nullptr;
-        }
-        return *v;
-    }
-    
-    bool AddValidator(Validator* v, int nHeight) {
-        std::vector<std::string>* rterror;
-        m_vpool.addValidator(v, nHeight, rterror);
-        if(rterror.size() > 0) {
-            return false;
-        }
-        return true;
-    }
-    
-    bool RemoveValidator(Validator* v, int nHeight) {
-        std::vector<std::stirng>* rterror;
-        m_vpool.removeValidator(v, nHeight, rterror);
-        if(rterror.size() > 0) {
-            return false;
-        }
-        return true;
-    }
-    
-    bool SuspendValidator(Validator* v, int nHeight) {
-        std::vector<std::stirng>* rterror;
-        m_vpool.suspendValidator(v, nHeight, rterror);
-        if(rterror.size() > 0) {
-            return false;
-        }
-        return true;
-    }
-    
-    bool ViableValidator() {
-        return m_vpool.viable();
-    }
-    
-    uint32_t GetLastValidationTime() {return m_vpool.GetLastValidationTime();}
-    void SetLastValidationTime(uint32_t t) {m_vpool.SetLastValidationTime(t);}
 
     //! Get allowed assumeutxo configuration.
     //! @see ChainstateManager
@@ -198,7 +151,6 @@ protected:
     CCheckpointData checkpointData;
     MapAssumeutxo m_assumeutxo_data;
     ChainTxData chainTxData;
-    StakePool m_vpool;
 };
 
 /**

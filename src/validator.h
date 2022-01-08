@@ -6,6 +6,7 @@
 #define RESERVE_VALIDATOR_H
 
 #include <vector>
+#include <consensus/amount.h>
 
 class Validator
 {
@@ -39,6 +40,8 @@ public:
     {
         return (scriptPubKey==val.scriptPubKey);
     }
+    
+    bool IsNew () { return lastBlockHeight < 0; }
 
 };
 #endif //RESERVE_VALIDATOR_H

@@ -4,6 +4,7 @@
 
 #include <index/coinstatsindex.h>
 #include <test/util/setup_common.h>
+#include <chainparams.h>
 #include <util/time.h>
 #include <validation.h>
 
