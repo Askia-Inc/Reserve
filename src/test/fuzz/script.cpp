@@ -99,8 +99,6 @@ FUZZ_TARGET_INIT(script, initialize_script)
     (void)Solver(script, solutions);
 
     (void)script.HasValidOps();
-    (void)script.IsPayToScriptHash();
-    (void)script.IsPayToWitnessScriptHash();
     (void)script.IsPushOnly();
     (void)script.GetSigOpCount(/* fAccurate= */ false);
 
@@ -134,7 +132,7 @@ FUZZ_TARGET_INIT(script, initialize_script)
         }
         const std::vector<std::string> random_string_vector = ConsumeRandomLengthStringVector(fuzzed_data_provider);
         const uint32_t u32{fuzzed_data_provider.ConsumeIntegral<uint32_t>()};
-        const uint32_t flags{u32 | SCRIPT_VERIFY_P2SH};
+        const uint32_t flags{u32};
         {
             CScriptWitness wit;
             for (const auto& s : random_string_vector) {

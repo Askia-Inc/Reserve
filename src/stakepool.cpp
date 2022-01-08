@@ -109,6 +109,7 @@ Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string
 }
 
 void StakePool::serialize() {
+    vData.clear();
     for (Validator& v : ValidatorPool) {
         std::vector<unsigned char> s = ToByteVector(v->scriptPubKey);
         vData.insert(vData.back(), s.front(), s.back());

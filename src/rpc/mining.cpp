@@ -649,7 +649,7 @@ static RPCHelpMan getblocktemplate()
             CBlock block;
             if (!DecodeHexBlk(block, dataval.get_str()))
                 throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block decode failed");
-
+            
             uint256 hash = block.GetHash();
             const CBlockIndex* pindex = chainman.m_blockman.LookupBlockIndex(hash);
             if (pindex) {
@@ -996,32 +996,6 @@ static RPCHelpMan submitblock()
     }
     
     ChainstateManager& chainman = EnsureAnyChainman(request.context);
-    // Compare block Schnoor signature with the public key we have for the expected Validator
-    Validator* expectedVal = Params().GetExpectedValidator();
-    // assert(expectedVal != nullptr);
-   
-    // Suspend original Validator if block received outside window
-    // Select the Validator that should be expected now
-    time_t current = time (0);
-    unit32_t cumulativeTimout = VALIDATOR_TIMEOUT;
-    if (expectedVal->lastBlockTime > 0) {
-        while (block.nTime - chainman.ActiveTip()->nTime > cumulativeTimeout) {
-            Params().SuspendValidator(expectedVal, chainman.ActiveHeight());
-            
-            if (!Params().ViableValidator()) {
-                return "validators-not-viable";
-            }
-            
-            expectedVal = Params().GetExpectedValidator(chainman.ActiveHeight());
-            cumulativeTimeout += VALIDATOR_TIMEOUT
-        }
-    }
-    CScriptCheck check();
-    // Get the ScriptSig from the second request parameter
-    CScript scriptSig = ParseScript(request.params[1].get_str());
-    if (!check.CheckValidatorSig(scriptSig, expectedVal->scriptPubKey, block)) {
-        return "unexpected-validator";
-    }
     
     if (block.vtx.empty() || !block.vtx[0]->IsCoinBase()) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block does not start with a coinbase");

@@ -89,7 +89,6 @@ CScriptWitness ScriptWitnessFromJSON(const UniValue& univalue)
 }
 
 const std::map<std::string, unsigned int> FLAG_NAMES = {
-    {std::string("P2SH"), (unsigned int)SCRIPT_VERIFY_P2SH},
     {std::string("DERSIG"), (unsigned int)SCRIPT_VERIFY_DERSIG},
     {std::string("NULLDUMMY"), (unsigned int)SCRIPT_VERIFY_NULLDUMMY},
     {std::string("CHECKLOCKTIMEVERIFY"), (unsigned int)SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY},
@@ -104,7 +103,6 @@ std::vector<unsigned int> AllFlags()
 
     for (unsigned int i = 0; i < 128; ++i) {
         unsigned int flag = 0;
-        if (i & 1) flag |= SCRIPT_VERIFY_P2SH;
         if (i & 2) flag |= SCRIPT_VERIFY_DERSIG;
         if (i & 4) flag |= SCRIPT_VERIFY_NULLDUMMY;
         if (i & 8) flag |= SCRIPT_VERIFY_CHECKLOCKTIMEVERIFY;
@@ -112,8 +110,7 @@ std::vector<unsigned int> AllFlags()
         if (i & 32) flag |= SCRIPT_VERIFY_WITNESS;
         if (i & 64) flag |= SCRIPT_VERIFY_TAPROOT;
 
-        // SCRIPT_VERIFY_WITNESS requires SCRIPT_VERIFY_P2SH
-        if (flag & SCRIPT_VERIFY_WITNESS && !(flag & SCRIPT_VERIFY_P2SH)) continue;
+        if (flag & SCRIPT_VERIFY_WITNESS) continue;
         // SCRIPT_VERIFY_TAPROOT requires SCRIPT_VERIFY_WITNESS
         if (flag & SCRIPT_VERIFY_TAPROOT && !(flag & SCRIPT_VERIFY_WITNESS)) continue;
 

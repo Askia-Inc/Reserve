@@ -302,8 +302,8 @@ public:
 
     bool operator()();
     bool CheckValidatorSig();
-    bool CheckFromReserve();
-    bool CheckFromStakePool();
+    bool CheckFromReserve(const CChainParams& m_params);
+    bool CheckFromStakePool(const CChainParams& m_params);
 
     void swap(CScriptCheck &check) {
         std::swap(ptxTo, check.ptxTo);
