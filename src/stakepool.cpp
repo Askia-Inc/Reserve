@@ -102,7 +102,7 @@ Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string
         }
     }
 
-    if (!selectedValidator) {
+    if (selectedValidator == nullptr) {
         rterror->push_back("No validator found");
     }
 

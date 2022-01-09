@@ -20,11 +20,12 @@ private:
     std::vector<Validator*> validatorPool;
     std::unordered_map<std::string , Validator*> validatorPoolScript;
     std::vector<uint8_t> vData;
-    uint32_t lastValidationTime;
 
     void sort(int nHeight);
 
 public:
+    uint32_t lastValidationTime;
+    
     StakePool();
     bool addValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
     bool removeValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);

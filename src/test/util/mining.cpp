@@ -48,10 +48,10 @@ std::vector<std::shared_ptr<CBlock>> CreateBlockChain(size_t total_height, const
         block.nBits = params.GenesisBlock().nBits;
         block.nNonce = 0;
 
-        while (!CheckProofOfWork(block.GetHash(), block.nBits, params.GetConsensus())) {
-            ++block.nNonce;
-            assert(block.nNonce);
-        }
+//        while (!CheckProofOfWork(block.GetHash(), block.nBits, params.GetConsensus())) {
+//            ++block.nNonce;
+//            assert(block.nNonce);
+//        }
     }
     return ret;
 }
@@ -60,10 +60,10 @@ CTxIn MineBlock(const NodeContext& node, const CScript& coinbase_scriptPubKey)
 {
     auto block = PrepareBlock(node, coinbase_scriptPubKey);
 
-    while (!CheckProofOfWork(block->GetHash(), block->nBits, Params().GetConsensus())) {
-        ++block->nNonce;
-        assert(block->nNonce);
-    }
+//    while (!CheckProofOfWork(block->GetHash(), block->nBits, Params().GetConsensus())) {
+//        ++block->nNonce;
+//        assert(block->nNonce);
+//    }
 
     bool processed{Assert(node.chainman)->ProcessNewBlock(Params(), block, true, nullptr)};
     assert(processed);
