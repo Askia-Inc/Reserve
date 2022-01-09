@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
+# Copyright (c) 2019-2021 The Bitcoin Core developers
+# Distributed under the MIT software license, see the accompanying
+# file COPYING or http://www.opensource.org/licenses/mit-license.php.
 export LC_ALL=C
 set -e -o pipefail
 export TZ=UTC
@@ -106,7 +109,7 @@ case "$HOST" in
         #    2. kernel-header-related search paths (not applicable to mingw-w64 hosts)
         export CROSS_C_INCLUDE_PATH="${CROSS_GCC_LIB}/include:${CROSS_GCC_LIB}/include-fixed:${CROSS_GLIBC}/include"
         export CROSS_CPLUS_INCLUDE_PATH="${CROSS_GCC}/include/c++:${CROSS_GCC}/include/c++/${HOST}:${CROSS_GCC}/include/c++/backward:${CROSS_C_INCLUDE_PATH}"
-        export CROSS_LIBRARY_PATH="${CROSS_GCC_LIB_STORE}/lib:${CROSS_GCC}/${HOST}/lib:${CROSS_GCC_LIB}:${CROSS_GLIBC}/lib"
+        export CROSS_LIBRARY_PATH="${CROSS_GCC_LIB_STORE}/lib:${CROSS_GCC_LIB}:${CROSS_GLIBC}/lib"
         ;;
     *darwin*)
         # The CROSS toolchain for darwin uses the SDK and ignores environment variables.
@@ -123,7 +126,7 @@ case "$HOST" in
 
         export CROSS_C_INCLUDE_PATH="${CROSS_GCC_LIB}/include:${CROSS_GCC_LIB}/include-fixed:${CROSS_GLIBC}/include:${CROSS_KERNEL}/include"
         export CROSS_CPLUS_INCLUDE_PATH="${CROSS_GCC}/include/c++:${CROSS_GCC}/include/c++/${HOST}:${CROSS_GCC}/include/c++/backward:${CROSS_C_INCLUDE_PATH}"
-        export CROSS_LIBRARY_PATH="${CROSS_GCC_LIB_STORE}/lib:${CROSS_GCC}/${HOST}/lib:${CROSS_GCC_LIB}:${CROSS_GLIBC}/lib:${CROSS_GLIBC_STATIC}/lib"
+        export CROSS_LIBRARY_PATH="${CROSS_GCC_LIB_STORE}/lib:${CROSS_GCC_LIB}:${CROSS_GLIBC}/lib:${CROSS_GLIBC_STATIC}/lib"
         ;;
     *)
         exit 1 ;;
@@ -147,7 +150,7 @@ case "$HOST" in
         #
         # After the native packages in depends are built, the ld wrapper should
         # no longer affect our build, as clang would instead reach for
-        # x86_64-apple-darwin19-ld from cctools
+        # x86_64-apple-darwin-ld from cctools
         ;;
     *) export GUIX_LD_WRAPPER_DISABLE_RPATH=yes ;;
 esac
@@ -238,9 +241,6 @@ mkdir -p "$OUTDIR"
 
 # CONFIGFLAGS
 CONFIGFLAGS="--enable-reduce-exports --disable-bench --disable-gui-tests --disable-fuzz-binary"
-case "$HOST" in
-    *linux*) CONFIGFLAGS+=" --disable-threadlocal" ;;
-esac
 
 # CFLAGS
 HOST_CFLAGS="-O2 -g"
@@ -263,7 +263,7 @@ case "$HOST" in
     *mingw*)  HOST_LDFLAGS="-Wl,--no-insert-timestamp" ;;
 esac
 
-# Using --no-tls-get-addr-optimize retains compatibility with glibc 2.17, by
+# Using --no-tls-get-addr-optimize retains compatibility with glibc 2.18, by
 # avoiding a PowerPC64 optimisation available in glibc 2.22 and later.
 # https://sourceware.org/binutils/docs-2.35/ld/PowerPC64-ELF64.html
 case "$HOST" in
@@ -423,8 +423,8 @@ mkdir -p "$DISTSRC"
                 find "${DISTNAME}" -print0 \
                     | sort --zero-terminated \
                     | tar --create --no-recursion --mode='u+rw,go+r-w,a+X' --null --files-from=- \
-                    | gzip -9n > "${OUTDIR}/${DISTNAME}-${HOST//x86_64-apple-darwin19/osx64}.tar.gz" \
-                    || ( rm -f "${OUTDIR}/${DISTNAME}-${HOST//x86_64-apple-darwin19/osx64}.tar.gz" && exit 1 )
+                    | gzip -9n > "${OUTDIR}/${DISTNAME}-${HOST//x86_64-apple-darwin/osx64}.tar.gz" \
+                    || ( rm -f "${OUTDIR}/${DISTNAME}-${HOST//x86_64-apple-darwin/osx64}.tar.gz" && exit 1 )
                 ;;
         esac
     )  # $DISTSRC/installed

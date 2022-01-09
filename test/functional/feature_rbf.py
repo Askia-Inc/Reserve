@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Test the RBF code."""
@@ -538,7 +538,7 @@ class ReplaceByFeeTest(BitcoinTestFramework):
         assert_equal(json0["vin"][0]["sequence"], 4294967293)
         assert_equal(json1["vin"][0]["sequence"], 4294967295)
 
-        if self.is_wallet_compiled():
+        if self.is_specified_wallet_compiled():
             self.init_wallet(node=0)
             rawtx2 = self.nodes[0].createrawtransaction([], outs)
             frawtx2a = self.nodes[0].fundrawtransaction(rawtx2, {"replaceable": True})

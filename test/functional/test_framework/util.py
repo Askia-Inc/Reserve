@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Helpful routines for regression testing."""
@@ -269,6 +269,7 @@ def wait_until_helper(predicate, *, attempts=float('inf'), timeout=float('inf'),
         raise AssertionError("Predicate {} not true after {} seconds".format(predicate_source, timeout))
     raise RuntimeError('Unreachable')
 
+
 def sha256sum_file(filename):
     h = hashlib.sha256()
     with open(filename, 'rb') as f:
@@ -378,10 +379,10 @@ def write_config(config_path, *, n, chain, extra_config="", disable_autoconnect=
         f.write("fixedseeds=0\n")
         f.write("listenonion=0\n")
         # Increase peertimeout to avoid disconnects while using mocktime.
-        # peertimeout is measured in wall clock time, so setting it to the
-        # duration of the longest test is sufficient. It can be overridden in
-        # tests.
-        f.write("peertimeout=999999\n")
+        # peertimeout is measured in mock time, so setting it large enough to
+        # cover any duration in mock time is sufficient. It can be overridden
+        # in tests.
+        f.write("peertimeout=999999999\n")
         f.write("printtoconsole=0\n")
         f.write("upnp=0\n")
         f.write("natpmp=0\n")
@@ -443,6 +444,12 @@ def softfork_active(node, key):
 def set_node_times(nodes, t):
     for node in nodes:
         node.setmocktime(t)
+
+
+def check_node_connections(*, node, num_in, num_out):
+    info = node.getnetworkinfo()
+    assert_equal(info["connections_in"], num_in)
+    assert_equal(info["connections_out"], num_out)
 
 
 # Transaction/Block functions

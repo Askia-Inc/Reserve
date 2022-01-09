@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2020 The Bitcoin Core developers
+# Copyright (c) 2020-2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 '''
@@ -44,7 +44,7 @@ class TestSymbolChecks(unittest.TestCase):
             self.skipTest("test not available for RISC-V")
 
         # nextup was introduced in GLIBC 2.24, so is newer than our supported
-        # glibc (2.17), and available in our release build environment (2.24).
+        # glibc (2.18), and available in our release build environment (2.24).
         with open(source, 'w', encoding="utf8") as f:
             f.write('''
                 #define _GNU_SOURCE

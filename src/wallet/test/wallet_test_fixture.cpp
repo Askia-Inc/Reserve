@@ -1,4 +1,4 @@
-// Copyright (c) 2016-2020 The Bitcoin Core developers
+// Copyright (c) 2016-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +12,7 @@ WalletTestingSetup::WalletTestingSetup(const std::string& chainName)
 {
     m_wallet.LoadWallet();
     m_chain_notifications_handler = m_node.chain->handleNotifications({ &m_wallet, [](CWallet*) {} });
-    m_wallet_client->registerRpcs();
+    m_wallet_loader->registerRpcs();
 }
 
 WalletTestingSetup::~WalletTestingSetup()

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-# Copyright (c) 2014-2020 The Bitcoin Core developers
+# Copyright (c) 2014-2021 The Bitcoin Core developers
 # Distributed under the MIT software license, see the accompanying
 # file COPYING or http://www.opensource.org/licenses/mit-license.php.
 """Base class for RPC testing."""
@@ -101,7 +101,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         self.supports_cli = True
         self.bind_to_localhost_only = True
         self.parse_args()
-        self.disable_syscall_sandbox = self.options.nosandbox
+        self.disable_syscall_sandbox = self.options.nosandbox or self.options.valgrind
         self.default_wallet_name = "default_wallet" if self.options.descriptors else ""
         self.wallet_data_filename = "wallet.dat"
         # Optional list of wallet names that can be set in set_test_params to
@@ -188,7 +188,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
         parser.add_argument("--perf", dest="perf", default=False, action="store_true",
                             help="profile running nodes with perf for the duration of the test")
         parser.add_argument("--valgrind", dest="valgrind", default=False, action="store_true",
-                            help="run nodes under the valgrind memory error detector: expect at least a ~10x slowdown, valgrind 3.14 or later required")
+                            help="run nodes under the valgrind memory error detector: expect at least a ~10x slowdown. valgrind 3.14 or later required. Forces --nosandbox.")
         parser.add_argument("--randomseed", type=int,
                             help="set a random seed for deterministically reproducing a previous test run")
         parser.add_argument('--timeout-factor', dest="timeout_factor", type=float, default=1.0, help='adjust test timeouts by a factor. Setting it to 0 disables all timeouts')
@@ -431,7 +431,7 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
             n = self.nodes[node]
             if wallet_name is not None:
                 n.createwallet(wallet_name=wallet_name, descriptors=self.options.descriptors, load_on_startup=True)
-            n.importprivkey(privkey=n.get_deterministic_priv_key().key, label='coinbase')
+            n.importprivkey(privkey=n.get_deterministic_priv_key().key, label='coinbase', rescan=True)
 
     def run_test(self):
         """Tests must override this method to define test logic"""
@@ -885,6 +885,14 @@ class BitcoinTestFramework(metaclass=BitcoinTestMetaClass):
     def is_wallet_compiled(self):
         """Checks whether the wallet module was compiled."""
         return self.config["components"].getboolean("ENABLE_WALLET")
+
+    def is_specified_wallet_compiled(self):
+        """Checks whether wallet support for the specified type
+           (legacy or descriptor wallet) was compiled."""
+        if self.options.descriptors:
+            return self.is_sqlite_compiled()
+        else:
+            return self.is_bdb_compiled()
 
     def is_wallet_tool_compiled(self):
         """Checks whether bitcoin-wallet was compiled."""

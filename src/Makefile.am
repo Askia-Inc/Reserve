@@ -8,8 +8,8 @@ print-%: FORCE
 
 DIST_SUBDIRS = secp256k1
 
-AM_LDFLAGS = $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS) $(GPROF_LDFLAGS) $(SANITIZER_LDFLAGS)
-AM_CXXFLAGS = $(DEBUG_CXXFLAGS) $(HARDENED_CXXFLAGS) $(WARN_CXXFLAGS) $(NOWARN_CXXFLAGS) $(ERROR_CXXFLAGS) $(GPROF_CXXFLAGS) $(SANITIZER_CXXFLAGS)
+AM_LDFLAGS = $(LIBTOOL_LDFLAGS) $(HARDENED_LDFLAGS) $(GPROF_LDFLAGS) $(SANITIZER_LDFLAGS) $(LTO_LDFLAGS)
+AM_CXXFLAGS = $(DEBUG_CXXFLAGS) $(HARDENED_CXXFLAGS) $(WARN_CXXFLAGS) $(NOWARN_CXXFLAGS) $(ERROR_CXXFLAGS) $(GPROF_CXXFLAGS) $(SANITIZER_CXXFLAGS) $(LTO_CXXFLAGS)
 AM_CPPFLAGS = $(DEBUG_CPPFLAGS) $(HARDENED_CPPFLAGS)
 AM_LIBTOOLFLAGS = --preserve-dup-deps
 PTHREAD_FLAGS = $(PTHREAD_CFLAGS) $(PTHREAD_LIBS)
@@ -17,7 +17,7 @@ EXTRA_LIBRARIES =
 
 BITCOIN_INCLUDES=-I$(builddir) -I$(srcdir)/$(MINISKETCH_INCLUDE_DIR_INT) -I$(srcdir)/secp256k1/include -I$(srcdir)/$(UNIVALUE_INCLUDE_DIR_INT) $(BDB_CPPFLAGS) $(BOOST_CPPFLAGS) $(LEVELDB_CPPFLAGS)
 
-LIBBITCOIN_SERVER=libbitcoin_server.a
+LIBBITCOIN_NODE=libbitcoin_node.a
 LIBBITCOIN_COMMON=libbitcoin_common.a
 LIBBITCOIN_CONSENSUS=libbitcoin_consensus.a
 LIBBITCOIN_CLI=libbitcoin_cli.a
@@ -61,7 +61,7 @@ EXTRA_LIBRARIES += \
   $(LIBBITCOIN_UTIL) \
   $(LIBBITCOIN_COMMON) \
   $(LIBBITCOIN_CONSENSUS) \
-  $(LIBBITCOIN_SERVER) \
+  $(LIBBITCOIN_NODE) \
   $(LIBBITCOIN_CLI) \
   $(LIBBITCOIN_IPC) \
   $(LIBBITCOIN_WALLET) \
@@ -166,8 +166,6 @@ BITCOIN_CORE_H = \
   mapport.h \
   memusage.h \
   merkleblock.h \
-  miner.h \
-  minisketchwrapper.h \
   net.h \
   net_permissions.h \
   net_processing.h \
@@ -176,9 +174,13 @@ BITCOIN_CORE_H = \
   netbase.h \
   netmessagemaker.h \
   node/blockstorage.h \
+  node/caches.h \
+  node/chainstate.h \
   node/coin.h \
   node/coinstats.h \
   node/context.h \
+  node/miner.h \
+  node/minisketchwrapper.h \
   node/psbt.h \
   node/transaction.h \
   node/ui_interface.h \
@@ -200,12 +202,12 @@ BITCOIN_CORE_H = \
   rpc/blockchain.h \
   rpc/client.h \
   rpc/mining.h \
-  rpc/net.h \
   rpc/protocol.h \
   rpc/rawtransaction_util.h \
   rpc/register.h \
   rpc/request.h \
   rpc/server.h \
+  rpc/server_util.h \
   rpc/util.h \
   scheduler.h \
   script/descriptor.h \
@@ -246,6 +248,8 @@ BITCOIN_CORE_H = \
   util/macros.h \
   util/message.h \
   util/moneystr.h \
+  util/overflow.h \
+  util/overloaded.h \
   util/rbf.h \
   util/readwritefile.h \
   util/serfloat.h \
@@ -284,7 +288,8 @@ BITCOIN_CORE_H = \
   wallet/ismine.h \
   wallet/load.h \
   wallet/receive.h \
-  wallet/rpcwallet.h \
+  wallet/rpc/util.h \
+  wallet/rpc/wallet.h \
   wallet/salvage.h \
   wallet/scriptpubkeyman.h \
   wallet/spend.h \
@@ -315,9 +320,9 @@ ipc/capnp/libbitcoin_ipc_a-ipc.$(OBJEXT): $(libbitcoin_ipc_mpgen_input:=.h)
 # Contains code accessing mempool and chain state that is meant to be separated
 # from wallet and gui code (see node/README.md). Shared code should go in
 # libbitcoin_common or libbitcoin_util libraries, instead.
-libbitcoin_server_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(NATPMP_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
-libbitcoin_server_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
-libbitcoin_server_a_SOURCES = \
+libbitcoin_node_a_CPPFLAGS = $(AM_CPPFLAGS) $(BITCOIN_INCLUDES) $(MINIUPNPC_CPPFLAGS) $(NATPMP_CPPFLAGS) $(EVENT_CFLAGS) $(EVENT_PTHREADS_CFLAGS)
+libbitcoin_node_a_CXXFLAGS = $(AM_CXXFLAGS) $(PIE_FLAGS)
+libbitcoin_node_a_SOURCES = \
   addrdb.cpp \
   addrman.cpp \
   banman.cpp \
@@ -337,15 +342,17 @@ libbitcoin_server_a_SOURCES = \
   index/txindex.cpp \
   init.cpp \
   mapport.cpp \
-  miner.cpp \
-  minisketchwrapper.cpp \
   net.cpp \
   net_processing.cpp \
   node/blockstorage.cpp \
+  node/caches.cpp \
+  node/chainstate.cpp \
   node/coin.cpp \
   node/coinstats.cpp \
   node/context.cpp \
   node/interfaces.cpp \
+  node/miner.cpp \
+  node/minisketchwrapper.cpp \
   node/psbt.cpp \
   node/transaction.cpp \
   node/ui_interface.cpp \
@@ -362,6 +369,7 @@ libbitcoin_server_a_SOURCES = \
   rpc/net.cpp \
   rpc/rawtransaction.cpp \
   rpc/server.cpp \
+  rpc/server_util.cpp \
   script/sigcache.cpp \
   shutdown.cpp \
   signet.cpp \
@@ -380,10 +388,10 @@ libbitcoin_server_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 if ENABLE_WALLET
-libbitcoin_server_a_SOURCES += wallet/init.cpp
+libbitcoin_node_a_SOURCES += wallet/init.cpp
 endif
 if !ENABLE_WALLET
-libbitcoin_server_a_SOURCES += dummywallet.cpp
+libbitcoin_node_a_SOURCES += dummywallet.cpp
 endif
 
 if ENABLE_ZMQ
@@ -414,8 +422,15 @@ libbitcoin_wallet_a_SOURCES = \
   wallet/interfaces.cpp \
   wallet/load.cpp \
   wallet/receive.cpp \
-  wallet/rpcdump.cpp \
-  wallet/rpcwallet.cpp \
+  wallet/rpc/addresses.cpp \
+  wallet/rpc/backup.cpp \
+  wallet/rpc/coins.cpp \
+  wallet/rpc/encrypt.cpp \
+  wallet/rpc/spend.cpp \
+  wallet/rpc/signmessage.cpp \
+  wallet/rpc/transactions.cpp \
+  wallet/rpc/util.cpp \
+  wallet/rpc/wallet.cpp \
   wallet/scriptpubkeyman.cpp \
   wallet/spend.cpp \
   wallet/transaction.cpp \
@@ -661,13 +676,13 @@ bitcoind_SOURCES = $(bitcoin_daemon_sources) init/bitcoind.cpp
 bitcoind_CPPFLAGS = $(bitcoin_bin_cppflags)
 bitcoind_CXXFLAGS = $(bitcoin_bin_cxxflags)
 bitcoind_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoind_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd)
+bitcoind_LDADD = $(LIBBITCOIN_NODE) $(bitcoin_bin_ldadd)
 
 bitcoin_node_SOURCES = $(bitcoin_daemon_sources) init/bitcoin-node.cpp
 bitcoin_node_CPPFLAGS = $(bitcoin_bin_cppflags)
 bitcoin_node_CXXFLAGS = $(bitcoin_bin_cxxflags)
 bitcoin_node_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoin_node_LDADD = $(LIBBITCOIN_SERVER) $(bitcoin_bin_ldadd) $(LIBBITCOIN_IPC) $(LIBMULTIPROCESS_LIBS)
+bitcoin_node_LDADD = $(LIBBITCOIN_NODE) $(bitcoin_bin_ldadd) $(LIBBITCOIN_IPC) $(LIBMULTIPROCESS_LIBS)
 
 # bitcoin-cli binary #
 bitcoin_cli_SOURCES = bitcoin-cli.cpp
@@ -715,7 +730,18 @@ bitcoin_wallet_SOURCES += init/bitcoin-wallet.cpp
 bitcoin_wallet_CPPFLAGS = $(bitcoin_bin_cppflags)
 bitcoin_wallet_CXXFLAGS = $(bitcoin_bin_cxxflags)
 bitcoin_wallet_LDFLAGS = $(bitcoin_bin_ldflags)
-bitcoin_wallet_LDADD = $(LIBBITCOIN_WALLET_TOOL) $(bitcoin_bin_ldadd)
+bitcoin_wallet_LDADD = \
+  $(LIBBITCOIN_WALLET_TOOL) \
+  $(LIBBITCOIN_WALLET) \
+  $(LIBBITCOIN_COMMON) \
+  $(LIBBITCOIN_UTIL) \
+  $(LIBUNIVALUE) \
+  $(LIBBITCOIN_CONSENSUS) \
+  $(LIBBITCOIN_CRYPTO) \
+  $(LIBSECP256K1) \
+  $(BOOST_LIBS) \
+  $(BDB_LIBS) \
+  $(SQLITE_LIBS)
 
 if TARGET_WINDOWS
 bitcoin_wallet_SOURCES += bitcoin-wallet-res.rc

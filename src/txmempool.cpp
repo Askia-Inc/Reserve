@@ -1,10 +1,11 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <txmempool.h>
 
+#include <chain.h>
 #include <coins.h>
 #include <consensus/consensus.h>
 #include <consensus/tx_verify.h>
@@ -16,7 +17,6 @@
 #include <util/moneystr.h>
 #include <util/system.h>
 #include <util/time.h>
-#include <validation.h>
 #include <validationinterface.h>
 
 #include <cmath>
@@ -64,15 +64,22 @@ private:
     int64_t feeDelta;
 };
 
-struct update_lock_points
+bool TestLockPointValidity(CChain& active_chain, const LockPoints& lp)
 {
-    explicit update_lock_points(const LockPoints& _lp) : lp(_lp) { }
+    AssertLockHeld(cs_main);
+    // If there are relative lock times then the maxInputBlock will be set
+    // If there are no relative lock times, the LockPoints don't depend on the chain
+    if (lp.maxInputBlock) {
+        // Check whether active_chain is an extension of the block at which the LockPoints
+        // calculation was valid.  If not LockPoints are no longer valid
+        if (!active_chain.Contains(lp.maxInputBlock)) {
+            return false;
+        }
+    }
 
-    void operator() (CTxMemPoolEntry &e) { e.UpdateLockPoints(lp); }
-
-private:
-    const LockPoints& lp;
-};
+    // LockPoints still valid
+    return true;
+}
 
 CTxMemPoolEntry::CTxMemPoolEntry(const CTransactionRef& tx, CAmount fee,
                                  int64_t time, unsigned int entry_height,
@@ -616,44 +623,24 @@ void CTxMemPool::removeRecursive(const CTransaction &origTx, MemPoolRemovalReaso
         RemoveStaged(setAllRemoves, false, reason);
 }
 
-void CTxMemPool::removeForReorg(CChainState& active_chainstate, int flags)
+void CTxMemPool::removeForReorg(CChain& chain, std::function<bool(txiter)> check_final_and_mature)
 {
     // Remove transactions spending a coinbase which are now immature and no-longer-final transactions
     AssertLockHeld(cs);
+    AssertLockHeld(::cs_main);
+
     setEntries txToRemove;
     for (indexed_transaction_set::const_iterator it = mapTx.begin(); it != mapTx.end(); it++) {
-        const CTransaction& tx = it->GetTx();
-        LockPoints lp = it->GetLockPoints();
-        bool validLP =  TestLockPointValidity(active_chainstate.m_chain, &lp);
-        CCoinsViewMemPool view_mempool(&active_chainstate.CoinsTip(), *this);
-        if (!CheckFinalTx(active_chainstate.m_chain.Tip(), tx, flags)
-            || !CheckSequenceLocks(active_chainstate.m_chain.Tip(), view_mempool, tx, flags, &lp, validLP)) {
-            // Note if CheckSequenceLocks fails the LockPoints may still be invalid
-            // So it's critical that we remove the tx and not depend on the LockPoints.
-            txToRemove.insert(it);
-        } else if (it->GetSpendsCoinbase()) {
-            for (const CTxIn& txin : tx.vin) {
-                indexed_transaction_set::const_iterator it2 = mapTx.find(txin.prevout.hash);
-                if (it2 != mapTx.end())
-                    continue;
-                const Coin &coin = active_chainstate.CoinsTip().AccessCoin(txin.prevout);
-                if (m_check_ratio != 0) assert(!coin.IsSpent());
-                unsigned int nMemPoolHeight = active_chainstate.m_chain.Tip()->nHeight + 1;
-                if (coin.IsSpent() || (coin.IsCoinBase() && ((signed long)nMemPoolHeight) - coin.nHeight < COINBASE_MATURITY)) {
-                    txToRemove.insert(it);
-                    break;
-                }
-            }
-        }
-        if (!validLP) {
-            mapTx.modify(it, update_lock_points(lp));
-        }
+        if (check_final_and_mature(it)) txToRemove.insert(it);
     }
     setEntries setAllRemoves;
     for (txiter it : txToRemove) {
         CalculateDescendants(it, setAllRemoves);
     }
     RemoveStaged(setAllRemoves, false, MemPoolRemovalReason::REORG);
+    for (indexed_transaction_set::const_iterator it = mapTx.begin(); it != mapTx.end(); it++) {
+        assert(TestLockPointValidity(chain, it->GetLockPoints()));
+    }
 }
 
 void CTxMemPool::removeConflicts(const CTransaction &tx)

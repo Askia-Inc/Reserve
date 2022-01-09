@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -65,6 +65,8 @@ Q_IMPORT_PLUGIN(QWindowsVistaStylePlugin);
 #elif defined(QT_QPA_PLATFORM_COCOA)
 Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
 Q_IMPORT_PLUGIN(QMacStylePlugin);
+#elif defined(QT_QPA_PLATFORM_ANDROID)
+Q_IMPORT_PLUGIN(QAndroidPlatformIntegrationPlugin)
 #endif
 #endif
 
@@ -273,7 +275,6 @@ void BitcoinApplication::createSplashScreen(const NetworkStyle *networkStyle)
     // We don't hold a direct pointer to the splash screen after creation, but the splash
     // screen will take care of deleting itself when finish() happens.
     m_splash->show();
-    connect(this, &BitcoinApplication::requestedInitialize, m_splash, &SplashScreen::handleLoadWallet);
     connect(this, &BitcoinApplication::splashFinished, m_splash, &SplashScreen::finish);
     connect(this, &BitcoinApplication::requestedShutdown, m_splash, &QWidget::close);
 }

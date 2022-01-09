@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -30,6 +30,23 @@ enum SafeChars
 };
 
 /**
+ * Used by ParseByteUnits()
+ * Lowercase base 1000
+ * Uppercase base 1024
+*/
+enum class ByteUnit : uint64_t {
+    NOOP = 1ULL,
+    k = 1000ULL,
+    K = 1024ULL,
+    m = 1'000'000ULL,
+    M = 1ULL << 20,
+    g = 1'000'000'000ULL,
+    G = 1ULL << 30,
+    t = 1'000'000'000'000ULL,
+    T = 1ULL << 40,
+};
+
+/**
 * Remove unsafe chars. Safe chars chosen to allow simple messages/URLs/email
 * addresses, but avoid anything even possibly remotely dangerous like & or >
 * @param[in] str    The string to sanitize
@@ -50,7 +67,8 @@ bool IsHexNumber(const std::string& str);
 std::vector<unsigned char> DecodeBase64(const char* p, bool* pf_invalid = nullptr);
 std::string DecodeBase64(const std::string& str, bool* pf_invalid = nullptr);
 std::string EncodeBase64(Span<const unsigned char> input);
-std::string EncodeBase64(const std::string& str);
+inline std::string EncodeBase64(Span<const std::byte> input) { return EncodeBase64(MakeUCharSpan(input)); }
+inline std::string EncodeBase64(const std::string& str) { return EncodeBase64(MakeUCharSpan(str)); }
 std::vector<unsigned char> DecodeBase32(const char* p, bool* pf_invalid = nullptr);
 std::string DecodeBase32(const std::string& str, bool* pf_invalid = nullptr);
 
@@ -189,6 +207,7 @@ std::optional<T> ToIntegral(const std::string& str)
  */
 std::string HexStr(const Span<const uint8_t> s);
 inline std::string HexStr(const Span<const char> s) { return HexStr(MakeUCharSpan(s)); }
+inline std::string HexStr(const Span<const std::byte> s) { return HexStr(MakeUCharSpan(s)); }
 
 /**
  * Format a paragraph of text to a fixed width, adding spaces for
@@ -207,7 +226,7 @@ bool TimingResistantEqual(const T& a, const T& b)
     if (b.size() == 0) return a.size() == 0;
     size_t accumulator = a.size() ^ b.size();
     for (size_t i = 0; i < a.size(); i++)
-        accumulator |= a[i] ^ b[i%b.size()];
+        accumulator |= size_t(a[i] ^ b[i%b.size()]);
     return accumulator == 0;
 }
 
@@ -304,5 +323,18 @@ std::string ToUpper(const std::string& str);
  * @returns         string with the first letter capitalized.
  */
 std::string Capitalize(std::string str);
+
+/**
+ * Parse a string with suffix unit [k|K|m|M|g|G|t|T].
+ * Must be a whole integer, fractions not allowed (0.5t), no whitespace or +-
+ * Lowercase units are 1000 base. Uppercase units are 1024 base.
+ * Examples: 2m,27M,19g,41T
+ *
+ * @param[in] str                  the string to convert into bytes
+ * @param[in] default_multiplier   if no unit is found in str use this unit
+ * @returns                        optional uint64_t bytes from str or nullopt
+ *                                 if ToIntegral is false, str is empty, trailing whitespace or overflow
+ */
+std::optional<uint64_t> ParseByteUnits(const std::string& str, ByteUnit default_multiplier);
 
 #endif // BITCOIN_UTIL_STRENCODINGS_H

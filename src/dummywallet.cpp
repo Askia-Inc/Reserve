@@ -1,4 +1,4 @@
-// Copyright (c) 2018-2020 The Bitcoin Core developers
+// Copyright (c) 2018-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -12,7 +12,7 @@ namespace interfaces {
 class Chain;
 class Handler;
 class Wallet;
-class WalletClient;
+class WalletLoader;
 }
 
 class DummyWalletInit : public WalletInitInterface {
@@ -64,7 +64,7 @@ std::unique_ptr<Wallet> MakeWallet(const std::shared_ptr<CWallet>& wallet)
     throw std::logic_error("Wallet function called in non-wallet build.");
 }
 
-std::unique_ptr<WalletClient> MakeWalletClient(Chain& chain, ArgsManager& args)
+std::unique_ptr<WalletLoader> MakeWalletLoader(Chain& chain, ArgsManager& args)
 {
     throw std::logic_error("Wallet function called in non-wallet build.");
 }

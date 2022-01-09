@@ -1,4 +1,4 @@
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -34,6 +34,8 @@ Q_IMPORT_PLUGIN(QXcbIntegrationPlugin);
 Q_IMPORT_PLUGIN(QWindowsIntegrationPlugin);
 #elif defined(QT_QPA_PLATFORM_COCOA)
 Q_IMPORT_PLUGIN(QCocoaIntegrationPlugin);
+#elif defined(QT_QPA_PLATFORM_ANDROID)
+Q_IMPORT_PLUGIN(QAndroidPlatformIntegrationPlugin)
 #endif
 #endif
 
@@ -69,7 +71,7 @@ int main(int argc, char* argv[])
     #if defined(WIN32)
         if (getenv("QT_QPA_PLATFORM") == nullptr) _putenv_s("QT_QPA_PLATFORM", "minimal");
     #else
-        setenv("QT_QPA_PLATFORM", "minimal", /* overwrite */ 0);
+        setenv("QT_QPA_PLATFORM", "minimal", 0 /* overwrite */);
     #endif
 
     // Don't remove this, it's needed to access

@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2019 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Copyright (c) 2017 The Zcash developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
@@ -130,7 +130,7 @@ public:
 
     /**
      * Create a BIP-340 Schnorr signature, for the xonly-pubkey corresponding to *this,
-     * optionally tweaked by *merkle_root. Additional nonce entropy can be provided through
+     * optionally tweaked by *merkle_root. Additional nonce entropy is provided through
      * aux.
      *
      * merkle_root is used to optionally perform tweaking of the private key, as specified
@@ -143,7 +143,7 @@ public:
      *                              (this is used for key path spending, with specific
      *                              Merkle root of the script tree).
      */
-    bool SignSchnorr(const uint256& hash, Span<unsigned char> sig, const uint256* merkle_root = nullptr, const uint256* aux = nullptr) const;
+    bool SignSchnorr(const uint256& hash, Span<unsigned char> sig, const uint256* merkle_root, const uint256& aux) const;
 
     //! Derive BIP32 child key.
     bool Derive(CKey& keyChild, ChainCode &ccChild, unsigned int nChild, const ChainCode& cc) const;

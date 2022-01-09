@@ -1,4 +1,4 @@
-// Copyright (c) 2011-2020 The Bitcoin Core developers
+// Copyright (c) 2011-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -20,6 +20,7 @@
 #include <script/script.h>
 #include <script/standard.h>
 #include <util/system.h>
+#include <util/time.h>
 
 #ifdef WIN32
 #ifndef NOMINMAX
@@ -705,8 +706,9 @@ QString ConnectionTypeToQString(ConnectionType conn_type, bool prepend_direction
     assert(false);
 }
 
-QString formatDurationStr(int secs)
+QString formatDurationStr(std::chrono::seconds dur)
 {
+    const auto secs = count_seconds(dur);
     QStringList strList;
     int days = secs / 86400;
     int hours = (secs % 86400) / 3600;
