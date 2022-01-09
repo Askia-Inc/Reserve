@@ -525,7 +525,6 @@ public:
      */
     unsigned int GetSigOpCount(const CScript& scriptSig) const;
 
-    bool IsPayToScriptHash() const;
     bool IsPayToWitnessScriptHash() const;
     bool IsWitnessProgram(int& version, std::vector<unsigned char>& program) const;
 
@@ -551,6 +550,14 @@ public:
         // The default prevector::clear() does not release memory
         CScriptBase::clear();
         shrink_to_fit();
+    }
+    
+    std::string ToString() const {
+        std::stringstream rtr;
+        for (unsigned int i = 0; i < size(); i++) {
+            rtr << (unsigned char) (*this)[i];
+        }
+        return rtr.str();
     }
 };
 

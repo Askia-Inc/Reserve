@@ -6,6 +6,9 @@
 #ifndef BITCOIN_CONSENSUS_PARAMS_H
 #define BITCOIN_CONSENSUS_PARAMS_H
 
+#include <key.h>
+#include <script/script.h>
+
 #include <uint256.h>
 #include <limits>
 
@@ -107,6 +110,14 @@ struct Params {
     uint256 nMinimumChainWork;
     /** By default assume that the signatures in ancestors of this block are valid */
     uint256 defaultAssumeValid;
+    /** The number of seconds in a non-leap year */
+    uint32_t nSecondsInNonLeapYear;
+    /** The number seconds in a leap year */
+    uint32_t nSecondsInLeapYear;
+    
+    CScript reserveOutputScript;
+    CScript stakePoolOutputScript;
+    CKey stakePoolKey;
 
     /**
      * If true, witness commitments contain a payload equal to a Bitcoin Script solution

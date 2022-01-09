@@ -6,6 +6,7 @@
 #ifndef BITCOIN_MINER_H
 #define BITCOIN_MINER_H
 
+#include <chainparams.h>
 #include <primitives/block.h>
 #include <txmempool.h>
 #include <validation.h>
@@ -143,6 +144,7 @@ private:
 
     // Chain context for the block
     int nHeight;
+    uint32_t nTime;
     int64_t nLockTimeCutoff;
     const CChainParams& chainparams;
     const CTxMemPool& m_mempool;

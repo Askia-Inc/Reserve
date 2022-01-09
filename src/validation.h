@@ -13,11 +13,13 @@
 #include <arith_uint256.h>
 #include <attributes.h>
 #include <chain.h>
+#include <chainparams.h>
 #include <consensus/amount.h>
 #include <fs.h>
 #include <policy/feerate.h>
 #include <policy/packages.h>
 #include <script/script_error.h>
+#include <stakepool.h>
 #include <sync.h>
 #include <txdb.h>
 #include <txmempool.h> // For CTxMemPool::cs
@@ -133,7 +135,13 @@ void StartScriptCheckWorkerThreads(int threads_num);
 /** Stop all of the script checking worker threads */
 void StopScriptCheckWorkerThreads();
 
-CAmount GetBlockSubsidy(int nHeight, const Consensus::Params& consensusParams);
+CAmount GetBlockSubsidy(int nHeight, uint32_t nTime, CChainParams& params);
+
+// Checks if the first OutPoint is to the Reserve
+bool ToReserve(const CTxOut& out, const CChainParams& params);
+    
+// Checks if the first OutPoint is to the Stake Pool
+bool ToStakePool(const CTxOut& out, const CChainParams& params);
 
 bool AbortNode(BlockValidationState& state, const std::string& strMessage, const bilingual_str& userMessage = bilingual_str{});
 
@@ -301,6 +309,9 @@ public:
         m_tx_out(outIn), ptxTo(&txToIn), nIn(nInIn), nFlags(nFlagsIn), cacheStore(cacheIn), error(SCRIPT_ERR_UNKNOWN_ERROR), txdata(txdataIn) { }
 
     bool operator()();
+    bool CheckValidatorSig(CScript scriptPubKey);
+    bool CheckFromReserve(const CChainParams& m_params);
+    bool CheckFromStakePool(const CChainParams& m_params);
 
     void swap(CScriptCheck &check) {
         std::swap(ptxTo, check.ptxTo);
@@ -321,7 +332,8 @@ void InitScriptExecutionCache();
 /** Functions for validating blocks and updating the block tree */
 
 /** Context-independent validity checks */
-bool CheckBlock(const CBlock& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
+// fCheckPOW set to false by default. Should be removed
+bool CheckBlock(const CBlock& block, BlockValidationState& state, const Consensus::Params& consensusParams, bool fCheckPOW = false, bool fCheckMerkleRoot = true);
 
 /** Check a block is completely valid from start to finish (only works on top of our current best block) */
 bool TestBlockValidity(BlockValidationState& state,
@@ -585,6 +597,10 @@ protected:
 
     //! Manages the UTXO set, which is a reflection of the contents of `m_chain`.
     std::unique_ptr<CoinsViews> m_coins_views;
+    
+    // Pool of all validators for each chainstate
+    // It is assumed different chains will have a different pool
+    StakePool m_stakepool;
 
 public:
     //! Reference to a BlockManager instance which itself is shared across all

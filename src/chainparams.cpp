@@ -9,9 +9,13 @@
 #include <consensus/merkle.h>
 #include <deploymentinfo.h>
 #include <hash.h> // for signet block challenge hash
+#include <key.h>
+#include <key_io.h>
 #include <util/system.h>
+#include <uint256.h>
 
 #include <assert.h>
+#include <string>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
@@ -94,6 +98,8 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000001fa4663bbbe19f82de910280");
         consensus.defaultAssumeValid = uint256S("0x00000000000000000008a89e854d57e5667df88f1cdef6fde2fbca1de5b639ad"); // 691719
 
+        consensus.nSecondsInLeapYear = 60 * 60 * 24 * 366;
+        consensus.nSecondsInNonLeapYear = 60 * 60 * 24 * 365;
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -108,25 +114,35 @@ public:
         m_assumed_blockchain_size = 420;
         m_assumed_chain_state_size = 6;
 
-        genesis = CreateGenesisBlock(1231006505, 2083236893, 0x1d00ffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+        // assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
+        // assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         // Note that of those which support the service bits prefix, most only support a subset of
         // possible options.
         // This is fine at runtime as we'll fall back to using them as an addrfetch if they don't support the
         // service bits we want, but we should get them updated to support all service bits wanted by any
         // release ASAP to avoid it where possible.
-        vSeeds.emplace_back("seed.bitcoin.sipa.be."); // Pieter Wuille, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("dnsseed.bluematt.me."); // Matt Corallo, only supports x9
-        vSeeds.emplace_back("dnsseed.bitcoin.dashjr.org."); // Luke Dashjr
-        vSeeds.emplace_back("seed.bitcoinstats.com."); // Christian Decker, supports x1 - xf
-        vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // Jonas Schnelli, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("seed.btc.petertodd.org."); // Peter Todd, only supports x1, x5, x9, and xd
-        vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // Sjors Provoost
-        vSeeds.emplace_back("dnsseed.emzy.de."); // Stephan Oeste
-        vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // Jason Maurice
+//        vSeeds.emplace_back("seed.pub.as");
+//        vSeeds.emplace_back("seed.blackhabu.com");
+//        vSeeds.emplace_back("seed.waranka.com"); 
+//        vSeeds.emplace_back("seed.fatawci");        
+//        vSeeds.emplace_back("seed.bitcoin.sipa.be."); // Pieter Wuille, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("dnsseed.bluematt.me."); // Matt Corallo, only supports x9
+//        vSeeds.emplace_back("dnsseed.bitcoin.dashjr.org."); // Luke Dashjr
+//        vSeeds.emplace_back("seed.bitcoinstats.com."); // Christian Decker, supports x1 - xf
+//        vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // Jonas Schnelli, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("seed.btc.petertodd.org."); // Peter Todd, only supports x1, x5, x9, and xd
+//        vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // Sjors Provoost
+//        vSeeds.emplace_back("dnsseed.emzy.de."); // Stephan Oeste
+//        vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // Jason Maurice
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -222,18 +238,28 @@ public:
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
 
-        genesis = CreateGenesisBlock(1296688602, 414098458, 0x1d00ffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+//        assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
+//        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
         // nodes with support for servicebits filtering should be at the top
-        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
-        vSeeds.emplace_back("seed.tbtc.petertodd.org.");
-        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
-        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
+//        vSeeds.emplace_back("testnet-seed.pub.as");
+//        vSeeds.emplace_back("testnet-seed.blackhabu.com");
+//        vSeeds.emplace_back("testnet-seed.waranka.com"); 
+//        vSeeds.emplace_back("testnet-seed.fatawci");   //        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
+//        vSeeds.emplace_back("seed.tbtc.petertodd.org.");
+//        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
+//        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -358,10 +384,17 @@ public:
         nDefaultPort = 38333;
         nPruneAfterHeight = 1000;
 
-        genesis = CreateGenesisBlock(1598918400, 52613770, 0x1e0377ae, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+//        assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
+//        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         vFixedSeeds.clear();
 
@@ -431,10 +464,17 @@ public:
 
         UpdateActivationParametersFromArgs(args);
 
-        genesis = CreateGenesisBlock(1296688602, 2, 0x207fffff, 1, 50 * COIN);
+        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+        
+        // Computer double SHA 256 hash of Reserve public key
+        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
+        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
+        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
+        
+        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
-        assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
-        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
+//        assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
+//        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
         vFixedSeeds.clear(); //!< Regtest mode doesn't have any fixed seeds.
         vSeeds.clear();

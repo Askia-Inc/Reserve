@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include <string.h>
 
+#include <sstream>
 #include <algorithm>
 #include <cstddef>
 #include <type_traits>

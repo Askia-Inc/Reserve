@@ -24,10 +24,14 @@
 #include <rpc/server.h>
 #include <rpc/util.h>
 #include <script/descriptor.h>
+#include <script/interpreter.h>
 #include <script/script.h>
+#include <script/script_error.h>
 #include <script/signingprovider.h>
 #include <shutdown.h>
+#include <stakeparams.h>
 #include <txmempool.h>
+#include <uint256.h>
 #include <univalue.h>
 #include <util/fees.h>
 #include <util/strencodings.h>
@@ -36,10 +40,15 @@
 #include <util/translation.h>
 #include <validation.h>
 #include <validationinterface.h>
+#include <validator.h>
 #include <warnings.h>
 
 #include <memory>
 #include <stdint.h>
+#include <vector>
+#include <time.h>
+
+typedef std::vector<unsigned char> valtype;
 
 /**
  * Return average network hashes per second based on the last 'lookup' blocks,
@@ -120,7 +129,7 @@ static bool GenerateBlock(ChainstateManager& chainman, CBlock& block, uint64_t& 
 
     CChainParams chainparams(Params());
 
-    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !CheckProofOfWork(block.GetHash(), block.nBits, chainparams.GetConsensus()) && !ShutdownRequested()) {
+    while (max_tries > 0 && block.nNonce < std::numeric_limits<uint32_t>::max() && !ShutdownRequested()) {
         ++block.nNonce;
         --max_tries;
     }
@@ -628,6 +637,9 @@ static RPCHelpMan getblocktemplate()
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid mode");
         lpval = find_value(oparam, "longpollid");
 
+        // Submitting a mined block!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+        // Code to submit new block with potentially invalid POW
+        // Context-dependent, may be suitable for Validator check
         if (strMode == "proposal")
         {
             const UniValue& dataval = find_value(oparam, "data");
@@ -637,7 +649,7 @@ static RPCHelpMan getblocktemplate()
             CBlock block;
             if (!DecodeHexBlk(block, dataval.get_str()))
                 throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block decode failed");
-
+            
             uint256 hash = block.GetHash();
             const CBlockIndex* pindex = chainman.m_blockman.LookupBlockIndex(hash);
             if (pindex) {
@@ -954,6 +966,9 @@ protected:
     }
 };
 
+// Likely add Validator check here
+// Method to submit potentially new block
+// Context-dependent, may be suitable for Validator check
 static RPCHelpMan submitblock()
 {
     // We allow 2 arguments for compliance with BIP22. Argument 2 is ignored.
@@ -979,12 +994,13 @@ static RPCHelpMan submitblock()
     if (!DecodeHexBlk(block, request.params[0].get_str())) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block decode failed");
     }
-
+    
+    ChainstateManager& chainman = EnsureAnyChainman(request.context);
+    
     if (block.vtx.empty() || !block.vtx[0]->IsCoinBase()) {
         throw JSONRPCError(RPC_DESERIALIZATION_ERROR, "Block does not start with a coinbase");
     }
 
-    ChainstateManager& chainman = EnsureAnyChainman(request.context);
     uint256 hash = block.GetHash();
     {
         LOCK(cs_main);
@@ -1018,6 +1034,7 @@ static RPCHelpMan submitblock()
     if (!sc->found) {
         return "inconclusive";
     }
+    
     return BIP22ValidationResult(sc->state);
 },
     };
