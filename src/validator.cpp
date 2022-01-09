@@ -9,6 +9,8 @@
 #include <script/script.h>
 #include <stakeparams.h>
 
+#include <math.h>
+
 Validator::Validator() {
     originalStake = 0;
     adjustedStake = 0;
@@ -20,16 +22,16 @@ Validator::Validator() {
 }
 
 void Validator::addStake(CAmount add) {
-    this->stake += add;
+    this->originalStake += add;
 }
 
-void Validator::calculateProbability(int totalStake) {
+void Validator::calculateProbability(CAmount totalStake) {
     probability = (adjustedStake * 1.0) / totalStake;
 }
 
 void Validator::adjustStake(int nHeight) {
     int elapsedBlocks = nHeight - lastBlockHeight;
-    adjustedStake = originalStake + originalStake * exp((1 + STAKE_INTEREST_RATE), elapsedBlocks);
+    adjustedStake = originalStake + originalStake * pow((1 + STAKE_INTEREST_RATE), elapsedBlocks);
 }
 
 

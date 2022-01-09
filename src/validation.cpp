@@ -1212,7 +1212,7 @@ CChainState::CChainState(
       m_blockman(blockman),
       m_chainman(chainman),
       m_from_snapshot_blockhash(from_snapshot_blockhash),
-      m_stakepool(StakePool()){}
+      m_stakepool(StakePool()) {}
 
 void CChainState::InitCoinsDB(
     size_t cache_size_bytes,

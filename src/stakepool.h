@@ -11,14 +11,14 @@
 #include <string>
 #include <script/script.h>
 
-#ifndef RESERVE_POOL_H
-#define RESERVE_POOL_H
+#ifndef RESERVE_STAKE_POOL_H
+#define RESERVE_STAKE_POOL_H
 
 class StakePool {
 private:
     CAmount totalStake;
-    std::vector<Validator> validatorPool;
-    std::unordered_map<std::string , Validator> validatorPoolScript;
+    std::vector<Validator*> validatorPool;
+    std::unordered_map<std::string , Validator*> validatorPoolScript;
     std::vector<uint8_t> vData;
     uint32_t lastValidationTime;
 

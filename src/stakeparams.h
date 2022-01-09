@@ -2,8 +2,8 @@
 // Created by James on 10/31/2021.
 //
 
-#ifndef RESERVE_VALIDATOR_PARAMS_H
-#define RESERVE_VALIDATOR_PARAMS_H
+#ifndef RESERVE_STAKE_PARAMS_H
+#define RESERVE_STAKE_PARAMS_H
 
 static const double STAKE_INTEREST_RATE = 0.02;
 static const int VALIDATOR_TIMEOUT = 10;

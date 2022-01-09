@@ -231,6 +231,8 @@
         <df name="consensus">
           <df name=".deps">
           </df>
+          <df name=".libs">
+          </df>
           <in>amount.h</in>
           <in>consensus.h</in>
           <in>merkle.cpp</in>
@@ -278,6 +280,8 @@
         </df>
         <df name="crypto">
           <df name=".deps">
+          </df>
+          <df name=".libs">
           </df>
           <df name="ctaes">
             <in>bench.c</in>
@@ -641,6 +645,8 @@
         <df name="primitives">
           <df name=".deps">
           </df>
+          <df name=".libs">
+          </df>
           <in>block.cpp</in>
           <in>block.h</in>
           <in>transaction.cpp</in>
@@ -916,6 +922,8 @@
         <df name="script">
           <df name=".deps">
           </df>
+          <df name=".libs">
+          </df>
           <in>bitcoinconsensus.cpp</in>
           <in>bitcoinconsensus.h</in>
           <in>descriptor.cpp</in>
@@ -1052,6 +1060,8 @@
         </df>
         <df name="support">
           <df name=".deps">
+          </df>
+          <df name=".libs">
           </df>
           <df name="allocators">
             <in>secure.h</in>
@@ -1312,6 +1322,8 @@
           <df name="lib">
             <df name=".deps">
             </df>
+            <df name=".libs">
+            </df>
             <in>univalue.cpp</in>
             <in>univalue_escapes.h</in>
             <in>univalue_get.cpp</in>
@@ -1334,6 +1346,8 @@
         </df>
         <df name="util">
           <df name=".deps">
+          </df>
+          <df name=".libs">
           </df>
           <in>asmap.cpp</in>
           <in>asmap.h</in>

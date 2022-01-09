@@ -619,6 +619,8 @@
         <in>scheduler.cpp</in>
         <in>shutdown.cpp</in>
         <in>signet.cpp</in>
+        <in>stakeparams.cpp</in>
+        <in>stakepool.cpp</in>
         <in>sync.cpp</in>
         <in>threadinterrupt.cpp</in>
         <in>timedata.cpp</in>
@@ -630,6 +632,7 @@
         <in>uint256.cpp</in>
         <in>validation.cpp</in>
         <in>validationinterface.cpp</in>
+        <in>validator.cpp</in>
         <in>versionbits.cpp</in>
         <in>warnings.cpp</in>
       </df>
@@ -759,6 +762,14 @@
       </folder>
       <folder path="0/src/consensus">
         <ccTool>
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -898,6 +909,14 @@
       </folder>
       <folder path="0/src/primitives">
         <ccTool>
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
           <preprocessorList>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
@@ -1410,39 +1429,15 @@
         </ccTool>
       </item>
       <item path="src/consensus/merkle.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
-          <incDir>
-            <pElem>src/obj</pElem>
-            <pElem>src/secp256k1/include</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
-          </preprocessorList>
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/consensus/tx_check.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
-          <incDir>
-            <pElem>src/obj</pElem>
-            <pElem>src/secp256k1/include</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
-          </preprocessorList>
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/consensus/tx_verify.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="5">
-          <incDir>
-            <pElem>src/minisketch/include</pElem>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
         </ccTool>
       </item>
       <item path="src/core_read.cpp" ex="false" tool="1" flavor2="11">
@@ -1794,14 +1789,16 @@
         </ccTool>
       </item>
       <item path="src/hash.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="5">
           <incDir>
-            <pElem>src/obj</pElem>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
@@ -2508,27 +2505,11 @@
         </ccTool>
       </item>
       <item path="src/primitives/block.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
-          <incDir>
-            <pElem>src/obj</pElem>
-            <pElem>src/secp256k1/include</pElem>
-          </incDir>
-          <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
-          </preprocessorList>
+        <ccTool flags="5">
         </ccTool>
       </item>
       <item path="src/primitives/transaction.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="5">
-          <incDir>
-            <pElem>src/minisketch/include</pElem>
-            <pElem>src/secp256k1/include</pElem>
-            <pElem>src/univalue/include</pElem>
-            <pElem>/usr/include</pElem>
-            <pElem>src/leveldb/include</pElem>
-            <pElem>src/leveldb/helpers/memenv</pElem>
-          </incDir>
         </ccTool>
       </item>
       <item path="src/protocol.cpp" ex="false" tool="1" flavor2="11">
@@ -2562,14 +2543,16 @@
         </ccTool>
       </item>
       <item path="src/pubkey.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="5">
           <incDir>
-            <pElem>src/obj</pElem>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
           <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
             <Elem>_FORTIFY_SOURCE=2</Elem>
           </preprocessorList>
         </ccTool>
@@ -3557,15 +3540,15 @@
         </ccTool>
       </item>
       <item path="src/script/bitcoinconsensus.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="5">
           <incDir>
-            <pElem>src/obj</pElem>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/script/descriptor.cpp" ex="false" tool="1" flavor2="11">
@@ -3593,15 +3576,15 @@
         </ccTool>
       </item>
       <item path="src/script/script.cpp" ex="false" tool="1" flavor2="11">
-        <ccTool flags="3">
+        <ccTool flags="5">
           <incDir>
-            <pElem>src/obj</pElem>
+            <pElem>src/minisketch/include</pElem>
             <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
           </incDir>
-          <preprocessorList>
-            <Elem>BUILD_BITCOIN_INTERNAL</Elem>
-            <Elem>PIC</Elem>
-          </preprocessorList>
         </ccTool>
       </item>
       <item path="src/script/script_error.cpp" ex="false" tool="1" flavor2="11">
@@ -3694,6 +3677,36 @@
         </ccTool>
       </item>
       <item path="src/signet.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/stakeparams.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/stakepool.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="5">
           <incDir>
             <pElem>src/minisketch/include</pElem>
@@ -5389,6 +5402,21 @@
         </ccTool>
       </item>
       <item path="src/validationinterface.cpp" ex="false" tool="1" flavor2="11">
+        <ccTool flags="5">
+          <incDir>
+            <pElem>src/minisketch/include</pElem>
+            <pElem>src/secp256k1/include</pElem>
+            <pElem>src/univalue/include</pElem>
+            <pElem>/usr/include</pElem>
+            <pElem>src/leveldb/include</pElem>
+            <pElem>src/leveldb/helpers/memenv</pElem>
+          </incDir>
+          <preprocessorList>
+            <Elem>_FORTIFY_SOURCE=2</Elem>
+          </preprocessorList>
+        </ccTool>
+      </item>
+      <item path="src/validator.cpp" ex="false" tool="1" flavor2="11">
         <ccTool flags="5">
           <incDir>
             <pElem>src/minisketch/include</pElem>

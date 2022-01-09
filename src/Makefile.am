@@ -373,9 +373,9 @@ libbitcoin_server_a_SOURCES = \
   txrequest.cpp \
   validation.cpp \
   validationinterface.cpp \
-  stakeparams.h \
-  stakepool.h \
-  validator.h \
+  stakeparams.cpp \
+  stakepool.cpp \
+  validator.cpp \
   versionbits.cpp \
   $(BITCOIN_CORE_H)
 

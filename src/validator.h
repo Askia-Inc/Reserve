@@ -7,6 +7,7 @@
 
 #include <vector>
 #include <consensus/amount.h>
+#include <script/script.h>
 
 class Validator
 {

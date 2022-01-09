@@ -551,6 +551,14 @@ public:
         CScriptBase::clear();
         shrink_to_fit();
     }
+    
+    std::string ToString() const {
+        std::stringstream rtr;
+        for (unsigned int i = 0; i < size(); i++) {
+            rtr << (unsigned char) (*this)[i];
+        }
+        return rtr.str();
+    }
 };
 
 struct CScriptWitness

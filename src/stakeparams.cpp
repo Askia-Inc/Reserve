@@ -7,10 +7,4 @@
 
 StakeParams::StakeParams() {
     stakeInterestRate = 0.02;
-
-    int len = sizeof(maxInt)/sizeof(maxInt[0]);
-
-    for (int i = 0; i < len; i++) {
-        maxInt[i] = UINT32_MAX;
-    }
 }
