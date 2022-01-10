@@ -148,10 +148,3 @@ db4/
 
 osx_volname
 dist/
-
-/guix-build-*
-nbproject/configurations.xml
-nbproject/configurations.xml
-nbproject/private/configurations.xml
-nbproject/private/private.xml
-nbproject/project.xml
