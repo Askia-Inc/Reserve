@@ -2165,11 +2165,8 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     if (fJustCheck)
         return true;
 
-    if (!m_blockman.WriteUndoDataForBlock(blockundo, state, pindex, m_params)) {
-        return false;
-
     if (block.GetHash() != m_params.GetConsensus().hashGenesisBlock) {
-        if (!WriteUndoDataForBlock(blockundo, state, pindex, m_params)) {
+        if (!m_blockman.WriteUndoDataForBlock(blockundo, state, pindex, m_params)) {
             return false;
         }
     }
