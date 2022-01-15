@@ -7,7 +7,6 @@
 #include <logging.h>
 #include <util/system.h>
 
-namespace wallet {
 fs::path GetWalletDir()
 {
     fs::path path;
@@ -43,4 +42,3 @@ WalletFeature GetClosestWalletFeature(int version)
     }
     return static_cast<WalletFeature>(0);
 }
-} // namespace wallet

@@ -281,7 +281,7 @@ void LoadFont(const QString& file_name)
 
 QString getDefaultDataDirectory()
 {
-    return PathToQString(GetDefaultDataDir());
+    return boostPathToQString(GetDefaultDataDir());
 }
 
 QString getSaveFileName(QWidget *parent, const QString &caption, const QString &dir,
@@ -418,7 +418,7 @@ void openDebugLogfile()
 
     /* Open debug.log with the associated application */
     if (fs::exists(pathDebug))
-        QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathDebug)));
+        QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathDebug)));
 }
 
 bool openBitcoinConf()
@@ -434,11 +434,11 @@ bool openBitcoinConf()
     configFile.close();
 
     /* Open bitcoin.conf with the associated application */
-    bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(PathToQString(pathConfig)));
+    bool res = QDesktopServices::openUrl(QUrl::fromLocalFile(boostPathToQString(pathConfig)));
 #ifdef Q_OS_MAC
     // Workaround for macOS-specific behavior; see #15409.
     if (!res) {
-        res = QProcess::startDetached("/usr/bin/open", QStringList{"-t", PathToQString(pathConfig)});
+        res = QProcess::startDetached("/usr/bin/open", QStringList{"-t", boostPathToQString(pathConfig)});
     }
 #endif
 
@@ -652,12 +652,12 @@ void setClipboard(const QString& str)
     }
 }
 
-fs::path QStringToPath(const QString &path)
+fs::path qstringToBoostPath(const QString &path)
 {
     return fs::u8path(path.toStdString());
 }
 
-QString PathToQString(const fs::path &path)
+QString boostPathToQString(const fs::path &path)
 {
     return QString::fromStdString(path.u8string());
 }

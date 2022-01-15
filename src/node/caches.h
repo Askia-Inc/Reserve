@@ -10,7 +10,6 @@
 
 class ArgsManager;
 
-namespace node {
 struct CacheSizes {
     int64_t block_tree_db;
     int64_t coins_db;
@@ -19,6 +18,5 @@ struct CacheSizes {
     int64_t filter_index;
 };
 CacheSizes CalculateCacheSizes(const ArgsManager& args, size_t n_indexes = 0);
-} // namespace node
 
 #endif // BITCOIN_NODE_CACHES_H

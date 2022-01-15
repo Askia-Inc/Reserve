@@ -31,7 +31,6 @@
 
 using interfaces::FoundBlock;
 
-namespace wallet {
 std::string static EncodeDumpString(const std::string &str) {
     std::stringstream ret;
     for (const unsigned char c : str) {
@@ -1888,7 +1887,7 @@ RPCHelpMan restorewallet()
     bilingual_str error;
     std::vector<bilingual_str> warnings;
 
-    const std::shared_ptr<CWallet> wallet = RestoreWallet(context, backup_file, wallet_name, load_on_start, status, error, warnings);
+    const std::shared_ptr<CWallet> wallet = RestoreWallet(context, fs::PathToString(backup_file), wallet_name, load_on_start, status, error, warnings);
 
     HandleWalletError(wallet, status, error);
 
@@ -1901,4 +1900,3 @@ RPCHelpMan restorewallet()
 },
     };
 }
-} // namespace wallet

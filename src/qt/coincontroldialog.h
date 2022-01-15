@@ -19,9 +19,7 @@
 class PlatformStyle;
 class WalletModel;
 
-namespace wallet {
 class CCoinControl;
-} // namespace wallet
 
 namespace Ui {
     class CoinControlDialog;
@@ -44,11 +42,11 @@ class CoinControlDialog : public QDialog
     Q_OBJECT
 
 public:
-    explicit CoinControlDialog(wallet::CCoinControl& coin_control, WalletModel* model, const PlatformStyle *platformStyle, QWidget *parent = nullptr);
+    explicit CoinControlDialog(CCoinControl& coin_control, WalletModel* model, const PlatformStyle *platformStyle, QWidget *parent = nullptr);
     ~CoinControlDialog();
 
     // static because also called from sendcoinsdialog
-    static void updateLabels(wallet::CCoinControl& m_coin_control, WalletModel*, QDialog*);
+    static void updateLabels(CCoinControl& m_coin_control, WalletModel*, QDialog*);
 
     static QList<CAmount> payAmounts;
     static bool fSubtractFeeFromAmount;
@@ -58,7 +56,7 @@ protected:
 
 private:
     Ui::CoinControlDialog *ui;
-    wallet::CCoinControl& m_coin_control;
+    CCoinControl& m_coin_control;
     WalletModel *model;
     int sortColumn;
     Qt::SortOrder sortOrder;

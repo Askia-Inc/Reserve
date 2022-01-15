@@ -10,8 +10,6 @@
 #include <sqlite3.h>
 
 struct bilingual_str;
-
-namespace wallet {
 class SQLiteDatabase;
 
 /** RAII class that provides access to a WalletDatabase */
@@ -118,6 +116,5 @@ public:
 std::unique_ptr<SQLiteDatabase> MakeSQLiteDatabase(const fs::path& path, const DatabaseOptions& options, DatabaseStatus& status, bilingual_str& error);
 
 std::string SQLiteDatabaseVersion();
-} // namespace wallet
 
 #endif // BITCOIN_WALLET_SQLITE_H

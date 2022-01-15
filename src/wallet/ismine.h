@@ -12,10 +12,8 @@
 #include <cstdint>
 #include <type_traits>
 
-class CScript;
-
-namespace wallet {
 class CWallet;
+class CScript;
 
 /**
  * IsMine() return codes, which depend on ScriptPubKeyMan implementation.
@@ -68,6 +66,5 @@ struct CachableAmount
         m_value[filter] = value;
     }
 };
-} // namespace wallet
 
 #endif // BITCOIN_WALLET_ISMINE_H

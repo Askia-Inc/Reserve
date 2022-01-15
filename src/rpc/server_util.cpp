@@ -15,8 +15,6 @@
 
 #include <any>
 
-using node::NodeContext;
-
 NodeContext& EnsureAnyNodeContext(const std::any& context)
 {
     auto node_context = util::AnyPtr<NodeContext>(context);

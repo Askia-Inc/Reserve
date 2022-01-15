@@ -29,7 +29,6 @@ namespace Consensus {
 struct Params;
 }
 
-namespace node {
 static constexpr bool DEFAULT_STOPAFTERBLOCKIMPORT{false};
 
 /** The pre-allocation chunk size for blk?????.dat files (since 0.8) */
@@ -186,6 +185,5 @@ bool ReadRawBlockFromDisk(std::vector<uint8_t>& block, const CBlockIndex* pindex
 bool UndoReadFromDisk(CBlockUndo& blockundo, const CBlockIndex* pindex);
 
 void ThreadImport(ChainstateManager& chainman, std::vector<fs::path> vImportFiles, const ArgsManager& args);
-} // namespace node
 
 #endif // BITCOIN_NODE_BLOCKSTORAGE_H

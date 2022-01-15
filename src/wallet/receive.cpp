@@ -8,7 +8,6 @@
 #include <wallet/transaction.h>
 #include <wallet/wallet.h>
 
-namespace wallet {
 isminetype InputIsMine(const CWallet& wallet, const CTxIn &txin)
 {
     AssertLockHeld(wallet.cs_wallet);
@@ -474,4 +473,3 @@ std::set< std::set<CTxDestination> > GetAddressGroupings(const CWallet& wallet)
 
     return ret;
 }
-} // namespace wallet

@@ -20,8 +20,6 @@
 
 #include <boost/test/unit_test.hpp>
 
-using node::SnapshotMetadata;
-
 BOOST_FIXTURE_TEST_SUITE(validation_chainstatemanager_tests, ChainTestingSetup)
 
 //! Basic tests for ChainstateManager.

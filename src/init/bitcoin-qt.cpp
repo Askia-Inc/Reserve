@@ -29,7 +29,7 @@ public:
         return MakeWalletLoader(chain, *Assert(m_node.args));
     }
     std::unique_ptr<interfaces::Echo> makeEcho() override { return interfaces::MakeEcho(); }
-    node::NodeContext m_node;
+    NodeContext m_node;
 };
 } // namespace
 } // namespace init

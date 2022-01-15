@@ -11,7 +11,6 @@
 #include <test/util/setup_common.h>
 
 
-namespace wallet {
 struct InitWalletDirTestingSetup: public BasicTestingSetup {
     explicit InitWalletDirTestingSetup(const std::string& chainName = CBaseChainParams::MAIN);
     ~InitWalletDirTestingSetup();
@@ -24,4 +23,3 @@ struct InitWalletDirTestingSetup: public BasicTestingSetup {
 };
 
 #endif // BITCOIN_WALLET_TEST_INIT_TEST_FIXTURE_H
-} // namespace wallet

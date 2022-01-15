@@ -11,8 +11,6 @@
 
 #include <chrono>
 
-using node::CCoinsStats;
-using node::CoinStatsHashType;
 
 BOOST_AUTO_TEST_SUITE(coinstatsindex_tests)
 

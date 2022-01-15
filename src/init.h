@@ -16,16 +16,14 @@ static constexpr bool DEFAULT_DAEMON = false;
 static constexpr bool DEFAULT_DAEMONWAIT = false;
 
 class ArgsManager;
+struct NodeContext;
 namespace interfaces {
 struct BlockAndHeaderTipInfo;
 }
-namespace node {
-struct NodeContext;
-} // namespace node
 
 /** Interrupt threads */
-void Interrupt(node::NodeContext& node);
-void Shutdown(node::NodeContext& node);
+void Interrupt(NodeContext& node);
+void Shutdown(NodeContext& node);
 //!Initialize the logging infrastructure
 void InitLogging(const ArgsManager& args);
 //!Parameter interaction: change current parameters depending on various rules
@@ -57,13 +55,13 @@ bool AppInitLockDataDirectory();
 /**
  * Initialize node and wallet interface pointers. Has no prerequisites or side effects besides allocating memory.
  */
-bool AppInitInterfaces(node::NodeContext& node);
+bool AppInitInterfaces(NodeContext& node);
 /**
  * Bitcoin core main initialization.
  * @note This should only be done after daemonization. Call Shutdown() if this function fails.
  * @pre Parameters should be parsed and config file should be read, AppInitLockDataDirectory should have been called.
  */
-bool AppInitMain(node::NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info = nullptr);
+bool AppInitMain(NodeContext& node, interfaces::BlockAndHeaderTipInfo* tip_info = nullptr);
 
 /**
  * Register all arguments with the ArgsManager

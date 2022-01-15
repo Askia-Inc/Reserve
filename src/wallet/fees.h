@@ -8,12 +8,10 @@
 
 #include <consensus/amount.h>
 
-class CFeeRate;
-struct FeeCalculation;
-
-namespace wallet {
 class CCoinControl;
+class CFeeRate;
 class CWallet;
+struct FeeCalculation;
 
 /**
  * Return the minimum required absolute fee for this size
@@ -43,6 +41,5 @@ CFeeRate GetMinimumFeeRate(const CWallet& wallet, const CCoinControl& coin_contr
  * Return the maximum feerate for discarding change.
  */
 CFeeRate GetDiscardRate(const CWallet& wallet);
-} // namespace wallet
 
 #endif // BITCOIN_WALLET_FEES_H

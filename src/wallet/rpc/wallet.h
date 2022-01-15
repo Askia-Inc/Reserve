@@ -9,8 +9,6 @@
 
 class CRPCCommand;
 
-namespace wallet {
 Span<const CRPCCommand> GetWalletRPCCommands();
-} // namespace wallet
 
 #endif // BITCOIN_WALLET_RPC_WALLET_H

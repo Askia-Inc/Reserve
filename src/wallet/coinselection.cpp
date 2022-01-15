@@ -13,7 +13,6 @@
 #include <numeric>
 #include <optional>
 
-namespace wallet {
 // Descending order comparator
 struct {
     bool operator()(const OutputGroup& a, const OutputGroup& b) const
@@ -430,4 +429,3 @@ bool SelectionResult::operator<(SelectionResult other) const
     // As this operator is only used in std::min_element, we want the result that has more inputs when waste are equal.
     return *m_waste < *other.m_waste || (*m_waste == *other.m_waste && m_selected_inputs.size() > other.m_selected_inputs.size());
 }
-} // namespace wallet

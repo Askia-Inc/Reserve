@@ -15,18 +15,6 @@
 #include <string>
 #include <vector>
 
-class CScript;
-class uint160;
-class uint256;
-struct CBlockLocator;
-
-namespace wallet {
-class CKeyPool;
-class CMasterKey;
-class CWallet;
-class CWalletTx;
-struct WalletContext;
-
 /**
  * Overview of wallet database classes:
  *
@@ -40,6 +28,16 @@ struct WalletContext;
  */
 
 static const bool DEFAULT_FLUSHWALLET = true;
+
+struct CBlockLocator;
+struct WalletContext;
+class CKeyPool;
+class CMasterKey;
+class CScript;
+class CWallet;
+class CWalletTx;
+class uint160;
+class uint256;
 
 /** Error statuses for the wallet database */
 enum class DBErrors
@@ -299,6 +297,5 @@ std::unique_ptr<WalletDatabase> CreateDummyWalletDatabase();
 
 /** Return object for accessing temporary in-memory database. */
 std::unique_ptr<WalletDatabase> CreateMockWalletDatabase();
-} // namespace wallet
 
 #endif // BITCOIN_WALLET_WALLETDB_H

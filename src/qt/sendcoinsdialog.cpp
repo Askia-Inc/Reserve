@@ -24,20 +24,16 @@
 #include <node/ui_interface.h>
 #include <policy/fees.h>
 #include <txmempool.h>
-#include <validation.h>
 #include <wallet/coincontrol.h>
 #include <wallet/fees.h>
 #include <wallet/wallet.h>
 
-#include <chrono>
+#include <validation.h>
 
 #include <QFontMetrics>
 #include <QScrollBar>
 #include <QSettings>
 #include <QTextDocument>
-
-using wallet::CCoinControl;
-using wallet::DEFAULT_PAY_TX_FEE;
 
 static constexpr std::array confTargets{2, 4, 6, 12, 24, 48, 144, 504, 1008};
 int getConfTargetForIndex(int index) {
@@ -1064,7 +1060,7 @@ SendConfirmationDialog::SendConfirmationDialog(const QString& title, const QStri
 int SendConfirmationDialog::exec()
 {
     updateButtons();
-    countDownTimer.start(1s);
+    countDownTimer.start(1000);
     return QMessageBox::exec();
 }
 

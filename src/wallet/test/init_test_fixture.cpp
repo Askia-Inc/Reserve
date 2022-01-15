@@ -9,7 +9,6 @@
 
 #include <wallet/test/init_test_fixture.h>
 
-namespace wallet {
 InitWalletDirTestingSetup::InitWalletDirTestingSetup(const std::string& chainName) : BasicTestingSetup(chainName)
 {
     m_wallet_loader = MakeWalletLoader(*m_node.chain, *Assert(m_node.args));
@@ -49,4 +48,3 @@ void InitWalletDirTestingSetup::SetWalletDir(const fs::path& walletdir_path)
 {
     gArgs.ForceSetArg("-walletdir", fs::PathToString(walletdir_path));
 }
-} // namespace wallet

@@ -26,7 +26,6 @@
 #include <qt/recentrequeststablemodel.h>
 #include <qt/receiverequestdialog.h>
 
-#include <chrono>
 #include <memory>
 
 #include <QAbstractButton>
@@ -39,15 +38,6 @@
 #include <QTextEdit>
 #include <QListView>
 #include <QDialogButtonBox>
-
-using wallet::AddWallet;
-using wallet::CWallet;
-using wallet::CreateMockWalletDatabase;
-using wallet::RemoveWallet;
-using wallet::WALLET_FLAG_DESCRIPTORS;
-using wallet::WalletContext;
-using wallet::WalletDescriptor;
-using wallet::WalletRescanReserver;
 
 namespace
 {
@@ -122,7 +112,7 @@ void BumpFee(TransactionView& view, const uint256& txid, bool expectDisabled, st
     if (expectError.empty()) {
         ConfirmSend(&text, cancel);
     } else {
-        ConfirmMessage(&text, 0ms);
+        ConfirmMessage(&text);
     }
     action->trigger();
     QVERIFY(text.indexOf(QString::fromStdString(expectError)) != -1);

@@ -12,7 +12,6 @@
 
 #include <numeric>
 
-namespace node {
 PSBTAnalysis AnalyzePSBT(PartiallySignedTransaction psbtx)
 {
     // Go through each input and build status
@@ -148,4 +147,3 @@ PSBTAnalysis AnalyzePSBT(PartiallySignedTransaction psbtx)
 
     return result;
 }
-} // namespace node

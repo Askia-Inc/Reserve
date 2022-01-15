@@ -9,7 +9,6 @@
 
 #include <optional>
 
-namespace node {
 /**
  * Holds an analysis of one input from a PSBT
  */
@@ -53,6 +52,5 @@ struct PSBTAnalysis {
  * @return A PSBTAnalysis with information about the provided PSBT.
  */
 PSBTAnalysis AnalyzePSBT(PartiallySignedTransaction psbtx);
-} // namespace node
 
 #endif // BITCOIN_NODE_PSBT_H

@@ -6,7 +6,6 @@
 
 #include <scheduler.h>
 
-namespace wallet {
 WalletTestingSetup::WalletTestingSetup(const std::string& chainName)
     : TestingSetup(chainName),
       m_wallet(m_node.chain.get(), "", m_args, CreateMockWalletDatabase())
@@ -20,4 +19,3 @@ WalletTestingSetup::~WalletTestingSetup()
 {
     if (m_node.scheduler) m_node.scheduler->stop();
 }
-} // namespace wallet

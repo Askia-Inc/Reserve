@@ -5,11 +5,7 @@
 #ifndef BITCOIN_QT_TEST_UTIL_H
 #define BITCOIN_QT_TEST_UTIL_H
 
-#include <chrono>
-
-QT_BEGIN_NAMESPACE
-class QString;
-QT_END_NAMESPACE
+#include <QString>
 
 /**
  * Press "Ok" button in message box dialog.
@@ -17,6 +13,6 @@ QT_END_NAMESPACE
  * @param text - Optionally store dialog text.
  * @param msec - Number of milliseconds to pause before triggering the callback.
  */
-void ConfirmMessage(QString* text, std::chrono::milliseconds msec);
+void ConfirmMessage(QString* text = nullptr, int msec = 0);
 
 #endif // BITCOIN_QT_TEST_UTIL_H
