@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -525,6 +525,7 @@ public:
      */
     unsigned int GetSigOpCount(const CScript& scriptSig) const;
 
+    bool IsPayToScriptHash() const;
     bool IsPayToWitnessScriptHash() const;
     bool IsWitnessProgram(int& version, std::vector<unsigned char>& program) const;
 
@@ -550,14 +551,6 @@ public:
         // The default prevector::clear() does not release memory
         CScriptBase::clear();
         shrink_to_fit();
-    }
-    
-    std::string ToString() const {
-        std::stringstream rtr;
-        for (unsigned int i = 0; i < size(); i++) {
-            rtr << (unsigned char) (*this)[i];
-        }
-        return rtr.str();
     }
 };
 

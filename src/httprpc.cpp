@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2020 The Bitcoin Core developers
+// Copyright (c) 2015-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -144,7 +144,6 @@ static bool RPCAuthorized(const std::string& strAuth, std::string& strAuthUserna
     return multiUserAuthorized(strUserPass);
 }
 
-// HTTP server to execute RPC commands
 static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
 {
     // JSONRPC handles only POST
@@ -160,11 +159,9 @@ static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
         return false;
     }
 
-    // Add peer CService to JSONRPCRequest object
     JSONRPCRequest jreq;
     jreq.context = context;
     jreq.peerAddr = req->GetPeer().ToString();
-    
     if (!RPCAuthorized(authHeader.second, jreq.authUser)) {
         LogPrintf("ThreadRPCServer incorrect password attempt from %s\n", jreq.peerAddr);
 
@@ -195,7 +192,6 @@ static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
             return false;
 
         // singleton request
-        // Context-independent 
         } else if (valRequest.isObject()) {
             jreq.parse(valRequest);
             if (user_has_whitelist && !g_rpc_whitelist[jreq.authUser].count(jreq.strMethod)) {
@@ -203,7 +199,6 @@ static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
                 req->WriteReply(HTTP_FORBIDDEN);
                 return false;
             }
-            // tableRPC.execute in server.cpp, line 453
             UniValue result = tableRPC.execute(jreq);
 
             // Send reply
@@ -227,7 +222,6 @@ static bool HTTPReq_JSONRPC(const std::any& context, HTTPRequest* req)
                     }
                 }
             }
-            // JSONRPCExecBatch located in server.cpp, line 382
             strReply = JSONRPCExecBatch(jreq, valRequest.get_array());
         }
         else

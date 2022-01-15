@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,7 +9,6 @@
 #include <any>
 #include <string>
 
-#include <netaddress.h>
 #include <univalue.h>
 
 UniValue JSONRPCRequestObj(const std::string& strMethod, const UniValue& params, const UniValue& id);
@@ -26,11 +25,6 @@ void DeleteAuthCookie();
 /** Parse JSON-RPC batch reply into a vector */
 std::vector<UniValue> JSONRPCProcessBatchReply(const UniValue& in);
 
-// May add peer requesters CService to compare in submitblock method
-// Could compare std::string peerAddr instead?
-// For submitblock, must be two params
-// params[0] - block data
-// params[1] - encrypted 256 bit block hashed merkle root
 class JSONRPCRequest
 {
 public:

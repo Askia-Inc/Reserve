@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -45,6 +45,16 @@ extern bool fAcceptDatacarrier;
 
 /** Maximum size of TxoutType::NULL_DATA scripts that this node considers standard. */
 extern unsigned nMaxDatacarrierBytes;
+
+/**
+ * Mandatory script verification flags that all new blocks must comply with for
+ * them to be valid. (but old blocks may not comply with) Currently just P2SH,
+ * but in the future other flags may be added.
+ *
+ * Failing one of these tests may trigger a DoS ban - see CheckInputScripts() for
+ * details.
+ */
+static const unsigned int MANDATORY_SCRIPT_VERIFY_FLAGS = SCRIPT_VERIFY_P2SH;
 
 enum class TxoutType {
     NONSTANDARD,

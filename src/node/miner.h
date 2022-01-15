@@ -1,29 +1,29 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef BITCOIN_MINER_H
-#define BITCOIN_MINER_H
+#ifndef BITCOIN_NODE_MINER_H
+#define BITCOIN_NODE_MINER_H
 
-#include <chainparams.h>
 #include <primitives/block.h>
 #include <txmempool.h>
-#include <validation.h>
 
 #include <memory>
 #include <optional>
 #include <stdint.h>
 
-#include <boost/multi_index_container.hpp>
 #include <boost/multi_index/ordered_index.hpp>
+#include <boost/multi_index_container.hpp>
 
+class ChainstateManager;
 class CBlockIndex;
 class CChainParams;
 class CScript;
 
 namespace Consensus { struct Params; };
 
+namespace node {
 static const bool DEFAULT_PRINTPRIORITY = false;
 
 struct CBlockTemplate
@@ -81,10 +81,11 @@ struct modifiedentry_iter {
 // This is sufficient to sort an ancestor package in an order that is valid
 // to appear in a block.
 struct CompareTxIterByAncestorCount {
-    bool operator()(const CTxMemPool::txiter &a, const CTxMemPool::txiter &b) const
+    bool operator()(const CTxMemPool::txiter& a, const CTxMemPool::txiter& b) const
     {
-        if (a->GetCountWithAncestors() != b->GetCountWithAncestors())
+        if (a->GetCountWithAncestors() != b->GetCountWithAncestors()) {
             return a->GetCountWithAncestors() < b->GetCountWithAncestors();
+        }
         return CompareIteratorByHash()(a, b);
     }
 };
@@ -144,8 +145,8 @@ private:
 
     // Chain context for the block
     int nHeight;
-    uint32_t nTime;
-    int64_t nLockTimeCutoff;
+    int64_t m_lock_time_cutoff;
+
     const CChainParams& chainparams;
     const CTxMemPool& m_mempool;
     CChainState& m_chainstate;
@@ -206,5 +207,6 @@ int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParam
 
 /** Update an old GenerateCoinbaseCommitment from CreateNewBlock after the block txs have changed */
 void RegenerateCommitments(CBlock& block, ChainstateManager& chainman);
+} // namespace node
 
-#endif // BITCOIN_MINER_H
+#endif // BITCOIN_NODE_MINER_H

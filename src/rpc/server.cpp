@@ -1,5 +1,5 @@
 // Copyright (c) 2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -448,8 +448,6 @@ static bool ExecuteCommands(const std::vector<const CRPCCommand*>& commands, con
     return false;
 }
 
-
-// Context-independent class. Unsuitable for Validator check
 UniValue CRPCTable::execute(const JSONRPCRequest &request) const
 {
     // Return immediately if in warmup
@@ -463,8 +461,6 @@ UniValue CRPCTable::execute(const JSONRPCRequest &request) const
     auto it = mapCommands.find(request.strMethod);
     if (it != mapCommands.end()) {
         UniValue result;
-        // The command in it->second is already initialized in mapCommands
-        // The JSONRPCRequest is attempting to execute that command and put the result in the result UniValue object
         if (ExecuteCommands(it->second, request, result)) {
             return result;
         }
@@ -472,7 +468,6 @@ UniValue CRPCTable::execute(const JSONRPCRequest &request) const
     throw JSONRPCError(RPC_METHOD_NOT_FOUND, "Method not found");
 }
 
-// Attempts to execute a command sent from JSONRPCRequest
 static bool ExecuteCommand(const CRPCCommand& command, const JSONRPCRequest& request, UniValue& result, bool last_handler)
 {
     try
@@ -480,7 +475,6 @@ static bool ExecuteCommand(const CRPCCommand& command, const JSONRPCRequest& req
         RPCCommandExecution execution(request.strMethod);
         // Execute, convert arguments to array if necessary
         if (request.params.isObject()) {
-            // This lines calls the function from the request
             return command.actor(transformNamedArguments(request, command.argNames), result, last_handler);
         } else {
             return command.actor(request, result, last_handler);

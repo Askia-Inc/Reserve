@@ -176,7 +176,35 @@ unsigned int CScript::GetSigOpCount(bool fAccurate) const
 
 unsigned int CScript::GetSigOpCount(const CScript& scriptSig) const
 {
-    return GetSigOpCount(true);
+    if (!IsPayToScriptHash())
+        return GetSigOpCount(true);
+
+    // This is a pay-to-script-hash scriptPubKey;
+    // get the last item that the scriptSig
+    // pushes onto the stack:
+    const_iterator pc = scriptSig.begin();
+    std::vector<unsigned char> vData;
+    while (pc < scriptSig.end())
+    {
+        opcodetype opcode;
+        if (!scriptSig.GetOp(pc, opcode, vData))
+            return 0;
+        if (opcode > OP_16)
+            return 0;
+    }
+
+    /// ... and return its opcount:
+    CScript subscript(vData.begin(), vData.end());
+    return subscript.GetSigOpCount(true);
+}
+
+bool CScript::IsPayToScriptHash() const
+{
+    // Extra-fast test for pay-to-script-hash CScripts:
+    return (this->size() == 23 &&
+            (*this)[0] == OP_HASH160 &&
+            (*this)[1] == 0x14 &&
+            (*this)[22] == OP_EQUAL);
 }
 
 bool CScript::IsPayToWitnessScriptHash() const

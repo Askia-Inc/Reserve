@@ -26,6 +26,10 @@
 #include <string>
 #include <vector>
 
+using node::CCoinsStats;
+using node::CoinStatsHashType;
+using node::GetUTXOStats;
+
 namespace {
 const TestingSetup* g_setup;
 const Coin EMPTY_COIN{};
@@ -51,7 +55,7 @@ FUZZ_TARGET_INIT(coins_view, initialize_coins_view)
     COutPoint random_out_point;
     Coin random_coin;
     CMutableTransaction random_mutable_transaction;
-    while (fuzzed_data_provider.ConsumeBool()) {
+    LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 10000) {
         CallOneOf(
             fuzzed_data_provider,
             [&] {
@@ -114,7 +118,7 @@ FUZZ_TARGET_INIT(coins_view, initialize_coins_view)
             },
             [&] {
                 CCoinsMap coins_map;
-                while (fuzzed_data_provider.ConsumeBool()) {
+                LIMITED_WHILE(fuzzed_data_provider.ConsumeBool(), 10000) {
                     CCoinsCacheEntry coins_cache_entry;
                     coins_cache_entry.flags = fuzzed_data_provider.ConsumeIntegral<unsigned char>();
                     if (fuzzed_data_provider.ConsumeBool()) {
@@ -221,8 +225,7 @@ FUZZ_TARGET_INIT(coins_view, initialize_coins_view)
                 assert(expected_code_path);
             },
             [&] {
-                (void)AreInputsStandard(CTransaction{random_mutable_transaction}, coins_view_cache, false);
-                (void)AreInputsStandard(CTransaction{random_mutable_transaction}, coins_view_cache, true);
+                (void)AreInputsStandard(CTransaction{random_mutable_transaction}, coins_view_cache);
             },
             [&] {
                 TxValidationState state;
@@ -245,10 +248,23 @@ FUZZ_TARGET_INIT(coins_view, initialize_coins_view)
             [&] {
                 const CTransaction transaction{random_mutable_transaction};
                 if (ContainsSpentInput(transaction, coins_view_cache)) {
+                    // Avoid:
+                    // consensus/tx_verify.cpp:130: unsigned int GetP2SHSigOpCount(const CTransaction &, const CCoinsViewCache &): Assertion `!coin.IsSpent()' failed.
+                    return;
+                }
+                (void)GetP2SHSigOpCount(transaction, coins_view_cache);
+            },
+            [&] {
+                const CTransaction transaction{random_mutable_transaction};
+                if (ContainsSpentInput(transaction, coins_view_cache)) {
+                    // Avoid:
+                    // consensus/tx_verify.cpp:130: unsigned int GetP2SHSigOpCount(const CTransaction &, const CCoinsViewCache &): Assertion `!coin.IsSpent()' failed.
                     return;
                 }
                 const auto flags{fuzzed_data_provider.ConsumeIntegral<uint32_t>()};
-                if (!transaction.vin.empty() && (flags & SCRIPT_VERIFY_WITNESS) != 0) {
+                if (!transaction.vin.empty() && (flags & SCRIPT_VERIFY_WITNESS) != 0 && (flags & SCRIPT_VERIFY_P2SH) == 0) {
+                    // Avoid:
+                    // script/interpreter.cpp:1705: size_t CountWitnessSigOps(const CScript &, const CScript &, const CScriptWitness *, unsigned int): Assertion `(flags & SCRIPT_VERIFY_P2SH) != 0' failed.
                     return;
                 }
                 (void)GetTransactionSigOpCost(transaction, coins_view_cache, flags);
@@ -257,7 +273,7 @@ FUZZ_TARGET_INIT(coins_view, initialize_coins_view)
                 CCoinsStats stats{CoinStatsHashType::HASH_SERIALIZED};
                 bool expected_code_path = false;
                 try {
-                    (void)GetUTXOStats(&coins_view_cache, WITH_LOCK(::cs_main, return std::ref(g_setup->m_node.chainman->m_blockman)), stats);
+                    (void)GetUTXOStats(&coins_view_cache, g_setup->m_node.chainman->m_blockman, stats);
                 } catch (const std::logic_error&) {
                     expected_code_path = true;
                 }

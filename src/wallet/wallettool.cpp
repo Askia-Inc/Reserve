@@ -1,6 +1,12 @@
-// Copyright (c) 2016-2020 The Bitcoin Core developers
+// Copyright (c) 2016-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
+
+#if defined(HAVE_CONFIG_H)
+#include <config/bitcoin-config.h>
+#endif
+
+#include <wallet/wallettool.h>
 
 #include <fs.h>
 #include <util/system.h>
@@ -10,6 +16,7 @@
 #include <wallet/wallet.h>
 #include <wallet/walletutil.h>
 
+namespace wallet {
 namespace WalletTool {
 
 // The standard wallet deleter function blocks on the validation interface
@@ -26,7 +33,7 @@ static void WalletCreate(CWallet* wallet_instance, uint64_t wallet_creation_flag
 {
     LOCK(wallet_instance->cs_wallet);
 
-    wallet_instance->SetMinVersion(FEATURE_HD_SPLIT);
+    wallet_instance->SetMinVersion(FEATURE_LATEST);
     wallet_instance->AddWalletFlags(wallet_creation_flags);
 
     if (!wallet_instance->IsWalletFlagSet(WALLET_FLAG_DESCRIPTORS)) {
@@ -213,3 +220,4 @@ bool ExecuteWalletToolFunc(const ArgsManager& args, const std::string& command)
     return true;
 }
 } // namespace WalletTool
+} // namespace wallet

@@ -1,4 +1,4 @@
-// Copyright (c) 2020 The Bitcoin Core developers
+// Copyright (c) 2020-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -122,12 +122,16 @@ FUZZ_TARGET_INIT(key, initialize_key)
 
     {
         const CScript tx_pubkey_script = GetScriptForRawPubKey(pubkey);
+        assert(!tx_pubkey_script.IsPayToScriptHash());
+        assert(!tx_pubkey_script.IsPayToWitnessScriptHash());
         assert(!tx_pubkey_script.IsPushOnly());
         assert(!tx_pubkey_script.IsUnspendable());
         assert(tx_pubkey_script.HasValidOps());
         assert(tx_pubkey_script.size() == 35);
 
         const CScript tx_multisig_script = GetScriptForMultisig(1, {pubkey});
+        assert(!tx_multisig_script.IsPayToScriptHash());
+        assert(!tx_multisig_script.IsPayToWitnessScriptHash());
         assert(!tx_multisig_script.IsPushOnly());
         assert(!tx_multisig_script.IsUnspendable());
         assert(tx_multisig_script.HasValidOps());

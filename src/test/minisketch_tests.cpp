@@ -3,13 +3,15 @@
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
 #include <minisketch.h>
-#include <minisketchwrapper.h>
+#include <node/minisketchwrapper.h>
 #include <random.h>
 #include <test/util/setup_common.h>
 
 #include <boost/test/unit_test.hpp>
 
 #include <utility>
+
+using node::MakeMinisketch32;
 
 BOOST_AUTO_TEST_SUITE(minisketch_tests)
 

@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+namespace wallet {
 namespace {
 const TestingSetup* g_setup;
 
@@ -68,9 +69,6 @@ struct FuzzedWallet {
     CScript GetScriptPubKey(FuzzedDataProvider& fuzzed_data_provider)
     {
         auto type{fuzzed_data_provider.PickValueInArray(OUTPUT_TYPES)};
-        if (type == OutputType::BECH32M) {
-            type = OutputType::BECH32; // TODO: Setup taproot descriptor and remove this line
-        }
         CTxDestination dest;
         bilingual_str error;
         if (fuzzed_data_provider.ConsumeBool()) {
@@ -100,7 +98,7 @@ FUZZ_TARGET_INIT(wallet_notifications, initialize_setup)
     using Coins = std::set<std::tuple<CAmount, COutPoint>>;
     std::vector<std::tuple<Coins, CBlock>> chain;
     {
-        // Add the inital entry
+        // Add the initial entry
         chain.emplace_back();
         auto& [coins, block]{chain.back()};
         coins.emplace(total_amount, COutPoint{uint256::ONE, 1});
@@ -171,3 +169,4 @@ FUZZ_TARGET_INIT(wallet_notifications, initialize_setup)
     }
 }
 } // namespace
+} // namespace wallet

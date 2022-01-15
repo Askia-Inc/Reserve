@@ -12,6 +12,12 @@
 #include <undo.h>
 #include <validation.h>
 
+using node::CCoinsStats;
+using node::GetBogoSize;
+using node::ReadBlockFromDisk;
+using node::TxOutSer;
+using node::UndoReadFromDisk;
+
 static constexpr uint8_t DB_BLOCK_HASH{'s'};
 static constexpr uint8_t DB_BLOCK_HEIGHT{'t'};
 static constexpr uint8_t DB_MUHASH{'M'};
@@ -106,7 +112,7 @@ CoinStatsIndex::CoinStatsIndex(size_t n_cache_size, bool f_memory, bool f_wipe)
 bool CoinStatsIndex::WriteBlock(const CBlock& block, const CBlockIndex* pindex)
 {
     CBlockUndo block_undo;
-    const CAmount block_subsidy{0};//GetBlockSubsidy(pindex->nHeight, pindex->nTime, Params())};
+    const CAmount block_subsidy{GetBlockSubsidy(pindex->nHeight, Params().GetConsensus())};
     m_total_subsidy += block_subsidy;
 
     // Ignore genesis block
@@ -321,7 +327,7 @@ bool CoinStatsIndex::LookUpStats(const CBlockIndex* block_index, CCoinsStats& co
     coins_stats.hashSerialized = entry.muhash;
     coins_stats.nTransactionOutputs = entry.transaction_output_count;
     coins_stats.nBogoSize = entry.bogo_size;
-    coins_stats.nTotalAmount = entry.total_amount;
+    coins_stats.total_amount = entry.total_amount;
     coins_stats.total_subsidy = entry.total_subsidy;
     coins_stats.total_unspendable_amount = entry.total_unspendable_amount;
     coins_stats.total_prevout_spent_amount = entry.total_prevout_spent_amount;
@@ -380,7 +386,7 @@ bool CoinStatsIndex::ReverseBlock(const CBlock& block, const CBlockIndex* pindex
     CBlockUndo block_undo;
     std::pair<uint256, DBVal> read_out;
 
-    const CAmount block_subsidy{0}; //GetBlockSubsidy(pindex->nHeight, pindex->nTime, Params())};
+    const CAmount block_subsidy{GetBlockSubsidy(pindex->nHeight, Params().GetConsensus())};
     m_total_subsidy -= block_subsidy;
 
     // Ignore genesis block

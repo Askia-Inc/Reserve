@@ -1,4 +1,4 @@
-// Copyright (c) 2019-2020 The Bitcoin Core developers
+// Copyright (c) 2019-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -26,15 +26,14 @@
 #include <univalue.h>
 #include <util/check.h>
 #include <util/moneystr.h>
+#include <util/overflow.h>
 #include <util/strencodings.h>
 #include <util/string.h>
 #include <util/system.h>
-#include <util/time.h>
 #include <version.h>
 
 #include <cassert>
 #include <chrono>
-#include <ctime>
 #include <limits>
 #include <set>
 #include <vector>
@@ -66,7 +65,7 @@ FUZZ_TARGET_INIT(integer, initialize_integer)
     const bool b = fuzzed_data_provider.ConsumeBool();
 
     const Consensus::Params& consensus_params = Params().GetConsensus();
-    // (void)CheckProofOfWork(u256, u32, consensus_params);
+    (void)CheckProofOfWork(u256, u32, consensus_params);
     if (u64 <= MAX_MONEY) {
         const uint64_t compressed_money_amount = CompressAmount(u64);
         assert(u64 == DecompressAmount(compressed_money_amount));
@@ -81,8 +80,6 @@ FUZZ_TARGET_INIT(integer, initialize_integer)
     (void)ComputeMerkleRoot(v256);
     (void)CountBits(u64);
     (void)DecompressAmount(u64);
-    (void)FormatISO8601Date(i64);
-    (void)FormatISO8601DateTime(i64);
     {
         if (std::optional<CAmount> parsed = ParseMoney(FormatMoney(i64))) {
             assert(parsed.value() == i64);

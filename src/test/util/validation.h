@@ -5,7 +5,6 @@
 #ifndef BITCOIN_TEST_UTIL_VALIDATION_H
 #define BITCOIN_TEST_UTIL_VALIDATION_H
 
-#include <chainparams.h>
 #include <validation.h>
 
 struct TestChainState : public CChainState {

@@ -2,7 +2,7 @@
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#include <minisketchwrapper.h>
+#include <node/minisketchwrapper.h>
 
 #include <logging.h>
 #include <util/time.h>
@@ -16,6 +16,7 @@
 #include <utility>
 #include <vector>
 
+namespace node {
 namespace {
 
 static constexpr uint32_t BITS = 32;
@@ -75,3 +76,4 @@ Minisketch MakeMinisketch32FP(size_t max_elements, uint32_t fpbits)
 {
     return Minisketch::CreateFP(BITS, Minisketch32Implementation(), max_elements, fpbits);
 }
+} // namespace node

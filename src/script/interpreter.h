@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -10,7 +10,6 @@
 #include <script/script_error.h>
 #include <span.h>
 #include <primitives/transaction.h>
-#include <primitives/block.h>
 
 #include <vector>
 #include <stdint.h>
@@ -42,6 +41,9 @@ enum
  */
 enum : uint32_t {
     SCRIPT_VERIFY_NONE      = 0,
+
+    // Evaluate P2SH subscripts (BIP16).
+    SCRIPT_VERIFY_P2SH      = (1U << 0),
 
     // Passing a non-strict-DER signature or one with undefined hashtype to a checksig operation causes script failure.
     // Evaluating a pubkey that is not (0x04 + 64 bytes) or (0x02 or 0x03 + 32 bytes) by checksig causes script failure.
@@ -165,11 +167,6 @@ struct PrecomputedTransactionData
     std::vector<CTxOut> m_spent_outputs;
     //! Whether m_spent_outputs is initialized.
     bool m_spent_outputs_ready = false;
-    
-    bool toStakePool;
-    bool toReserve;
-    bool fromStakePool;
-    bool fromReserve;
 
     PrecomputedTransactionData() = default;
 
@@ -232,6 +229,7 @@ static constexpr size_t TAPROOT_CONTROL_NODE_SIZE = 32;
 static constexpr size_t TAPROOT_CONTROL_MAX_NODE_COUNT = 128;
 static constexpr size_t TAPROOT_CONTROL_MAX_SIZE = TAPROOT_CONTROL_BASE_SIZE + TAPROOT_CONTROL_NODE_SIZE * TAPROOT_CONTROL_MAX_NODE_COUNT;
 
+extern const CHashWriter HASHER_TAPSIGHASH; //!< Hasher with tag "TapSighash" pre-fed to it.
 extern const CHashWriter HASHER_TAPLEAF;    //!< Hasher with tag "TapLeaf" pre-fed to it.
 extern const CHashWriter HASHER_TAPBRANCH;  //!< Hasher with tag "TapBranch" pre-fed to it.
 
@@ -329,25 +327,6 @@ public:
         return m_checker.CheckSequence(nSequence);
     }
 };
-
-template<typename B>
-bool SignatureHashSchnorr(uint256& hash_out, const ScriptExecutionData& execdata, const B& block_to, uint8_t hash_type, SigVersion sigversion, MissingDataBehavior mdb);
-
-template <class B>
-class GenericBlockHeaderSignatureChecker : public BaseSignatureChecker
-{
-private:
-    const B* block;
-    const MissingDataBehavior m_mdb;
-
-protected:
-    virtual bool VerifySchnorrSignature(Span<const unsigned char> sig, const XOnlyPubKey& pubkey, const uint256& sighash) const;
-
-public:
-    bool CheckSchnorrSignature(Span<const unsigned char> sig, Span<const unsigned char> pubkey, SigVersion sigversion, const ScriptExecutionData& execdata, ScriptError* serror = nullptr) const override;
-};
-
-using BlockHeaderSignatureChecker = GenericBlockHeaderSignatureChecker<CBlockHeader>;
 
 /** Compute the BIP341 tapleaf hash from leaf version & script. */
 uint256 ComputeTapleafHash(uint8_t leaf_version, const CScript& script);

@@ -41,9 +41,7 @@ void initialize_script()
 FUZZ_TARGET_INIT(script, initialize_script)
 {
     FuzzedDataProvider fuzzed_data_provider(buffer.data(), buffer.size());
-    const std::optional<CScript> script_opt = ConsumeDeserializable<CScript>(fuzzed_data_provider);
-    if (!script_opt) return;
-    const CScript script{*script_opt};
+    const CScript script{ConsumeScript(fuzzed_data_provider)};
 
     CompressedScript compressed;
     if (CompressScript(script, compressed)) {
@@ -99,6 +97,8 @@ FUZZ_TARGET_INIT(script, initialize_script)
     (void)Solver(script, solutions);
 
     (void)script.HasValidOps();
+    (void)script.IsPayToScriptHash();
+    (void)script.IsPayToWitnessScriptHash();
     (void)script.IsPushOnly();
     (void)script.GetSigOpCount(/* fAccurate= */ false);
 
@@ -132,7 +132,7 @@ FUZZ_TARGET_INIT(script, initialize_script)
         }
         const std::vector<std::string> random_string_vector = ConsumeRandomLengthStringVector(fuzzed_data_provider);
         const uint32_t u32{fuzzed_data_provider.ConsumeIntegral<uint32_t>()};
-        const uint32_t flags{u32};
+        const uint32_t flags{u32 | SCRIPT_VERIFY_P2SH};
         {
             CScriptWitness wit;
             for (const auto& s : random_string_vector) {
@@ -164,7 +164,7 @@ FUZZ_TARGET_INIT(script, initialize_script)
         const std::string encoded_dest{EncodeDestination(tx_destination_1)};
         const UniValue json_dest{DescribeAddress(tx_destination_1)};
         Assert(tx_destination_1 == DecodeDestination(encoded_dest));
-        (void)GetKeyForDestination(/* store */ {}, tx_destination_1);
+        (void)GetKeyForDestination(/*store=*/{}, tx_destination_1);
         const CScript dest{GetScriptForDestination(tx_destination_1)};
         const bool valid{IsValidDestination(tx_destination_1)};
         Assert(dest.empty() != valid);

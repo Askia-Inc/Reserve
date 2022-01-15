@@ -1,4 +1,4 @@
-// Copyright (c) 2015-2020 The Bitcoin Core developers
+// Copyright (c) 2015-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -9,6 +9,7 @@
 #include <fs.h>
 #include <key.h>
 #include <util/system.h>
+#include <node/caches.h>
 #include <node/context.h>
 #include <pubkey.h>
 #include <random.h>
@@ -25,11 +26,13 @@
 extern const std::function<void(const std::string&)> G_TEST_LOG_FUN;
 
 // Enable BOOST_CHECK_EQUAL for enum class types
+namespace std {
 template <typename T>
 std::ostream& operator<<(typename std::enable_if<std::is_enum<T>::value, std::ostream>::type& stream, const T& e)
 {
     return stream << static_cast<typename std::underlying_type<T>::type>(e);
 }
+} // namespace std
 
 /**
  * This global and the helpers that use it are not thread-safe.
@@ -56,7 +59,7 @@ void Seed(FastRandomContext& ctx);
 static inline void SeedInsecureRand(SeedRand seed = SeedRand::SEED)
 {
     if (seed == SeedRand::ZEROS) {
-        g_insecure_rand_ctx = FastRandomContext(/* deterministic */ true);
+        g_insecure_rand_ctx = FastRandomContext(/*fDeterministic=*/true);
     } else {
         Seed(g_insecure_rand_ctx);
     }
@@ -75,7 +78,7 @@ static constexpr CAmount CENT{1000000};
  */
 struct BasicTestingSetup {
     ECCVerifyHandle globalVerifyHandle;
-    NodeContext m_node;
+    node::NodeContext m_node;
 
     explicit BasicTestingSetup(const std::string& chainName = CBaseChainParams::MAIN, const std::vector<const char*>& extra_args = {});
     ~BasicTestingSetup();
@@ -89,6 +92,7 @@ struct BasicTestingSetup {
  * initialization behaviour.
  */
 struct ChainTestingSetup : public BasicTestingSetup {
+    node::CacheSizes m_cache_sizes{};
 
     explicit ChainTestingSetup(const std::string& chainName = CBaseChainParams::MAIN, const std::vector<const char*>& extra_args = {});
     ~ChainTestingSetup();
@@ -227,4 +231,4 @@ private:
     const std::string m_reason;
 };
 
-#endif
+#endif // BITCOIN_TEST_UTIL_SETUP_COMMON_H

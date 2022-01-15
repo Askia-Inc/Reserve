@@ -9,7 +9,6 @@
 #include <primitives/transaction.h>
 #include <serialize.h>
 #include <uint256.h>
-#include <vector>
 
 /** Nodes collect new transactions into a block, hash them into a hash tree,
  * and scan through nonce values to make the block's hash satisfy proof-of-work
@@ -58,6 +57,7 @@ public:
         return (int64_t)nTime;
     }
 };
+
 
 class CBlock : public CBlockHeader
 {

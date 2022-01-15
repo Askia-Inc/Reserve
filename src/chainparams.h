@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2020 The Bitcoin Core developers
+// Copyright (c) 2009-2021 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -8,7 +8,6 @@
 
 #include <chainparamsbase.h>
 #include <consensus/params.h>
-#include <key.h>
 #include <netaddress.h>
 #include <primitives/block.h>
 #include <protocol.h>
@@ -17,10 +16,6 @@
 #include <memory>
 #include <string>
 #include <vector>
-
-const static std::string RESERVE_PUB_KEY = "HDOSL";
-const static std::string STAKE_POOL_PUB_KEY = "HDKSD";
-const static std::string STAKE_POOL_PRV_KEY = "KSLKDF";
 
 typedef std::map<int, uint256> MapCheckpoints;
 
@@ -96,8 +91,6 @@ public:
         CNetAddr a;
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
-    
-    const CKey GetStakePoolKey() const { return GetConsensus().stakePoolKey; }
 
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */
