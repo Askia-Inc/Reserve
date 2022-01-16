@@ -8,6 +8,8 @@
 
 #include <uint256.h>
 #include <limits>
+#include <script/script.h>
+#include <key.h>
 
 namespace Consensus {
 

@@ -1989,7 +1989,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     if (block.GetHash() == m_params.GetConsensus().hashGenesisBlock) {
         if (!fJustCheck)
             view.SetBestBlock(pindex->GetBlockHash());
-        //return true;
+//        return true;
     }
 
     bool fScriptChecks = true;
@@ -2052,43 +2052,37 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     int64_t nSigOpsCost = 0;
     blockundo.vtxundo.reserve(block.vtx.size() - 1);
     Validator* expectedVal;
+    std::vector<std::string>* rterror;
+
+    // Suspend original Validator if block received outside window
+    // Select the Validator that should be expected now
+    uint32_t cumulativeTimeout = VALIDATOR_TIMEOUT;
+    if (m_params.GetConsensus().hashGenesisBlock != block.GetHash() && m_stakepool.lastValidationTime != 0 && m_stakepool.viable()) {
+        while (block.nTime - pindex->nTime > cumulativeTimeout) {
+            m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
+
+            if (!m_stakepool.viable()) {
+                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "validators-not-viable");
+            }
+
+            expectedVal = m_stakepool.retrieveNextValidator(pindex->nHeight, rterror);
+
+            cumulativeTimeout += VALIDATOR_TIMEOUT;
+
+            if (rterror->size() > 0) {
+                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+            }
+        }
+    }
+
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
         const CTransaction &tx = *(block.vtx[i]);
 
         nInputs += tx.vin.size();
 
-        std::vector<std::string>* rterror;
+
         if (tx.IsCoinBase() && (m_params.GetConsensus().hashGenesisBlock != block.GetHash())) {
-            expectedVal = m_stakepool.retrieveNextValidator(pindex->nHeight, rterror);
-            // Determine if the expected validator submitted the block
-
-            if (rterror->size() > 0) {
-                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
-            }
-
-            // Suspend original Validator if block received outside window
-            // Select the Validator that should be expected now
-            time_t current = time (0);
-            uint32_t cumulativeTimeout = VALIDATOR_TIMEOUT;
-            if (m_stakepool.lastValidationTime != 0 && m_stakepool.lastValidationTime != m_params.GenesisBlock().nTime && m_stakepool.viable()) {
-                while (block.nTime - pindex->nTime > cumulativeTimeout) {
-                    m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
-
-                    if (!m_stakepool.viable()) {
-                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "validators-not-viable");
-                    }
-
-                    expectedVal = m_stakepool.retrieveNextValidator(pindex->nHeight, rterror);
-
-                    cumulativeTimeout += VALIDATOR_TIMEOUT;
-
-                    if (rterror->size() > 0) {
-                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
-                    }
-                }
-            }
-
             bool fCacheResults = fJustCheck;
             CScriptCheck check(txsdata[i].m_spent_outputs[0], tx, 0, flags, fCacheResults, &txsdata[i]);
             if (!check.CheckValidatorSig(expectedVal->scriptPubKey)) {

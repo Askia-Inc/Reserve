@@ -14,6 +14,7 @@
 #include <assert.h>
 #include <climits>
 #include <limits>
+#include <sstream>
 #include <stdexcept>
 #include <stdint.h>
 #include <string.h>
