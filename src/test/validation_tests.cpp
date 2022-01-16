@@ -8,7 +8,6 @@
 #include <signet.h>
 #include <uint256.h>
 #include <validation.h>
-#include <timedata.h>
 
 #include <test/util/setup_common.h>
 

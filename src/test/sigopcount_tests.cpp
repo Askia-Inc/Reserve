@@ -121,7 +121,7 @@ BOOST_AUTO_TEST_CASE(GetTxSigOpCost)
     key.MakeNewKey(true);
     CPubKey pubkey = key.GetPubKey();
     // Default flags
-    const uint32_t flags{SCRIPT_VERIFY_WITNESS};
+    const uint32_t flags{SCRIPT_VERIFY_WITNESS | SCRIPT_VERIFY_P2SH};
 
     // Multisig script (legacy counting)
     {

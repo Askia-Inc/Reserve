@@ -21,6 +21,7 @@
 #include <util/system.h>
 #include <validation.h>
 
+namespace node {
 std::atomic_bool fImporting(false);
 std::atomic_bool fReindex(false);
 bool fHavePruned = false;
@@ -474,11 +475,6 @@ void CleanupBlockRevFiles()
     }
 }
 
-std::string CBlockFileInfo::ToString() const
-{
-    return strprintf("CBlockFileInfo(blocks=%u, size=%u, heights=%u...%u, time=%s...%s)", nBlocks, nSize, nHeightFirst, nHeightLast, FormatISO8601Date(nTimeFirst), FormatISO8601Date(nTimeLast));
-}
-
 CBlockFileInfo* BlockManager::GetBlockFileInfo(size_t n)
 {
     LOCK(cs_LastBlockFile);
@@ -761,9 +757,9 @@ bool ReadBlockFromDisk(CBlock& block, const FlatFilePos& pos, const Consensus::P
     }
 
     // Check the header
-//    if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams)) {
-//        return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
-//    }
+    if (!CheckProofOfWork(block.GetHash(), block.nBits, consensusParams)) {
+        return error("ReadBlockFromDisk: Errors in block header at %s", pos.ToString());
+    }
 
     // Signet only: check block solution
     if (consensusParams.signet_blocks && !CheckSignetBlockSolution(block, consensusParams)) {
@@ -940,3 +936,4 @@ void ThreadImport(ChainstateManager& chainman, std::vector<fs::path> vImportFile
     } // End scope of CImportingNow
     chainman.ActiveChainstate().LoadMempool(args);
 }
+} // namespace node

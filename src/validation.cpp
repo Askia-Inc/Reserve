@@ -66,6 +66,25 @@
 
 #include <boost/algorithm/string/replace.hpp>
 
+using node::BLOCKFILE_CHUNK_SIZE;
+using node::BlockManager;
+using node::BlockMap;
+using node::CBlockIndexWorkComparator;
+using node::CCoinsStats;
+using node::CoinStatsHashType;
+using node::GetUTXOStats;
+using node::OpenBlockFile;
+using node::ReadBlockFromDisk;
+using node::SnapshotMetadata;
+using node::UNDOFILE_CHUNK_SIZE;
+using node::UndoReadFromDisk;
+using node::UnlinkPrunedFiles;
+using node::fHavePruned;
+using node::fImporting;
+using node::fPruneMode;
+using node::fReindex;
+using node::nPruneTarget;
+
 #define MICRO 0.000001
 #define MILLI 0.001
 
@@ -767,6 +786,11 @@ bool MemPoolAccept::PreChecks(ATMPArgs& args, Workspace& ws)
         return false; // state filled in by CheckTxInputs
     }
 
+    // Check for non-standard pay-to-script-hash in inputs
+    if (fRequireStandard && !AreInputsStandard(tx, m_view)) {
+        return state.Invalid(TxValidationResult::TX_INPUTS_NOT_STANDARD, "bad-txns-nonstandard-inputs");
+    }
+
     // Check for non-standard witnesses.
     if (tx.HasWitness() && fRequireStandard && !IsWitnessStandard(tx, m_view))
         return state.Invalid(TxValidationResult::TX_WITNESS_MUTATED, "bad-witness-nonstandard");
@@ -1417,8 +1441,7 @@ CChainState::CChainState(
       m_blockman(blockman),
       m_params(::Params()),
       m_chainman(chainman),
-      m_from_snapshot_blockhash(from_snapshot_blockhash),
-      m_stakepool(StakePool()) {}
+      m_from_snapshot_blockhash(from_snapshot_blockhash) {}
 
 void CChainState::InitCoinsDB(
     size_t cache_size_bytes,
@@ -1892,7 +1915,7 @@ static unsigned int GetBlockScriptFlags(const CBlockIndex* pindex, const Consens
     unsigned int flags = SCRIPT_VERIFY_NONE;
 
     // Enforce WITNESS
-    flags |= SCRIPT_VERIFY_WITNESS;
+    flags |= SCRIPT_VERIFY_P2SH | SCRIPT_VERIFY_WITNESS;
 
     // Enforce the DERSIG (BIP66) rule
     flags |= SCRIPT_VERIFY_DERSIG;
@@ -2116,7 +2139,9 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
             }
         }
 
-        // GetTransactionSigOpCost counts 1 type of sigops:
+        // GetTransactionSigOpCost counts 3 types of sigops:
+        // * legacy (always)
+        // * p2sh (when P2SH enabled in flags and excludes coinbase)
         // * witness (when witness enabled in flags and excludes coinbase)
         nSigOpsCost += GetTransactionSigOpCost(tx, view, flags);
         if (nSigOpsCost > MAX_BLOCK_SIGOPS_COST) {
@@ -2127,16 +2152,16 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
         if (!tx.IsCoinBase())
         {
             std::vector<CScriptCheck> vChecks;
-                bool fCacheResults = fJustCheck; /* Don't cache results if we're actually connecting blocks (still consult the cache, though) */
-                TxValidationState tx_state;
-                if (fScriptChecks && !CheckInputScripts(tx, tx_state, view, flags, fCacheResults, fCacheResults, txsdata[i], g_parallel_script_checks ? &vChecks : nullptr)) {
-                    // Any transaction validation failure in ConnectBlock is a block consensus failure
-                    state.Invalid(BlockValidationResult::BLOCK_CONSENSUS,
-                                  tx_state.GetRejectReason(), tx_state.GetDebugMessage());
-                    return error("ConnectBlock(): CheckInputScripts on %s failed with %s",
-                        tx.GetHash().ToString(), state.ToString());
-                }
-                control.Add(vChecks);
+            bool fCacheResults = fJustCheck; /* Don't cache results if we're actually connecting blocks (still consult the cache, though) */
+            TxValidationState tx_state;
+            if (fScriptChecks && !CheckInputScripts(tx, tx_state, view, flags, fCacheResults, fCacheResults, txsdata[i], g_parallel_script_checks ? &vChecks : nullptr)) {
+                // Any transaction validation failure in ConnectBlock is a block consensus failure
+                state.Invalid(BlockValidationResult::BLOCK_CONSENSUS,
+                              tx_state.GetRejectReason(), tx_state.GetDebugMessage());
+                return error("ConnectBlock(): CheckInputScripts on %s failed with %s",
+                    tx.GetHash().ToString(), state.ToString());
+            }
+            control.Add(vChecks);
         }
 
         CTxUndo undoDummy;
@@ -2170,6 +2195,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
             return false;
         }
     }
+
     if (!pindex->IsValid(BLOCK_VALID_SCRIPTS)) {
         pindex->RaiseValidity(BLOCK_VALID_SCRIPTS);
         m_blockman.m_dirty_blockindex.insert(pindex);
@@ -3268,8 +3294,14 @@ bool CheckBlock(const CBlock& block, BlockValidationState& state, const Consensu
                                  strprintf("Transaction check failed (tx hash %s) %s", tx->GetHash().ToString(), tx_state.GetDebugMessage()));
         }
     }
+    unsigned int nSigOps = 0;
+    for (const auto& tx : block.vtx)
+    {
+        nSigOps += GetLegacySigOpCount(*tx);
+    }
+    if (nSigOps * WITNESS_SCALE_FACTOR > MAX_BLOCK_SIGOPS_COST)
+        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-blk-sigops", "out-of-bounds SigOpCount");
 
-    //if fCheckMerkleRoot)
     if (fCheckMerkleRoot)
         block.fChecked = true;
 
@@ -4907,7 +4939,7 @@ bool ChainstateManager::PopulateAndValidateSnapshot(
     // about the snapshot_chainstate.
     CCoinsViewDB* snapshot_coinsdb = WITH_LOCK(::cs_main, return &snapshot_chainstate.CoinsDB());
 
-    if (!GetUTXOStats(snapshot_coinsdb, WITH_LOCK(::cs_main, return std::ref(m_blockman)), stats, breakpoint_fnc)) {
+    if (!GetUTXOStats(snapshot_coinsdb, m_blockman, stats, breakpoint_fnc)) {
         LogPrintf("[snapshot] failed to generate coins stats\n");
         return false;
     }

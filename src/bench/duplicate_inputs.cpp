@@ -30,7 +30,6 @@ static void DuplicateInputs(benchmark::Bench& bench)
     block.nBits = GetNextWorkRequired(pindexPrev, &block, chainparams.GetConsensus());
     block.nNonce = 0;
     auto nHeight = pindexPrev->nHeight + 1;
-    auto nTime = block.nTime;
 
     // Make a coinbase TX
     coinbaseTx.vin.resize(1);

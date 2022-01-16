@@ -4,7 +4,6 @@
 
 #include <index/coinstatsindex.h>
 #include <test/util/setup_common.h>
-#include <chainparams.h>
 #include <util/time.h>
 #include <validation.h>
 
@@ -12,6 +11,8 @@
 
 #include <chrono>
 
+using node::CCoinsStats;
+using node::CoinStatsHashType;
 
 BOOST_AUTO_TEST_SUITE(coinstatsindex_tests)
 

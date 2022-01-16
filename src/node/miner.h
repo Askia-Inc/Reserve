@@ -6,10 +6,8 @@
 #ifndef BITCOIN_NODE_MINER_H
 #define BITCOIN_NODE_MINER_H
 
-#include <chainparams.h>
 #include <primitives/block.h>
 #include <txmempool.h>
-#include <validation.h>
 
 #include <memory>
 #include <optional>
@@ -25,6 +23,7 @@ class CScript;
 
 namespace Consensus { struct Params; };
 
+namespace node {
 static const bool DEFAULT_PRINTPRIORITY = false;
 
 struct CBlockTemplate
@@ -208,5 +207,6 @@ int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParam
 
 /** Update an old GenerateCoinbaseCommitment from CreateNewBlock after the block txs have changed */
 void RegenerateCommitments(CBlock& block, ChainstateManager& chainman);
+} // namespace node
 
 #endif // BITCOIN_NODE_MINER_H

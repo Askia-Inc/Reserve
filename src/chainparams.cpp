@@ -98,8 +98,6 @@ public:
         consensus.nMinimumChainWork = uint256S("0x00000000000000000000000000000000000000001fa4663bbbe19f82de910280");
         consensus.defaultAssumeValid = uint256S("0x00000000000000000008a89e854d57e5667df88f1cdef6fde2fbca1de5b639ad"); // 691719
 
-        consensus.nSecondsInLeapYear = 60 * 60 * 24 * 366;
-        consensus.nSecondsInNonLeapYear = 60 * 60 * 24 * 365;
         /**
          * The message start string is designed to be unlikely to occur in normal data.
          * The characters are rarely used upper ASCII, not valid as UTF-8, and produce
@@ -152,7 +150,7 @@ public:
 
         bech32_hrp = "bc";
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_main), std::end(chainparams_seed_main));
+//        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_main), std::end(chainparams_seed_main));
 
         fDefaultConsistencyChecks = false;
         fRequireStandard = true;
@@ -269,7 +267,7 @@ public:
 
         bech32_hrp = "tb";
 
-        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
+//        vFixedSeeds = std::vector<uint8_t>(std::begin(chainparams_seed_test), std::end(chainparams_seed_test));
 
         fDefaultConsistencyChecks = false;
         fRequireStandard = false;

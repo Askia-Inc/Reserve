@@ -26,6 +26,7 @@
 #include <algorithm>
 #include <utility>
 
+namespace node {
 int64_t UpdateTime(CBlockHeader* pblock, const Consensus::Params& consensusParams, const CBlockIndex* pindexPrev)
 {
     int64_t nOldTime = pblock->nTime;
@@ -175,7 +176,7 @@ std::unique_ptr<CBlockTemplate> BlockAssembler::CreateNewBlock(const CScript& sc
     UpdateTime(pblock, chainparams.GetConsensus(), pindexPrev);
     pblock->nBits          = 0.0; // GetNextWorkRequired(pindexPrev, pblock, chainparams.GetConsensus());
     pblock->nNonce         = 0;
-    pblocktemplate->vTxSigOpsCost[0] = 0;
+    pblocktemplate->vTxSigOpsCost[0] = WITNESS_SCALE_FACTOR * GetLegacySigOpCount(*pblock->vtx[0]);
 
     BlockValidationState state;
     if (!TestBlockValidity(state, chainparams, m_chainstate, *pblock, pindexPrev, false, false)) {
@@ -464,3 +465,4 @@ void IncrementExtraNonce(CBlock* pblock, const CBlockIndex* pindexPrev, unsigned
     pblock->vtx[0] = MakeTransactionRef(std::move(txCoinbase));
     pblock->hashMerkleRoot = BlockMerkleRoot(*pblock);
 }
+} // namespace node
