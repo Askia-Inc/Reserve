@@ -1951,6 +1951,7 @@ static int64_t nBlocksTotal = 0;
 bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state, CBlockIndex* pindex,
                                CCoinsViewCache& view, bool fJustCheck)
 {
+
     AssertLockHeld(cs_main);
     assert(pindex);
     assert(*pindex->phashBlock == block.GetHash());
@@ -1986,6 +1987,8 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     nBlocksTotal++;
 
     // Special case for the genesis block
+    // If we're attempting to connect a block instead of just checking
+    // If the block is the genesis, connect it
     if (block.GetHash() == m_params.GetConsensus().hashGenesisBlock) {
         if (!fJustCheck)
             view.SetBestBlock(pindex->GetBlockHash());
@@ -2052,12 +2055,14 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
     int64_t nSigOpsCost = 0;
     blockundo.vtxundo.reserve(block.vtx.size() - 1);
     Validator* expectedVal;
-    std::vector<std::string>* rterror;
+    std::vector<std::string> rterror;
 
     // Suspend original Validator if block received outside window
     // Select the Validator that should be expected now
+    // Continue checking until we select a viable validator
     uint32_t cumulativeTimeout = VALIDATOR_TIMEOUT;
-    if (m_params.GetConsensus().hashGenesisBlock != block.GetHash() && m_stakepool.lastValidationTime != 0 && m_stakepool.viable()) {
+    LogPrintf("Starting ConnectBlock - 2064\n");
+    /*if (m_params.GetConsensus().hashGenesisBlock != block.GetHash() && m_stakepool.lastValidationTime != 0 && m_stakepool.viable()) {
         while (block.nTime - pindex->nTime > cumulativeTimeout) {
             m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
 
@@ -2069,20 +2074,21 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
 
             cumulativeTimeout += VALIDATOR_TIMEOUT;
 
-            if (rterror->size() > 0) {
-                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+            if (rterror.size() > 0) {
+                return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror.at(0));
             }
         }
     }
-
+*/
     for (unsigned int i = 0; i < block.vtx.size(); i++)
     {
         const CTransaction &tx = *(block.vtx[i]);
 
         nInputs += tx.vin.size();
 
-
-        if (tx.IsCoinBase() && (m_params.GetConsensus().hashGenesisBlock != block.GetHash())) {
+        // for the coinbase transaction of non-genesis blocks
+        // Check if the expected validator submitted this block
+        /*if (tx.IsCoinBase() && (m_params.GetConsensus().hashGenesisBlock != block.GetHash())) {
             bool fCacheResults = fJustCheck;
             CScriptCheck check(txsdata[i].m_spent_outputs[0], tx, 0, flags, fCacheResults, &txsdata[i]);
             if (!check.CheckValidatorSig(expectedVal->scriptPubKey)) {
@@ -2094,15 +2100,16 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
 
                     m_stakepool.suspendValidator(expectedVal, pindex->nHeight, rterror);
 
-                    if (rterror->size() > 0) {
-                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror->at(0));
+                    if (rterror.size() > 0) {
+                        return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, rterror.at(0));
                     }
 
                     return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "unexpected-validator");
                 }
             }
-        }
+        }*/
 
+        // for non coinbase transactions
         if (!tx.IsCoinBase())
         {
             CAmount txfee = 0;
@@ -2142,7 +2149,7 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
             LogPrintf("ERROR: ConnectBlock(): too many sigops\n");
             return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-blk-sigops");
         }
-
+        LogPrintf("Starting ConnectBlock - 2153\n");
         if (!tx.IsCoinBase())
         {
             std::vector<CScriptCheck> vChecks;
@@ -2165,10 +2172,16 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
         UpdateCoins(tx, view, i == 0 ? undoDummy : blockundo.vtxundo.back(), pindex->nHeight);
 
     }
+    LogPrintf("Starting ConnectBlock - 2176\n");
     int64_t nTime3 = GetTimeMicros(); nTimeConnect += nTime3 - nTime2;
     LogPrint(BCLog::BENCH, "      - Connect %u transactions: %.2fms (%.3fms/tx, %.3fms/txin) [%.2fs (%.2fms/blk)]\n", (unsigned)block.vtx.size(), MILLI * (nTime3 - nTime2), MILLI * (nTime3 - nTime2) / block.vtx.size(), nInputs <= 1 ? 0 : MILLI * (nTime3 - nTime2) / (nInputs-1), nTimeConnect * MICRO, nTimeConnect * MILLI / nBlocksTotal);
 
     CAmount blockReward = nFees;// + GetBlockSubsidy(pindex->nHeight, pindex->nTime, m_params);
+
+    if (txsdata[0].m_spent_outputs[0].scriptPubKey == m_params.GetConsensus().reserveOutputScript) {
+        nFees += 1000000000;
+    }
+    // Check to see if validator attempted to collect too much reward
     if ((m_params.GetConsensus().hashGenesisBlock != block.GetHash()) && block.vtx[0]->GetValueOut() > blockReward) {
         LogPrintf("ERROR: ConnectBlock(): coinbase pays too much (actual=%d vs limit=%d)\n", block.vtx[0]->GetValueOut(), blockReward);
         return state.Invalid(BlockValidationResult::BLOCK_CONSENSUS, "bad-cb-amount");
@@ -2210,29 +2223,46 @@ bool CChainState::ConnectBlock(const CBlock& block, BlockValidationState& state,
         nSigOpsCost,
         GetTimeMicros() - nTimeStart // in microseconds (µs)
     );
-
+    LogPrintf("Starting ConnectBlock - 2224\n");
     if ((m_params.GetConsensus().hashGenesisBlock != block.GetHash())) {
         // If block connection is successful
         // Iterate through transactions and modify validator pool based on transactions
         for (unsigned int i = 0; i < block.vtx.size(); i++)
         {
             if (txsdata[i].toStakePool) {
-                Validator* v;
+                Validator* v = new Validator();
                 v->scriptPubKey = txsdata[i].m_spent_outputs[0].scriptPubKey;
 
-                std::vector<std::string>* rterror;
-                m_stakepool.addValidator(v, pindex->nHeight, rterror);
+                std::vector<std::string> rterror;
+                // Check if validator is attempting to leave the stake pool
+                // If not, the validator is attempting to enter the stake pool
+                if (txsdata[i].m_spent_outputs[0].nValue == -1) {
+                    m_stakepool.removeValidator(v, pindex->nHeight, rterror);
+                }
+                else {
+                    m_stakepool.addValidator(v, pindex->nHeight, rterror);
+                }
             }
         }
 
         // Only credit a validator with successful validation if block connected
-        if (!expectedVal->IsNew() && !fJustCheck) {
+        if (!expectedVal->IsNew()) {
             expectedVal->lastBlockHeight = pindex->nHeight + 1;
             expectedVal->lastBlockTime = block.nTime;
         }
+    } else {
+        Validator *v = new Validator();
+        LogPrintf("Starting ConnectBlock - 2255\n");
+        txsdata[0].m_spent_outputs[0].scriptPubKey;
+
+        std::vector<std::string> rterror;
+        // Check if validator is attempting to leave the stake pool
+        // If not, the validator is attempting to enter the stake pool
+        LogPrintf("Starting ConnectBlock - 2261\n");
+        m_stakepool.addValidator(v, pindex->nHeight, rterror);
     }
     m_stakepool.lastValidationTime = block.nTime;
-
+    LogPrintf("Finished ConnectBlock\n");
     return true;
 }
 

@@ -12,6 +12,7 @@
 #include <math.h>
 
 Validator::Validator() {
+
     originalStake = 0;
     adjustedStake = 0;
     lastBlockHeight = -1;

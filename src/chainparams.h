@@ -18,9 +18,8 @@
 #include <string>
 #include <vector>
 
-const static std::string RESERVE_PUB_KEY = "HDOSL";
-const static std::string STAKE_POOL_PUB_KEY = "HDKSD";
-const static std::string STAKE_POOL_PRV_KEY = "KSLKDF";
+const static std::string RESERVE_PUB_KEY = "03ff18bcdbc2abdbd4856a82ed9c5c02a2db67155a89c298aee2d67faf628891cd";
+const static std::string STAKE_POOL_PUB_KEY = "8048286a309cf22c5493e9d5294572ae9d062c1e770f998a3d14a8403c833631";
 
 typedef std::map<int, uint256> MapCheckpoints;
 
@@ -97,8 +96,6 @@ public:
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
     
-    const CKey GetStakePoolKey() const { return GetConsensus().stakePoolKey; }
-
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */
     bool DefaultConsistencyChecks() const { return fDefaultConsistencyChecks; }

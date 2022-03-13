@@ -27,14 +27,14 @@ public:
     uint32_t lastValidationTime;
     
     StakePool();
-    bool addValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
-    bool removeValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
-    bool recalculateProbabilities(int nHeight, std::vector<std::string>* rterror);
-    Validator* retrieveNextValidator(int nHeight, std::vector<std::string>* rterror);
+    bool addValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
+    bool removeValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
+    bool recalculateProbabilities(int nHeight, std::vector<std::string> rterror);
+    Validator* retrieveNextValidator(int nHeight, std::vector<std::string> rterror);
     void serialize();
     bool validatorExists(Validator* v);
-    bool suspendValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
-    bool unsuspendValidator(Validator* v, int nHeight, std::vector<std::string>* rterror);
+    bool suspendValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
+    bool unsuspendValidator(Validator* v, int nHeight, std::vector<std::string> rterror);
     bool viable();
     uint32_t GetLastValidationTime() {return lastValidationTime;}
     void SetLastValidationTime(uint32_t t) {lastValidationTime = t;}

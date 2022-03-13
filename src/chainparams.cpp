@@ -107,17 +107,16 @@ public:
         pchMessageStart[1] = 0xbe;
         pchMessageStart[2] = 0xb4;
         pchMessageStart[3] = 0xd9;
-        nDefaultPort = 8333;
+        nDefaultPort = 1865;
         nPruneAfterHeight = 100000;
         m_assumed_blockchain_size = 420;
         m_assumed_chain_state_size = 6;
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
-        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
-        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
-        
+        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY) << OP_CHECKSIG;
+        consensus.stakePoolOutputScript = CScript() <<  ParseHex(STAKE_POOL_PUB_KEY) << OP_CHECKSIG;
+
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
         // assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
@@ -131,16 +130,7 @@ public:
 //        vSeeds.emplace_back("seed.pub.as");
 //        vSeeds.emplace_back("seed.blackhabu.com");
 //        vSeeds.emplace_back("seed.waranka.com"); 
-//        vSeeds.emplace_back("seed.fatawci");        
-//        vSeeds.emplace_back("seed.bitcoin.sipa.be."); // Pieter Wuille, only supports x1, x5, x9, and xd
-//        vSeeds.emplace_back("dnsseed.bluematt.me."); // Matt Corallo, only supports x9
-//        vSeeds.emplace_back("dnsseed.bitcoin.dashjr.org."); // Luke Dashjr
-//        vSeeds.emplace_back("seed.bitcoinstats.com."); // Christian Decker, supports x1 - xf
-//        vSeeds.emplace_back("seed.bitcoin.jonasschnelli.ch."); // Jonas Schnelli, only supports x1, x5, x9, and xd
-//        vSeeds.emplace_back("seed.btc.petertodd.org."); // Peter Todd, only supports x1, x5, x9, and xd
-//        vSeeds.emplace_back("seed.bitcoin.sprovoost.nl."); // Sjors Provoost
-//        vSeeds.emplace_back("dnsseed.emzy.de."); // Stephan Oeste
-//        vSeeds.emplace_back("seed.bitcoin.wiz.biz."); // Jason Maurice
+//        vSeeds.emplace_back("seed.fatawci");
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,0);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,5);
@@ -231,7 +221,7 @@ public:
         pchMessageStart[1] = 0x11;
         pchMessageStart[2] = 0x09;
         pchMessageStart[3] = 0x07;
-        nDefaultPort = 18333;
+        nDefaultPort = 11865;
         nPruneAfterHeight = 1000;
         m_assumed_blockchain_size = 40;
         m_assumed_chain_state_size = 2;
@@ -239,10 +229,9 @@ public:
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
-        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
-        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
-        
+        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
@@ -254,10 +243,8 @@ public:
 //        vSeeds.emplace_back("testnet-seed.pub.as");
 //        vSeeds.emplace_back("testnet-seed.blackhabu.com");
 //        vSeeds.emplace_back("testnet-seed.waranka.com"); 
-//        vSeeds.emplace_back("testnet-seed.fatawci");   //        vSeeds.emplace_back("testnet-seed.bitcoin.jonasschnelli.ch.");
-//        vSeeds.emplace_back("seed.tbtc.petertodd.org.");
-//        vSeeds.emplace_back("seed.testnet.bitcoin.sprovoost.nl.");
-//        vSeeds.emplace_back("testnet-seed.bluematt.me."); // Just a static list of stable node(s), only supports x9
+//        vSeeds.emplace_back("testnet-seed.fatawci");
+
 
         base58Prefixes[PUBKEY_ADDRESS] = std::vector<unsigned char>(1,111);
         base58Prefixes[SCRIPT_ADDRESS] = std::vector<unsigned char>(1,196);
@@ -304,11 +291,11 @@ public:
 
         if (!args.IsArgSet("-signetchallenge")) {
             bin = ParseHex("512103ad5e0edad18cb1f0fc0d28a3d4f1f3e445640337489abb10404f2d1e086be430210359ef5021964fe22d6f8e05b2463c9540ce96883fe3b278760f048f5189f2e6c452ae");
-            vSeeds.emplace_back("seed.signet.bitcoin.sprovoost.nl.");
+            // vSeeds.emplace_back("seed.signet.bitcoin.sprovoost.nl.");
 
             // Hardcoded nodes can be removed once there are more DNS seeds
-            vSeeds.emplace_back("178.128.221.177");
-            vSeeds.emplace_back("v7ajjeirttkbnt32wpy3c6w3emwnfr3fkla7hpxcfokr3ysd3kqtzmqd.onion:38333");
+            // vSeeds.emplace_back("178.128.221.177");
+            // vSeeds.emplace_back("v7ajjeirttkbnt32wpy3c6w3emwnfr3fkla7hpxcfokr3ysd3kqtzmqd.onion:38333");
 
             consensus.nMinimumChainWork = uint256S("0x0000000000000000000000000000000000000000000000000000008546553c03");
             consensus.defaultAssumeValid = uint256S("0x000000187d4440e5bff91488b700a140441e089a8aaea707414982460edbfe54"); // 47200
@@ -379,16 +366,15 @@ public:
         uint256 hash = h.GetHash();
         memcpy(pchMessageStart, hash.begin(), 4);
 
-        nDefaultPort = 38333;
+        nDefaultPort = 31865;
         nPruneAfterHeight = 1000;
 
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
-        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
-        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
-        
+        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
@@ -465,10 +451,9 @@ public:
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex("0") << ParseHex(RESERVE_PUB_KEY); 
-        consensus.stakePoolOutputScript = CScript() << ParseHex("0") << ParseHex(STAKE_POOL_PUB_KEY);
-        consensus.stakePoolKey = DecodeSecret(STAKE_POOL_PRV_KEY);
-        
+        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+
         genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
         consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));

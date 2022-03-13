@@ -112,7 +112,6 @@ struct Params {
 
     CScript reserveOutputScript;
     CScript stakePoolOutputScript;
-    CKey stakePoolKey;
 
     /**
      * If true, witness commitments contain a payload equal to a Bitcoin Script solution

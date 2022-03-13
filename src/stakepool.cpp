@@ -12,6 +12,7 @@
 #include <crypto/sha256.h>
 #include <script/script.h>
 #include <boost/crc.hpp>
+#include <logging.h>
 #include <float.h>
 #include <vector>
 #include <unordered_map>
@@ -22,40 +23,42 @@ StakePool::StakePool() {
     lastValidationTime = 0;
 }
 
-bool StakePool::addValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
+bool StakePool::addValidator(Validator* validator, int nHeight, std::vector<std::string> rterror) {
     if (validatorExists(validator)) {
-        rterror->push_back("Validator exists");
+        rterror.push_back("Validator exists");
         return false;
     }
-
+    LogPrintf("Starting AddValidator - 30\n");
     validatorPool.push_back(validator);
     validatorPoolScript[validator->scriptPubKey.ToString()] = validator;
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool StakePool::removeValidator(Validator* validator, int nHeight, std::vector<std::string>* rterror) {
-    if (validator->suspended) {
-        rterror->push_back("Validator suspended");
-        return false;
-    }
-
+bool StakePool::removeValidator(Validator* validator, int nHeight, std::vector<std::string> rterror) {
+    // Quick check to ensure validator exists
     if (!validatorExists(validator)) {
-        rterror->push_back("Validator does not exist");
+        rterror.push_back("Validator does not exist");
         return false;
     }
 
+    // Get the validator which corresponds to the scriptPubKey
     auto it = validatorPoolScript.find(validator->scriptPubKey.ToString());
     for (size_t i = 0; i < validatorPool.size(); i++) {
         if (it->second == validatorPool.at(i)) {
+            if (validatorPool.at(i)->suspended) {
+                rterror.push_back("Validator suspended");
+                return false;
+            }
             validatorPool.erase(validatorPool.begin()+i);
             break;
         }
     }
-    validatorPoolScript.erase(it);
+    validatorPoolScript.erase(validator->scriptPubKey.ToString());
     return recalculateProbabilities(nHeight, rterror);
 }
 
-bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string>* rterror) {
+bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string> rterror) {
+    LogPrintf("Starting RecalulateProbabiliti - 60\n");
     totalStake = 0;
     for (Validator* v : validatorPool) {
         if (v->suspended) {
@@ -64,9 +67,7 @@ bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string>* 
                 unsuspendValidator(v, nHeight, rterror);
 
             }
-        }
-
-        if (!v->suspended){
+        } else {
             v->adjustStake(nHeight);
             totalStake += v->adjustedStake;
         }
@@ -79,7 +80,7 @@ bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string>* 
     return true;
 }
 
-Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string>* rterror) {
+Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string> rterror) {
     recalculateProbabilities(nHeight, rterror);
     
     vData.clear();
@@ -103,7 +104,7 @@ Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string
     }
 
     if (selectedValidator == nullptr) {
-        rterror->push_back("No validator found");
+        rterror.push_back("No validator found");
     }
 
     return selectedValidator;
@@ -125,19 +126,19 @@ bool StakePool::validatorExists(Validator* v) {
     return validatorPoolScript.count(v->scriptPubKey.ToString()) == 1;
 }
 
-bool StakePool::suspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
+bool StakePool::suspendValidator(Validator *v, int nHeight, std::vector <std::string> rterror) {
     if(!validatorExists(v)) {
-        rterror->push_back("Validator does not exist");
+        rterror.push_back("Validator does not exist");
         return false;
     }
 
     v->suspended = true;
     v->suspendedBlock = nHeight;
     v->adjustedStake = 0;
-    recalculateProbabilities(nHeight, rterror);
+    return recalculateProbabilities(nHeight, rterror);
 }
 
-bool StakePool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string>* rterror) {
+bool StakePool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::string> rterror) {
     v->suspended = false;
     v->suspendedBlock = 0;
     v->lastBlockHeight = nHeight;
@@ -146,7 +147,7 @@ bool StakePool::unsuspendValidator(Validator *v, int nHeight, std::vector <std::
 
 bool StakePool::viable() {
     bool viable = false;
-    
+
     for (Validator* v : validatorPool) {
         if (!v->suspended) {
             viable = true;
