@@ -52,12 +52,29 @@ static CBlock CreateGenesisBlock(const char* pszTimestamp, const CScript& genesi
  *     CTxOut(nValue=50.00000000, scriptPubKey=0x5F1DF16B2B704C8A578D0B)
  *   vMerkleTree: 4a5e1e
  */
-static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward)
-{
-    const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-    const CScript genesisOutputScript = CScript() << ParseHex("04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f") << OP_CHECKSIG;
+static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits, int32_t nVersion, const CAmount& genesisReward) {
+    const char *pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    const CScript genesisOutputScript = CScript() << ParseHex(
+            "04678afdb0fe5548271967f1a67130b7105cd6a828e03909a67962e0ea1f61deb649f6bc3f4cef38c4f35504e51ec112de5c384df7ba0b8d578a4c702b6bf11d5f")
+                                                  << OP_CHECKSIG;
     return CreateGenesisBlock(pszTimestamp, genesisOutputScript, nTime, nNonce, nBits, nVersion, genesisReward);
 }
+
+void CChainParams::InitializeGenesis() {
+    CTxDestination dest = DecodeDestination(RESERVE_ADDRESS);
+    if (!IsValidDestination(dest)) {
+        throw std::runtime_error(strprintf("Invalid Bitcoin address: %s", RESERVE_ADDRESS));
+    }
+
+    CScript script_pub_key = GetScriptForDestination(dest);
+
+    consensus.reserveOutputScript = script_pub_key;
+
+    const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+    genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
+    consensus.hashGenesisBlock = genesis.GetHash();
+}
+
 
 /**
  * Main network on which people trade goods and services.
@@ -112,13 +129,13 @@ public:
         m_assumed_blockchain_size = 420;
         m_assumed_chain_state_size = 6;
 
-        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
-        // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY) << OP_CHECKSIG;
-        consensus.stakePoolOutputScript = CScript() <<  ParseHex(STAKE_POOL_PUB_KEY) << OP_CHECKSIG;
-
-        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
+//        const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
+//        Computer double SHA 256 hash of Reserve public key
+//        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY) << OP_CHECKSIG;
+//        consensus.stakePoolOutputScript = CScript() <<  ParseHex(STAKE_POOL_PUB_KEY) << OP_CHECKSIG;
+//
+//        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
+//        consensus.hashGenesisBlock = genesis.GetHash();
         // assert(consensus.hashGenesisBlock == uint256S("0x000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"));
         // assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
@@ -579,14 +596,14 @@ void CRegTestParams::UpdateActivationParametersFromArgs(const ArgsManager& args)
     }
 }
 
-static std::unique_ptr<const CChainParams> globalChainParams;
+static std::unique_ptr<CChainParams> globalChainParams;
 
 const CChainParams &Params() {
     assert(globalChainParams);
     return *globalChainParams;
 }
 
-std::unique_ptr<const CChainParams> CreateChainParams(const ArgsManager& args, const std::string& chain)
+std::unique_ptr<CChainParams> CreateChainParams(const ArgsManager& args, const std::string& chain)
 {
     if (chain == CBaseChainParams::MAIN) {
         return std::unique_ptr<CChainParams>(new CMainParams());
@@ -604,4 +621,6 @@ void SelectParams(const std::string& network)
 {
     SelectBaseParams(network);
     globalChainParams = CreateChainParams(gArgs, network);
+    globalChainParams->InitializeGenesis();
 }
+

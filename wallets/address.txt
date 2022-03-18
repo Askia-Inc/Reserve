@@ -1,7 +1,0 @@
-Reserve: 19eoNfpG7RDMvXWFGUEJj149o3ATvLXiJa
-Reserve scriptPubKey: 76a9145ee71b8b4cf640985c2b2b0085da0e88ffae9aca88ac
-Reserve PubKey: 03ff18bcdbc2abdbd4856a82ed9c5c02a2db67155a89c298aee2d67faf628891cd
-
-Stake Pool: 196W7iafUMHaJwx5k9VzMfn42HhjhvMgGw
-Stake scriptPubKey: 76a91458cb640707dcd89ea28d37fe8de3b8b7e11a483088ac
-Stake PubKey: 8048286a309cf22c5493e9d5294572ae9d062c1e770f998a3d14a8403c833631

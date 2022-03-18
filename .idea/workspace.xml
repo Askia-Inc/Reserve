@@ -8,25 +8,10 @@
   <component name="ChangeListManager">
     <list default="true" id="eb9cb4cf-97b8-4815-bd76-301187c0ac14" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/qos/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/qos/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/qos/tc.sh" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/qos/tc.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/seeds/nodes_main.txt" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/seeds/nodes_main.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/contrib/seeds/nodes_test.txt" beforeDir="false" afterPath="$PROJECT_DIR$/contrib/seeds/nodes_test.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/doc/tor.md" beforeDir="false" afterPath="$PROJECT_DIR$/doc/tor.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/share/examples/bitcoin.conf" beforeDir="false" afterPath="$PROJECT_DIR$/share/examples/bitcoin.conf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chainparams.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/chainparams.cpp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/chainparams.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/chainparams.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/consensus/params.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/consensus/params.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/rpc/net.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rpc/net.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stakepool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/stakepool.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stakepool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/stakepool.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/addrman_tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/addrman_tests.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/fuzz/addrman.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/fuzz/addrman.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/netbase_tests.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/netbase_tests.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/validator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/validator.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/functional/feature_asmap.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/functional/feature_asmap.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/functional/feature_proxy.py" beforeDir="false" afterPath="$PROJECT_DIR$/test/functional/feature_proxy.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets/Reserve/wallet.dat-journal" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/wallets/address.txt" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,6 +71,9 @@
       <workItem from="1647085716075" duration="7896000" />
       <workItem from="1647095286474" duration="1981000" />
       <workItem from="1647097623213" duration="692000" />
+      <workItem from="1647437041945" duration="4000" />
+      <workItem from="1647447940943" duration="4071000" />
+      <workItem from="1647614228043" duration="4367000" />
     </task>
     <servers />
   </component>

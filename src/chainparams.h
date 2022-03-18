@@ -18,6 +18,7 @@
 #include <string>
 #include <vector>
 
+const static std::string RESERVE_ADDRESS = "1C9JCAyzxJUP4BQFkwVnXchcKDqCQmrW2G";
 const static std::string RESERVE_PUB_KEY = "03ff18bcdbc2abdbd4856a82ed9c5c02a2db67155a89c298aee2d67faf628891cd";
 const static std::string STAKE_POOL_PUB_KEY = "8048286a309cf22c5493e9d5294572ae9d062c1e770f998a3d14a8403c833631";
 
@@ -95,7 +96,7 @@ public:
         CNetAddr a;
         return a.SetSpecial(addr) ? GetDefaultPort(a.GetNetwork()) : GetDefaultPort();
     }
-    
+    void InitializeGenesis();
     const CBlock& GenesisBlock() const { return genesis; }
     /** Default value for -checkmempool and -checkblockindex argument */
     bool DefaultConsistencyChecks() const { return fDefaultConsistencyChecks; }
@@ -155,7 +156,7 @@ protected:
  * @returns a CChainParams* of the chosen chain.
  * @throws a std::runtime_error if the chain is not supported.
  */
-std::unique_ptr<const CChainParams> CreateChainParams(const ArgsManager& args, const std::string& chain);
+std::unique_ptr<CChainParams> CreateChainParams(const ArgsManager& args, const std::string& chain);
 
 /**
  * Return the currently selected parameters. This won't change after app
