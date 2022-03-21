@@ -63,7 +63,7 @@ static CBlock CreateGenesisBlock(uint32_t nTime, uint32_t nNonce, uint32_t nBits
 void CChainParams::InitializeGenesis() {
     CTxDestination dest = DecodeDestination(RESERVE_ADDRESS);
     if (!IsValidDestination(dest)) {
-        throw std::runtime_error(strprintf("Invalid Bitcoin address: %s", RESERVE_ADDRESS));
+        throw std::runtime_error(strprintf("Invalid Reserve address: %s", RESERVE_ADDRESS));
     }
 
     CScript script_pub_key = GetScriptForDestination(dest);
@@ -73,6 +73,15 @@ void CChainParams::InitializeGenesis() {
     const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
     genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1231006505, 2083236893, 0x1d00ffff, 1, 20000000000000 * COIN);
     consensus.hashGenesisBlock = genesis.GetHash();
+
+    dest = DecodeDestination(STAKE_POOL_ADDRESS);
+    if (!IsValidDestination(dest)) {
+        throw std::runtime_error(strprintf("Invalid Stake Pool address: %s", STAKE_POOL_ADDRESS));
+    }
+
+    script_pub_key = GetScriptForDestination(dest);
+
+    consensus.stakePoolOutputScript = script_pub_key;
 }
 
 
@@ -246,11 +255,11 @@ public:
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
-        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
-
-        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
+//        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+//        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+//
+//        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 414098458, 0x1d00ffff, 1, 20000000000000 * COIN);
+//        consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"));
 //        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
@@ -389,11 +398,11 @@ public:
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
-        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
-
-        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
+//        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+//        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+//
+//        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1598918400, 52613770, 0x1e0377ae, 1, 20000000000000 * COIN);
+//        consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x00000008819873e925422c1ff0f99f7cc9bbb232af63a077a480a3633bee1ef6"));
 //        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 
@@ -468,11 +477,11 @@ public:
         const char* pszTimestamp = "The Times 03/Jan/2009 Chancellor on brink of second bailout for banks";
         
         // Computer double SHA 256 hash of Reserve public key
-        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
-        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
-
-        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
-        consensus.hashGenesisBlock = genesis.GetHash();
+//        consensus.reserveOutputScript = CScript() << ParseHex(RESERVE_PUB_KEY);
+//        consensus.stakePoolOutputScript = CScript() << ParseHex(STAKE_POOL_PUB_KEY);
+//
+//        genesis = CreateGenesisBlock(pszTimestamp, consensus.reserveOutputScript, 1296688602, 2, 0x207fffff, 1, 20000000000000 * COIN);
+//        consensus.hashGenesisBlock = genesis.GetHash();
 //        assert(consensus.hashGenesisBlock == uint256S("0x0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"));
 //        assert(genesis.hashMerkleRoot == uint256S("0x4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"));
 

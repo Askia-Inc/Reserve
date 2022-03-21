@@ -81,6 +81,10 @@ bool StakePool::recalculateProbabilities(int nHeight, std::vector<std::string> r
 }
 
 Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string> rterror) {
+    if (!viable()) {
+        return reserveValidator;
+    }
+
     recalculateProbabilities(nHeight, rterror);
     
     vData.clear();
@@ -101,10 +105,6 @@ Validator* StakePool::retrieveNextValidator(int nHeight, std::vector<std::string
             selectedValidator = v;
             break;
         }
-    }
-
-    if (selectedValidator == nullptr) {
-        rterror.push_back("No validator found");
     }
 
     return selectedValidator;
@@ -132,6 +132,9 @@ bool StakePool::suspendValidator(Validator *v, int nHeight, std::vector <std::st
         return false;
     }
 
+    // Cannot suspend the reserve
+    if (v->reserve) return true;
+
     v->suspended = true;
     v->suspendedBlock = nHeight;
     v->adjustedStake = 0;
@@ -149,7 +152,7 @@ bool StakePool::viable() {
     bool viable = false;
 
     for (Validator* v : validatorPool) {
-        if (!v->suspended) {
+        if (!v->suspended && !v->reserve) {
             viable = true;
         }
     }

@@ -25,6 +25,7 @@ private:
 
 public:
     uint32_t lastValidationTime;
+    Validator* reserveValidator;
     
     StakePool();
     bool addValidator(Validator* v, int nHeight, std::vector<std::string> rterror);

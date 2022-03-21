@@ -18,9 +18,8 @@
 #include <string>
 #include <vector>
 
-const static std::string RESERVE_ADDRESS = "1C9JCAyzxJUP4BQFkwVnXchcKDqCQmrW2G";
-const static std::string RESERVE_PUB_KEY = "03ff18bcdbc2abdbd4856a82ed9c5c02a2db67155a89c298aee2d67faf628891cd";
-const static std::string STAKE_POOL_PUB_KEY = "8048286a309cf22c5493e9d5294572ae9d062c1e770f998a3d14a8403c833631";
+const static std::string RESERVE_ADDRESS = "bc1qygpvu5ef08lwlpd36c8mngzu9z40weat33l3zr";
+const static std::string STAKE_POOL_ADDRESS = "bc1q6xlga53djadfcydgc0dmrs3mtn9nnwuzjx96k9";
 
 typedef std::map<int, uint256> MapCheckpoints;
 

@@ -20,6 +20,7 @@ Validator::Validator() {
     probability = 0.0;
     suspended = false;
     suspendedBlock = 0;
+    reserve = false;
 }
 
 void Validator::addStake(CAmount add) {

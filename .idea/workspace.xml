@@ -6,7 +6,17 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="eb9cb4cf-97b8-4815-bd76-301187c0ac14" name="Changes" comment="" />
+    <list default="true" id="eb9cb4cf-97b8-4815-bd76-301187c0ac14" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chainparams.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/chainparams.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/chainparams.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/chainparams.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/rpc/mining.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/rpc/mining.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stakepool.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/stakepool.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stakepool.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/stakepool.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validation.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/validation.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validator.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/src/validator.cpp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/validator.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/validator.h" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -69,6 +79,7 @@
       <workItem from="1647447940943" duration="4071000" />
       <workItem from="1647614228043" duration="4367000" />
       <workItem from="1647715114306" duration="3000" />
+      <workItem from="1647715678928" duration="14971000" />
     </task>
     <servers />
   </component>

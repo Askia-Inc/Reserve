@@ -26,6 +26,7 @@ public:
     double probability;
     bool suspended;
     int suspendedBlock;
+    bool reserve;
 
     bool operator < (const Validator& val) const
     {
